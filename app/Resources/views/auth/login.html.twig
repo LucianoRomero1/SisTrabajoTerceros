@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>¡Bienvenido! </title>
+    <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
+    <link href="{{asset('css/signin.css')}} " rel="stylesheet">
+</head>
+
+<body class="text-center">
+    <form class="form-signin" role="form" method="POST" action="{{ path('security_login_check') }}">
+                        
+        <img class="mb-4" src="{{ asset('images/favicon.png') }}" alt="" width="310" height="180" id="bg">
+        <div>
+            <h1 class="h3 mb-3 font-weight-normal">Iniciar Sesión</h1>
+            <label for="inputUsername" class="sr-only">Usuario</label>
+            <input id="username" type="text" class="form-control text-center" name="_username" value="{{ last_username }}"  placeholder="Usuario" required autofocus>
+            <label for="inputPassword" class="sr-only">Contraseña</label>
+            <input type="password" id="password" class="form-control text-center" placeholder="Password" name="_password" required>
+        </div>
+        <div class="checkbox mb-3"></div>
+			
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Ingresar</button>
+      
+        {% if error %}
+            <div class="alert alert-danger">
+                {{ error.messageKey|trans(error.messageData) }}
+            </div>
+        {% endif %}
+        
+    </form>
+      
+    
+    <!-- JavaScripts -->
+    <script src="{{ asset('js/jquery-3.2.1.js') }}"></script>
+    <script src="{{ asset('js/bootstrap.min.js') }}"></script>
+    <script src="{{ asset('bundles/petkoparacrudgenerator/js/petkopara-crud-generator.js') }}"></script>
+
+    
+</body>
+</html>

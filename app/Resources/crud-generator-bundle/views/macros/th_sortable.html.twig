@@ -1,0 +1,14 @@
+
+{% macro th_sortable(colName, sortColumn, sortOrder, route, headerName) %}
+    {% set iconDirection = sortOrder=='asc'?'down':'up' %}
+    {% set nextSortOrder = sortOrder=='asc'?'desc':'asc'%}
+    {% if colName == sortColumn %}
+        <a href="{{path(route ,app.request.query.all|merge({'pcg_sort_col': colName, 'pcg_sort_order': nextSortOrder})) }}">
+            {{headerName}} <span class="glyphicon glyphicon-arrow-{{ iconDirection }}" aria-hidden="true"></span>
+        </a>
+    {% else %}
+        <a href="{{path(route ,app.request.query.all|merge({'pcg_sort_col': colName, 'pcg_sort_order':'asc'}) )}}">
+            {{headerName}}
+        </a>
+    {% endif %}
+{% endmacro %}

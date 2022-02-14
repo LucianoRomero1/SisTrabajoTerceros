@@ -1,0 +1,17 @@
+{%- spaceless -%}
+<nav aria-label="breadcrumb" class="mt-2">
+    <ol class="breadcrumb pt-2 pb-2 pl-3 bg-light">
+        {% for b in breadcrumbs %}
+            <li{% if loop.last %} class="breadcrumb-item active" {% else %} class="breadcrumb-item" {% endif %} >
+                {% if b.url and not loop.last %}
+                <a href="{{ b.url }}">
+                {% if b.translate is defined and b.translate == true %}{{- b.text | trans(b.translationParameters, translation_domain, locale) -}}{% else %}{{- b.text -}}{% endif %}
+                </a>
+                {% else %}
+                {% if b.translate is defined and b.translate == true %}{{- b.text | trans(b.translationParameters, translation_domain, locale) -}}{% else %}{{- b.text -}}{% endif %}
+                {% endif %}
+            </li>
+        {% endfor %}
+    </ol>
+</nav>
+{%- endspaceless -%}

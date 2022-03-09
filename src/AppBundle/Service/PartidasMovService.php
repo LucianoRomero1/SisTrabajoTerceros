@@ -3,19 +3,19 @@
 namespace AppBundle\Service;
 
 use AppBundle\Entity\PartidasMov;
+use AppBundle\Base\BaseService;
 
-class PartidasMovService
-{
-    private $partidasMovService;
-    
-    public function __construct($partidasMovService)
-    {
-        $this->partidasMovService = $partidasMovService;
+
+class PartidasMovService extends BaseService
+{   
+    private $baseService;
+
+    public function __construct(BaseService $baseService){
+        $this->baseService = $baseService;
     }
 
 
-    public function hola(){
-        return "Hola desde el servicio";
-    }
+  
+  
 
 }

@@ -17,21 +17,21 @@ class ValvulaController extends BaseController
     * @Route("/create", name="createValvula")
     */
     public function create(){
-
+        return $this->render('valvula/create.html.twig');
     }
 
     /**
     * @Route("/view", name="viewValvulas")
     */
     public function view(){
-
+        return $this->render('valvula/view.html.twig');
     }
 
     /**
     * @Route("/edit/{id}", name="editValvula")
     */
     public function edit(){
-
+        return $this->render('valvula/create.html.twig');
     }
 
     /**

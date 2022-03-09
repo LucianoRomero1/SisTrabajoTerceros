@@ -2,53 +2,39 @@
 
 namespace AppBundle\Base;
 
-
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\HttpFoundation\Response;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Routing\Annotation\Route;
 use Pagerfanta\Pagerfanta;
 use Pagerfanta\Adapter\DoctrineORMAdapter;
 use Pagerfanta\View\TwitterBootstrap4View;
-use WhiteOctober\BreadcrumbsBundle\Model\Breadcrumbs;
-use Lexik\Bundle\FormFilterBundle\Filter\FilterBuilderUpdaterInterface;
 
-class BaseService extends Controller
+class BaseService extends AbstractController
 {
 
-   
+    public function renderTable($entityManager, $request, $className, $formName, $filterController, $routeName){
+        $queryBuilder = $entityManager->getRepository("AppBundle:$className")->createQueryBuilder('e');
 
-    public function setBreadCrumbs($title = null, $routeName = null){
-        $breadcrumbs = $this->get("white_october_breadcrumbs");
+        list($filterForm, $queryBuilder) = $this->filter($queryBuilder, $request, $formName, $filterController);
+        list($partidasMov, $pagerHtml) = $this->paginator($queryBuilder, $request, $routeName);
 
-        if($title != null && $routeName != null){
-            $breadcrumbs->addRouteItem($title, $routeName);
-        }
-         
-        $breadcrumbs->prependRouteItem("Inicio", "homepage");
-    }
+        $totalOfRecordsString = $this->getTotalOfRecordsString($queryBuilder, $request);
 
-    public function setBreadCrumbsWithId($title, $routeName, $id){
-        $breadcrumbs = $this->get("white_october_breadcrumbs");
-             
-        $breadcrumbs->addItem("$title - $id", "$routeName");
-        
-        $breadcrumbs->prependRouteItem("Inicio", "homepage");
+        return array($partidasMov, $pagerHtml, $filterForm,  $totalOfRecordsString);
     }
 
     /**
     * Create filter form and process filter request.
     *
     */
-    public function filter($queryBuilder, Request $request, $formName, $controllerFilter){
+    public function filter($queryBuilder, $request, $formName, $filterController){
         $session = $request->getSession();
-        $filterForm = $this->createForm("App\Form\\$formName");
+        $filterForm = $this->createForm("AppBundle\Form\\$formName");
 
         //Reset filter
         if($request->get('filter_action') == 'reset'){
-            if($session->get($controllerFilter) != null){
+            if($session->get($filterController) != null){
                 //If null apply reset, is necessary because without the validate, this closed the session
-                $session->remove($controllerFilter);
+                $session->remove($filterController);
             }
         }
 
@@ -63,7 +49,7 @@ class BaseService extends Controller
 
                 //Save filter to session
                 $filterData = $filterForm->getData();
-                $session->set($controllerFilter, $filterData);
+                $session->set($filterController, $filterData);
             }
         }
         return array($filterForm, $queryBuilder);
@@ -75,6 +61,7 @@ class BaseService extends Controller
     *
     */
     public function paginator($queryBuilder, Request $request, $routeName){
+      
         //Sorting
         $sortCol = $queryBuilder->getRootAlias().'.'.$request->get('pcg_sort_col', 'id');
         $queryBuilder->orderBy($sortCol, $request->get('pcg_sort_order', 'DESC'));
@@ -94,7 +81,8 @@ class BaseService extends Controller
 
         // Paginator - route generator
         $me = $this;
-        $routeGenerator = function($page) use ($me, $request)
+       
+        $routeGenerator = function($page) use ($me, $request, $routeName)
         {
             $requestParams = $request->query->all();
             $requestParams['pcg_page'] = $page;

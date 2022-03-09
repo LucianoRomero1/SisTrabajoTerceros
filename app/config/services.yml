@@ -42,3 +42,17 @@ services:
     app.form_login_authenticator:
         class: GuardBundle\Security\FormLoginAuthenticator
         arguments: ["@service_container"]
+
+    app.base_service:
+        class: AppBundle\Base\BaseService
+        public: true
+        arguments: ["@service_container"]
+
+    app.partidas_mov_service:
+        class: AppBundle\Service\PartidasMovService
+        public: true
+        arguments: ["null"]
+
+
+    
+

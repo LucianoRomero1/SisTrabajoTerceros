@@ -3,32 +3,38 @@
 namespace AppBundle\Base;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Routing\Annotation\Route;
 use Pagerfanta\Pagerfanta;
 use Pagerfanta\Adapter\DoctrineORMAdapter;
 use Pagerfanta\View\TwitterBootstrap4View;
-use WhiteOctober\BreadcrumbsBundle\Model\Breadcrumbs;
-use Lexik\Bundle\FormFilterBundle\Filter\FilterBuilderUpdaterInterface;
 
 class BaseService extends AbstractController
 {
 
+    public function renderTable($entityManager, $request, $className, $formName, $filterController, $routeName){
+        $queryBuilder = $entityManager->getRepository("AppBundle:$className")->createQueryBuilder('e');
+
+        list($filterForm, $queryBuilder) = $this->filter($queryBuilder, $request, $formName, $filterController);
+        list($partidasMov, $pagerHtml) = $this->paginator($queryBuilder, $request, $routeName);
+
+        $totalOfRecordsString = $this->getTotalOfRecordsString($queryBuilder, $request);
+
+        return array($partidasMov, $pagerHtml, $filterForm,  $totalOfRecordsString);
+    }
 
     /**
     * Create filter form and process filter request.
     *
     */
-    public function filter($queryBuilder, Request $request, $formName, $controllerFilter){
+    public function filter($queryBuilder, $request, $formName, $filterController){
         $session = $request->getSession();
         $filterForm = $this->createForm("AppBundle\Form\\$formName");
 
         //Reset filter
         if($request->get('filter_action') == 'reset'){
-            if($session->get($controllerFilter) != null){
+            if($session->get($filterController) != null){
                 //If null apply reset, is necessary because without the validate, this closed the session
-                $session->remove($controllerFilter);
+                $session->remove($filterController);
             }
         }
 
@@ -43,7 +49,7 @@ class BaseService extends AbstractController
 
                 //Save filter to session
                 $filterData = $filterForm->getData();
-                $session->set($controllerFilter, $filterData);
+                $session->set($filterController, $filterData);
             }
         }
         return array($filterForm, $queryBuilder);
@@ -75,7 +81,8 @@ class BaseService extends AbstractController
 
         // Paginator - route generator
         $me = $this;
-        $routeGenerator = function($page) use ($me, $request)
+       
+        $routeGenerator = function($page) use ($me, $request, $routeName)
         {
             $requestParams = $request->query->all();
             $requestParams['pcg_page'] = $page;

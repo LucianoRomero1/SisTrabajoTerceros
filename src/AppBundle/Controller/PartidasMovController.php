@@ -39,7 +39,7 @@ class PartidasMovController extends BaseController
 
         $this->setBreadCrumbs("Ver partidas movimiento", "viewPartidasMov");
 
-        $arrayTable = $this->partidasMovService->renderTable($entityManager, $request);
+        $arrayTable = $this->baseService->renderTable($entityManager, $request, "PartidasMov", "PartidasMovFilterType", "PartidasMovFilterController", "viewPartidasMov");
 
         return $this->render('partidasMov/view.html.twig', array(
             'partidasMov'               => $arrayTable[0],

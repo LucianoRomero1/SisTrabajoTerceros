@@ -1,14 +1,30 @@
 <?php
 
 namespace AppBundle\Base;
+use WhiteOctober\BreadcrumbsBundle\Model\Breadcrumbs;
 
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Lexik\Bundle\FormFilterBundle\Filter\FilterBuilderUpdaterInterface;
 
-class BaseController extends Controller
+
+class BaseController extends AbstractController
 {
+    private $filter;
+
+    public function __construct(FilterBuilderUpdaterInterface $filter)
+    {
+        $this->filter = $filter;
+    }
+
+
+    public static function getSubscribedServices()
+    {
+        $services = parent::getSubscribedServices();
+        return array_merge($services, array(
+            'white_october_breadcrumbs' => '?'.Breadcrumbs::class,
+        ));
+    }
+    
     public function getEm(){
         return $this->getDoctrine()->getManager();
     }

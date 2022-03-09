@@ -17,28 +17,28 @@ class PartidasMovController extends BaseController
      * @Route("/create", name="createPartidasMov")
      */
     public function create(){
-
+        return $this->render('partidasMov/create.html.twig');
     }
     
     /**
     * @Route("/view", name="viewPartidasMov")
     */
     public function view(){
-        
+        return $this->render('partidasMov/view.html.twig');
     }
 
     /**
     * @Route("/edit/{id}", name="editPartidasMov")
     */
     public function edit(){
-
+        return $this->render('partidasMov/create.html.twig');
     }
 
     /**
     * @Route("/delete/{id}", name="deletePartidasMov")
     */
     public function delete(){
-
+        
     }
 
 

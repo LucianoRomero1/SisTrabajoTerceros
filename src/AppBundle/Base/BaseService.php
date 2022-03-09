@@ -2,8 +2,7 @@
 
 namespace AppBundle\Base;
 
-
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
@@ -13,28 +12,9 @@ use Pagerfanta\View\TwitterBootstrap4View;
 use WhiteOctober\BreadcrumbsBundle\Model\Breadcrumbs;
 use Lexik\Bundle\FormFilterBundle\Filter\FilterBuilderUpdaterInterface;
 
-class BaseService extends Controller
+class BaseService extends AbstractController
 {
 
-   
-
-    public function setBreadCrumbs($title = null, $routeName = null){
-        $breadcrumbs = $this->get("white_october_breadcrumbs");
-
-        if($title != null && $routeName != null){
-            $breadcrumbs->addRouteItem($title, $routeName);
-        }
-         
-        $breadcrumbs->prependRouteItem("Inicio", "homepage");
-    }
-
-    public function setBreadCrumbsWithId($title, $routeName, $id){
-        $breadcrumbs = $this->get("white_october_breadcrumbs");
-             
-        $breadcrumbs->addItem("$title - $id", "$routeName");
-        
-        $breadcrumbs->prependRouteItem("Inicio", "homepage");
-    }
 
     /**
     * Create filter form and process filter request.
@@ -42,7 +22,7 @@ class BaseService extends Controller
     */
     public function filter($queryBuilder, Request $request, $formName, $controllerFilter){
         $session = $request->getSession();
-        $filterForm = $this->createForm("App\Form\\$formName");
+        $filterForm = $this->createForm("AppBundle\Form\\$formName");
 
         //Reset filter
         if($request->get('filter_action') == 'reset'){
@@ -75,6 +55,7 @@ class BaseService extends Controller
     *
     */
     public function paginator($queryBuilder, Request $request, $routeName){
+      
         //Sorting
         $sortCol = $queryBuilder->getRootAlias().'.'.$request->get('pcg_sort_col', 'id');
         $queryBuilder->orderBy($sortCol, $request->get('pcg_sort_order', 'DESC'));

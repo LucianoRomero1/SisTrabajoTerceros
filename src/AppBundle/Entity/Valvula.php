@@ -119,10 +119,20 @@ class Valvula
      */
     private $nroMovPartida;
 
-    /**
-     * @var int
+    // /**
+    //  * @var int
+    //  *
+    //  * @ORM\Column(name="cod_articulo", type="integer")
+    //  */
+    // private $codArticulo;
+
+      /**
+     * var int
      *
-     * @ORM\Column(name="cod_articulo", type="integer")
+     * @ORM\OneToOne(targetEntity="AppBundle\Entity\Articulo")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="cod_articulo", referencedColumnName="cod_articulo", nullable=true)
+     * })
      */
     private $codArticulo;
 
@@ -501,14 +511,38 @@ class Valvula
         return $this->nroMovPartida;
     }
 
-    /**
+    // /**
+    //  * Set codArticulo
+    //  *
+    //  * @param integer $codArticulo
+    //  *
+    //  * @return Valvula
+    //  */
+    // public function setCodArticulo($codArticulo)
+    // {
+    //     $this->codArticulo = $codArticulo;
+
+    //     return $this;
+    // }
+
+    // /**
+    //  * Get codArticulo
+    //  *
+    //  * @return int
+    //  */
+    // public function getCodArticulo()
+    // {
+    //     return $this->codArticulo;
+    // }
+
+        /**
      * Set codArticulo
      *
-     * @param integer $codArticulo
+     * @param \stdClass $codArticulo
      *
      * @return Valvula
      */
-    public function setCodArticulo($codArticulo)
+    public function setCodArticulo(\AppBundle\Entity\Articulo $codArticulo = null)
     {
         $this->codArticulo = $codArticulo;
 
@@ -518,7 +552,7 @@ class Valvula
     /**
      * Get codArticulo
      *
-     * @return int
+     * @return \stdClass
      */
     public function getCodArticulo()
     {

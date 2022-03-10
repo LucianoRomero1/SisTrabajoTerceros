@@ -7,9 +7,16 @@ use Symfony\Component\HttpFoundation\Request;
 use Pagerfanta\Pagerfanta;
 use Pagerfanta\Adapter\DoctrineORMAdapter;
 use Pagerfanta\View\TwitterBootstrap4View;
+use Lexik\Bundle\FormFilterBundle\Filter\FilterBuilderUpdaterInterface;
 
 class BaseService extends AbstractController
 {
+    private $filter;
+
+    public function __construct(FilterBuilderUpdaterInterface $filter)
+    {
+        $this->filter = $filter;
+    }
 
     public function renderTable($entityManager, $request, $className, $formName, $filterController, $routeName){
         $queryBuilder = $entityManager->getRepository("AppBundle:$className")->createQueryBuilder('e');

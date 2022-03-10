@@ -129,7 +129,7 @@ class Valvula
       /**
      * var int
      *
-     * @ORM\OneToOne(targetEntity="AppBundle\Entity\Articulo")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Articulo")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="cod_articulo", referencedColumnName="cod_articulo", nullable=true)
      * })

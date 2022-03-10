@@ -125,8 +125,8 @@
           <td>{{ valvula.codArticulo.id }} - {{ valvula.codArticulo.descripcion }}</td>
           <td>{% include 'valvula/_tipoMovimiento.html.twig' with {'tipoMovimiento': valvula.tipoMovimiento } %}</td>
           <td>{{ valvula.cantidad }}</td>
-          <td>{{ valvula.codDeposito }} </td>
-          <td>{{ valvula.codProveedor }}</td>
+          <td>{{ valvula.codDeposito.id }} - {{ valvula.codDeposito.descripcion }}</td>
+          <td>{{ valvula.codProveedor.id }} - {{ valvula.codProveedor.descripcion }}</td>
           <td>{% include 'valvula/_caracteristica.html.twig' with {'caracteristica': valvula.caracteristica } %}</td>
           <td>{% include 'valvula/_aRetrabajar.html.twig' with {'aRetrabajar': valvula.aRetrabajar } %}</td>
           <td class="actions  noExl">

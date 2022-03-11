@@ -23,26 +23,27 @@ class ValvulaService extends BaseController
     }
 
     public function getAmountValvula($valvulas){
-    
-        $amountBasso = 0;
-        $amountPi = 0;
-        $amountLeh = 0;
+       
+        $idValvulas["Basso"]    = array(202,103);
+        $idValvulas["Pi"]       = array(201,301);
+        $idValvulas["Leh"]      = array(100,102);
+        // $amountBasso = 0;
+        // $amountPi = 0;
+        // $amountLeh = 0;
         foreach($valvulas as $valvula){
-
-            if($valvula->getCodDeposito()->getid() == 202 || $valvula->getCodDeposito()->getid() == 103){
-                //Deposito de  Basso
-                $amountBasso++;
+            $idDepo = $valvula->getCodDeposito()->getid();
+            if( in_array($idDepo, $idValvulas["Basso"])){
+                dump("basso");
             }
-            elseif($valvula->getCodDeposito()->getid() == 201 || $valvula->getCodDeposito()->getid() == 301){
-                //Deposito de MotorParts P.I
-                $amountPi++;
+            if( in_array($idDepo, $idValvulas["Pi"])){
+                dump("pi");
             }
-            elseif($valvula->getCodDeposito()->getid() == 100 || $valvula->getCodDeposito()->getid() == 102){
-                //Deposito de MotorParts LEH
-                $amountLeh++;
+            if( in_array($idDepo, $idValvulas["Leh"])){
+                dump("lehman");
             }
             
         }
+        die;
         
         
     }

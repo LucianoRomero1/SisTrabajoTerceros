@@ -4,17 +4,12 @@ namespace AppBundle\Base;
 use WhiteOctober\BreadcrumbsBundle\Model\Breadcrumbs;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Lexik\Bundle\FormFilterBundle\Filter\FilterBuilderUpdaterInterface;
+
 
 
 class BaseController extends AbstractController
 {
-    private $filter;
-
-    public function __construct(FilterBuilderUpdaterInterface $filter)
-    {
-        $this->filter = $filter;
-    }
+    
 
 
     public static function getSubscribedServices()

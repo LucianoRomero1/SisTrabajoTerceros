@@ -5,8 +5,8 @@ namespace AppBundle\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
 use AppBundle\Service\PartidasMovService;
-use AppBundle\Base\BaseService;
 use AppBundle\Entity\PartidasMov;
+use AppBundle\Base\BaseService;
 use AppBundle\Base\BaseController;
 
 /**
@@ -34,19 +34,10 @@ class PartidasMovController extends BaseController
     /**
     * @Route("/view", name="viewPartidasMov")
     */
-    public function view(Request $request){
-        $entityManager = $this->getEm();
+    public function view(){
+        return $this->render('partidasMov/view.html.twig');
 
-        $this->setBreadCrumbs("Ver partidas movimiento", "viewPartidasMov");
-
-        $arrayTable = $this->baseService->renderTable($entityManager, $request, "PartidasMov", "PartidasMovFilterType", "PartidasMovFilterController", "viewPartidasMov");
-
-        return $this->render('partidasMov/view.html.twig', array(
-            'partidasMov'               => $arrayTable[0],
-            'pagerHtml'                 => $arrayTable[1],
-            'filterForm'                => $arrayTable[2]->createView(),
-            'totalOfRecordsString'      => $arrayTable[3],
-        ));
+       
         
     }
 

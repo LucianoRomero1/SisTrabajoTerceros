@@ -1,0 +1,9 @@
+{% if (tipoMovimiento == 1) %}
+    <span class="badge badge-secondary">Envío a 3°</span>
+{% elseif ( tipoMovimiento == 2 ) %}
+    <span class="badge badge-secondary">Reingreso de 3°</span>
+{% elseif ( tipoMovimiento == 3 ) %}
+    <span class="badge badge-secondary">Recepción de 3°</span>
+{% elseif ( tipoMovimiento == 4 ) %}
+    <span class="badge badge-secondary">Devolución de 3°</span>
+{% endif %}

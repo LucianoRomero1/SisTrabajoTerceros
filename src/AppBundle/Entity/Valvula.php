@@ -63,17 +63,37 @@ class Valvula
      */
     private $cantidad;
 
+    // /**
+    //  * @var int
+    //  *
+    //  * @ORM\Column(name="cod_deposito", type="integer")
+    //  */
+    // private $codDeposito;
+
+    // /**
+    //  * @var int
+    //  *
+    //  * @ORM\Column(name="cod_proveedor", type="integer")
+    //  */
+    // private $codProveedor;
+
     /**
-     * @var int
+     * var int
      *
-     * @ORM\Column(name="cod_deposito", type="integer")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Deposito")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="cod_deposito", referencedColumnName="cod_deposito", nullable=true)
+     * })
      */
     private $codDeposito;
 
     /**
-     * @var int
+     * var int
      *
-     * @ORM\Column(name="cod_proveedor", type="integer")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Proveedor")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="cod_proveedor", referencedColumnName="cod_proveedor", nullable=true)
+     * })
      */
     private $codProveedor;
 
@@ -119,10 +139,20 @@ class Valvula
      */
     private $nroMovPartida;
 
-    /**
-     * @var int
+    // /**
+    //  * @var int
+    //  *
+    //  * @ORM\Column(name="cod_articulo", type="integer")
+    //  */
+    // private $codArticulo;
+
+      /**
+     * var int
      *
-     * @ORM\Column(name="cod_articulo", type="integer")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Articulo")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="cod_articulo", referencedColumnName="cod_articulo", nullable=true)
+     * })
      */
     private $codArticulo;
 
@@ -309,14 +339,62 @@ class Valvula
         return $this->cantidad;
     }
 
-    /**
+    // /**
+    //  * Set codDeposito
+    //  *
+    //  * @param integer $codDeposito
+    //  *
+    //  * @return Valvula
+    //  */
+    // public function setCodDeposito($codDeposito)
+    // {
+    //     $this->codDeposito = $codDeposito;
+
+    //     return $this;
+    // }
+
+    // /**
+    //  * Get codDeposito
+    //  *
+    //  * @return int
+    //  */
+    // public function getCodDeposito()
+    // {
+    //     return $this->codDeposito;
+    // }
+
+    // /**
+    //  * Set codProveedor
+    //  *
+    //  * @param integer $codProveedor
+    //  *
+    //  * @return Valvula
+    //  */
+    // public function setCodProveedor($codProveedor)
+    // {
+    //     $this->codProveedor = $codProveedor;
+
+    //     return $this;
+    // }
+
+    // /**
+    //  * Get codProveedor
+    //  *
+    //  * @return int
+    //  */
+    // public function getCodProveedor()
+    // {
+    //     return $this->codProveedor;
+    // }
+
+        /**
      * Set codDeposito
      *
-     * @param integer $codDeposito
+     * @param \stdClass $codDeposito
      *
      * @return Valvula
      */
-    public function setCodDeposito($codDeposito)
+    public function setCodDeposito(\AppBundle\Entity\Deposito $codDeposito = null)
     {
         $this->codDeposito = $codDeposito;
 
@@ -326,21 +404,21 @@ class Valvula
     /**
      * Get codDeposito
      *
-     * @return int
+     * @return \stdClass
      */
     public function getCodDeposito()
     {
         return $this->codDeposito;
     }
 
-    /**
+       /**
      * Set codProveedor
      *
-     * @param integer $codProveedor
+     * @param \stdClass $codProveedor
      *
      * @return Valvula
      */
-    public function setCodProveedor($codProveedor)
+    public function setCodProveedor(\AppBundle\Entity\Proveedor $codProveedor = null)
     {
         $this->codProveedor = $codProveedor;
 
@@ -350,7 +428,7 @@ class Valvula
     /**
      * Get codProveedor
      *
-     * @return int
+     * @return \stdClass
      */
     public function getCodProveedor()
     {
@@ -501,14 +579,38 @@ class Valvula
         return $this->nroMovPartida;
     }
 
-    /**
+    // /**
+    //  * Set codArticulo
+    //  *
+    //  * @param integer $codArticulo
+    //  *
+    //  * @return Valvula
+    //  */
+    // public function setCodArticulo($codArticulo)
+    // {
+    //     $this->codArticulo = $codArticulo;
+
+    //     return $this;
+    // }
+
+    // /**
+    //  * Get codArticulo
+    //  *
+    //  * @return int
+    //  */
+    // public function getCodArticulo()
+    // {
+    //     return $this->codArticulo;
+    // }
+
+        /**
      * Set codArticulo
      *
-     * @param integer $codArticulo
+     * @param \stdClass $codArticulo
      *
      * @return Valvula
      */
-    public function setCodArticulo($codArticulo)
+    public function setCodArticulo(\AppBundle\Entity\Articulo $codArticulo = null)
     {
         $this->codArticulo = $codArticulo;
 
@@ -518,7 +620,7 @@ class Valvula
     /**
      * Get codArticulo
      *
-     * @return int
+     * @return \stdClass
      */
     public function getCodArticulo()
     {

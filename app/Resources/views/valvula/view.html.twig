@@ -122,11 +122,11 @@
           <td>{{ valvula.fecha|date('d-m-Y') }}</td>
           <td>{{ valvula.codDesvio }}</td>
           <td>{{ valvula.nroPartida }}</td>
-          <td>{{ valvula.codArticulo.id }} - {{ valvula.codArticulo.descripcion }}</td>
+          <td>{{ valvula.codArticulo.id }} - <i>{{ valvula.codArticulo.descripcion }}</i></td>
           <td>{% include 'valvula/_tipoMovimiento.html.twig' with {'tipoMovimiento': valvula.tipoMovimiento } %}</td>
           <td>{{ valvula.cantidad }}</td>
-          <td>{{ valvula.codDeposito.id }} - {{ valvula.codDeposito.descripcion }}</td>
-          <td>{{ valvula.codProveedor.id }} - {{ valvula.codProveedor.descripcion }}</td>
+          <td>{{ valvula.codDeposito.id }} - <i>{{ valvula.codDeposito.descripcion }}</i></td>
+          <td>{{ valvula.codProveedor.id }} - <i>{{ valvula.codProveedor.descripcion }}</i></td>
           <td>{% include 'valvula/_caracteristica.html.twig' with {'caracteristica': valvula.caracteristica } %}</td>
           <td>{% include 'valvula/_aRetrabajar.html.twig' with {'aRetrabajar': valvula.aRetrabajar } %}</td>
           <td class="actions  noExl">
@@ -134,11 +134,11 @@
               <button class="btn btn-primary btn-xs dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 Opciones <span class="caret"></span>
               </button>
-              {# <div class="dropdown-menu">
-                <a class="dropdown-item" title='Editar'  href="{{ path('editArea', { 'id': area.id }) }}">Editar área<i class="ml-1 text-success far fa-edit"></i></a>
+              <div class="dropdown-menu">
+                <a class="dropdown-item" title='Editar'  href="{{ path('editValvula', { 'id': valvula.id }) }}">Editar registro<i class="ml-1 text-success far fa-edit"></i></a>
                 <div class="dropdown-divider"></div>
-                <a class="dropdown-item" title="Eliminar" onclick="sweetAlertDelete({{area.id}})" href="#">Eliminar área<i class="ml-1 text-danger far fa-trash-alt"></i></a>
-              </div> #}
+                <a class="dropdown-item" title="Eliminar" onclick="sweetAlertDelete({{valvula.id}})" href="#">Eliminar registro<i class="ml-1 text-danger far fa-trash-alt"></i></a>
+              </div>
             </div>
           </td>
         </tr>

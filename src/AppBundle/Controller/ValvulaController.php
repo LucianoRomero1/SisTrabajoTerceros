@@ -34,11 +34,13 @@ class ValvulaController extends BaseController
     */
     public function view(Request $request){
         $entityManager = $this->getEm();
-        $this->setBreadCrumbs("Ver válvulas", "viewValvulas");
-
-        $articulos = $this->valvulaService->getValuesAnotherTable();
+        $this->setBreadCrumbs("Válvulas a terceros", "viewValvulas");
 
         $arrayTable = $this->baseService->renderTable($entityManager, $request, "Valvula", "ValvulaFilterType", "ValvulaFilterController", "viewValvulas");
+        $articulos = $this->valvulaService->getValuesAnotherTable();
+        $this->valvulaService->getAmountValvula($arrayTable[0]);
+       
+        
 
         return $this->render('valvula/view.html.twig', array(
             'valvulas'                  => $arrayTable[0],

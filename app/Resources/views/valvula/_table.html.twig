@@ -1,0 +1,51 @@
+<form method="POST">
+  <div class="card mb-4 mt-4">
+    <table class="table table-striped table-hover table-sm" id="tabla" namefile="Válvulas a terceros">
+      <thead>
+        <tr>
+          {% import "@generator_bundle/th_sortable.html.twig" as macros %} 
+          <th style="border:0px;">{{macros.th_sortable('id',app.request.get('pcg_sort_col'), app.request.get('pcg_sort_order') , 'viewValvulas','Envío')}}</th>
+          <th style="border:0px;">{{macros.th_sortable('id',app.request.get('pcg_sort_col'), app.request.get('pcg_sort_order') , 'viewValvulas','Fecha')}}</th>
+          <th colspan="2" style="border:0px;">{{macros.th_sortable('id',app.request.get('pcg_sort_col'), app.request.get('pcg_sort_order') , 'viewValvulas','N° partida')}}</th>
+          <th class="text-center" style="border:0px;">{{macros.th_sortable('id',app.request.get('pcg_sort_col'), app.request.get('pcg_sort_order') , 'viewValvulas','Válvula')}}</th>
+          <th style="border:0px;">{{macros.th_sortable('id',app.request.get('pcg_sort_col'), app.request.get('pcg_sort_order') , 'viewValvulas','Tipo')}}</th>
+          <th style="border:0px;">{{macros.th_sortable('id',app.request.get('pcg_sort_col'), app.request.get('pcg_sort_order') , 'viewValvulas','Cantidad')}}</th>
+          <th class="text-center" style="border:0px;">{{macros.th_sortable('id',app.request.get('pcg_sort_col'), app.request.get('pcg_sort_order') , 'viewValvulas','De')}}</th>
+          <th class="text-center" style="border:0px;">{{macros.th_sortable('id',app.request.get('pcg_sort_col'), app.request.get('pcg_sort_order') , 'viewValvulas','A')}}</th>
+          <th style="border:0px;">{{macros.th_sortable('id',app.request.get('pcg_sort_col'), app.request.get('pcg_sort_order') , 'viewValvulas','Para')}}</th>
+          <th style="border:0px;">{{macros.th_sortable('id',app.request.get('pcg_sort_col'), app.request.get('pcg_sort_order') , 'viewValvulas','A retrabajar')}}</th>
+          <th style="border:0px;" width = "100px" class="noExl">Acciones</th>
+        </tr>
+      </thead>
+      <tbody> 
+        {% for valvula in valvulas %}
+        <tr>
+          <td>{{ valvula.id }}</td>
+          <td>{{ valvula.fecha|date('d-m-Y') }}</td>
+          <td>{{ valvula.codDesvio }}</td>
+          <td>{{ valvula.nroPartida }}</td>
+          <td>{{ valvula.codArticulo.id }} - <i>{{ valvula.codArticulo.descripcion }}</i></td>
+          <td>{% include 'valvula/_tipoMovimiento.html.twig' with {'tipoMovimiento': valvula.tipoMovimiento } %}</td>
+          <td>{{ valvula.cantidad }}</td>
+          <td>{{ valvula.codDeposito.id }} - <i>{{ valvula.codDeposito.descripcion }}</i></td>
+          <td>{{ valvula.codProveedor.id }} - <i>{{ valvula.codProveedor.descripcion }}</i></td>
+          <td>{% include 'valvula/_caracteristica.html.twig' with {'caracteristica': valvula.caracteristica } %}</td>
+          <td class="text-center">{% include 'valvula/_aRetrabajar.html.twig' with {'aRetrabajar': valvula.aRetrabajar } %}</td>
+          <td class="actions  noExl">
+            <div class="btn-group">
+              <button class="btn btn-primary btn-xs dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Opciones <span class="caret"></span>
+              </button>
+              <div class="dropdown-menu">
+                <a class="dropdown-item" title='Editar'  href="{{ path('editValvula', { 'id': valvula.id }) }}">Editar registro<i class="ml-1 text-success far fa-edit"></i></a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" title="Eliminar" onclick="sweetAlertDelete({{valvula.id}})" href="#">Eliminar registro<i class="ml-1 text-danger far fa-trash-alt"></i></a>
+              </div>
+            </div>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</form>

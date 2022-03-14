@@ -27,7 +27,7 @@
           <td>{{ valvula.codArticulo.id }} - <i>{{ valvula.codArticulo.descripcion }}</i></td>
           <td>{% include 'valvula/_tipoMovimiento.html.twig' with {'tipoMovimiento': valvula.tipoMovimiento } %}</td>
           <td>{{ valvula.cantidad }}</td>
-          <td>{{ valvula.codDeposito.id }} - <i>{{ valvula.codDeposito.descripcion }}</i></td>
+          {% include 'valvula/_rowColor.html.twig' with {'codDeposito': valvula.codDeposito.id} %}{{ valvula.codDeposito.id }} - <i>{{ valvula.codDeposito.descripcion }}</i></td>
           <td>{{ valvula.codProveedor.id }} - <i>{{ valvula.codProveedor.descripcion }}</i></td>
           <td>{% include 'valvula/_caracteristica.html.twig' with {'caracteristica': valvula.caracteristica } %}</td>
           <td class="text-center">{% include 'valvula/_aRetrabajar.html.twig' with {'aRetrabajar': valvula.aRetrabajar } %}</td>

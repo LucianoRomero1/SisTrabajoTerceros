@@ -40,7 +40,6 @@ class ValvulaController extends BaseController
         $articulos      = $this->valvulaService->getValuesAnotherTable();
         $amountValvulas = $this->valvulaService->getAmountValvula($arrayTable[0]);
 
-
         return $this->render('valvula/view.html.twig', array(
             'valvulas'                  => $arrayTable[0],
             'pagerHtml'                 => $arrayTable[1],

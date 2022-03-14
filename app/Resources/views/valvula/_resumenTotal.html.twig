@@ -2,31 +2,31 @@
   <div>
     <b colspan="3" class="text-center">Resumen</b>
   </div>
-  <table class="table table-striped table-hover table-condensed"  cellspacing="0" cellpadding="0">
+  <table class="table table-hover table-condensed"  cellspacing="0" cellpadding="0">
     <thead>
       <tr>
         <th>De</th>
-        <th>Cantidad</th>
+        <th class="text-center">Cantidad</th>
       </tr>
     </thead>
     <tbody>
       <tr>
-        <td><span class="badge badge-success">Basso S.A</span></td>
-        <td>{{amountValvulas['Basso']}}</td>
+        <td><h5><span class="badge bassoColor">Basso S.A</span></h5></td>
+        <td class="text-center">{{amountValvulas['Basso']}}</td>
       </tr>
       <tr>
-        <td><span class="badge badge-info">MotorParts P.I</span></td>
-        <td>{{amountValvulas['P.I']}}</td>
+        <td><h5><span class="badge piColor">MotorParts P.I</span></h5></td>
+        <td class="text-center">{{amountValvulas['P.I']}}</td>
       </tr>
       <tr>
-        <td><span class="badge badge-secondary">MotorParts LEH</span></td>
-        <td>{{amountValvulas['LEH']}}</td>
+        <td><h5><span class="badge lehColor">MotorParts LEH</span></h5></td>
+        <td class="text-center">{{amountValvulas['LEH']}}</td>
       </tr>
     </tbody>
     <tfooter>
       <tr>
         <th class="">Total:</th>
-        <th class="">{{amountValvulas['Total']}}</th>
+        <th class="text-center">{{amountValvulas['Total']}}</th>
       </tr>
     </tfooter>
   </table>

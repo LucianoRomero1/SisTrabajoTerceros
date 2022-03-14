@@ -21,13 +21,12 @@
 <!-- END TABLE -->
 
 <!-- TOTAL -->
-{% include 'valvula/_footerTable.html.twig' with {'totalOfRecordsString': totalOfRecordsString, 'pagerHtml': pagerHtml } %}
+{% include 'valvula/_resumenTotal.html.twig' with {'amountValvulas': amountValvulas} %}
 <!-- END TOTAL -->
 
 
 <!-- FOOTER TABLE -->
-{% include 'valvula/_resumenTotal.html.twig' %}
-
+{% include 'valvula/_footerTable.html.twig' with {'totalOfRecordsString': totalOfRecordsString, 'pagerHtml': pagerHtml } %}
 <!-- END FOOTER TABLE -->
 
 {% endblock %}

@@ -24,27 +24,27 @@ class ValvulaService extends BaseController
 
     public function getAmountValvula($valvulas){
        
-        $idValvulas["Basso"]    = array(202,103);
-        $idValvulas["Pi"]       = array(201,301);
-        $idValvulas["Leh"]      = array(100,102);
-        // $amountBasso = 0;
-        // $amountPi = 0;
-        // $amountLeh = 0;
+        $idValvulas["Basso"]     = array(202,103);
+        $idValvulas["P.I"]       = array(201,301);
+        $idValvulas["LEH"]       = array(100,102);
+        $amountValvulas          = array("Basso" => 0, "P.I" => 0, "LEH" => 0, "Total" => 0);
         foreach($valvulas as $valvula){
             $idDepo = $valvula->getCodDeposito()->getid();
             if( in_array($idDepo, $idValvulas["Basso"])){
-                dump("basso");
+                $amountValvulas["Basso"]++;        
+                $amountValvulas["Total"]++; 
             }
-            if( in_array($idDepo, $idValvulas["Pi"])){
-                dump("pi");
+            if( in_array($idDepo, $idValvulas["P.I"])){
+                $amountValvulas["P.I"]++;
+                $amountValvulas["Total"]++; 
             }
-            if( in_array($idDepo, $idValvulas["Leh"])){
-                dump("lehman");
+            if( in_array($idDepo, $idValvulas["LEH"])){
+                $amountValvulas["LEH"]++;
+                $amountValvulas["Total"]++; 
             }
             
         }
-        die;
-        
-        
+
+        return $amountValvulas;
     }
 }

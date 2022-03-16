@@ -1,0 +1,34 @@
+<form method="POST">
+  <div class="card mb-4 mt-4">
+    <table class="table table-striped table-hover table-sm" id="tabla" namefile="Válvulas a terceros">
+      <thead>
+        <tr>
+            {% import "@generator_bundle/th_sortable.html.twig" as macros %} 
+            <th style="border:0px;">{{macros.th_sortable('id',app.request.get('pcg_sort_col'), app.request.get('pcg_sort_order') , 'controlStock','Código 3B')}}</th>
+            <th colspan="2" style="border:0px;">{{macros.th_sortable('id',app.request.get('pcg_sort_col'), app.request.get('pcg_sort_order') , 'controlStock','N° partida')}}</th>
+            <th style="border:0px;">{{macros.th_sortable('id',app.request.get('pcg_sort_col'), app.request.get('pcg_sort_order') , 'controlStock','Enviadas')}}</th>
+            <th style="border:0px;">{{macros.th_sortable('id',app.request.get('pcg_sort_col'), app.request.get('pcg_sort_order') , 'controlStock','Recibidas')}}</th>
+            <th style="border:0px;">{{macros.th_sortable('id',app.request.get('pcg_sort_col'), app.request.get('pcg_sort_order') , 'controlStock','Devueltas')}}</th>
+            <th style="border:0px;">{{macros.th_sortable('id',app.request.get('pcg_sort_col'), app.request.get('pcg_sort_order') , 'controlStock','Reingresos')}}</th>
+            <th style="border:0px;">{{macros.th_sortable('id',app.request.get('pcg_sort_col'), app.request.get('pcg_sort_order') , 'controlStock','1° Envío')}}</th>
+            <th style="border:0px;">{{macros.th_sortable('id',app.request.get('pcg_sort_col'), app.request.get('pcg_sort_order') , 'controlStock','Último reingreso')}}</th>
+        </tr>
+      </thead>
+      <tbody> 
+        {% for valvula in valvulas %}
+        <tr>
+            <td>{{ valvula.codArticulo.descripcion }}</td>
+            <td>{{ valvula.codDesvio }}</td>
+            <td>{{ valvula.nroPartida }}</td>
+            <td>{{ valvula.cantidad }}</td> {# Aca tengo que hacer los cálculos por partida #}
+            <td>{{ valvula.cantidad }}</td>
+            <td>{{ valvula.cantidad }}</td>
+            <td>{{ valvula.cantidad }}</td>
+            <td>{{ valvula.fecha|date('d-m-Y') }}</td>
+            <td>{{ valvula.fecha|date('d-m-Y') }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</form>

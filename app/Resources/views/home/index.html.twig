@@ -1,5 +1,129 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
+<div class="boxHome">
+    <br>
+    <div class="text-center">
+        <b class="mt-2"> Traslado/a de proceso </b>
+        <div class="mt-2 d-flex justify-content-center">
+            <input class="ml-2 col-md-1 form-control" type="number" id="idProceso" value="" readonly />
+            <select class="ml-2 col-md-4 form-control" name="caracteristica" id="caracteristica" onchange="myFunction(event)">
+                <option value="0"> Seleccione una opción </option>
+                {% for caracteristica in caracteristicas %}
+                    <option value="{{caracteristica.id}}"> {{caracteristica.descripcion}}</option>
+                {% endfor %}
+            </select>
+        </div>
+    </div>
+    <br>
+    <div id="actions" style="display: none;">
+        <div class="row">
+            <div class="col-md-2"></div>
+            <div class="col-md-2">
+                <div class="card mb-3 text-center">
+                    <div class="card-header">
+                        <b>Envío a 3°</b>
+                    </div>
+                    <div class="card-body imgHome">
+                        <a data-toggle="modal" data-target=".bd-example-modal-lg-envio" onclick="getValueSelect()"><img src="{{asset('images/devolucion.png')}}" alt="Envío" height="100"></a>
+                    </div>
+                    <div class="card-footer">
+                        <a class="btn btn-secondary text-white">Ver detalle</a>
+                    </div>
+                </div>
+                <div class="text-center">   
+                    <i class="mt-3 fas fa-arrow-alt-circle-down text-info fa-2x"></i>
+                </div>
+            </div>
+            <div class="col-md-1"></div>
+            <div class="col-md-2 mt-5">
+                <div class="card mb-3 text-center">
+                    <div class="card-header">
+                        <b>Control Stock en 3°</b>
+                    </div>
+                    <div class="card-body imgHome">
+                        <a href="{{path('controlStock')}}"><img src="{{asset('images/control_stock.png')}}" alt="Control de stock" height="100"></a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-1"></div>
+            <div class="col-md-2">
+                <div class="card mb-3 text-center">
+                    <div class="card-header">
+                        <b>Recepción de 3°</b>
+                    </div>
+                    <div class="card-body imgHome">
+                        <a data-toggle="modal" data-target=".bd-example-modal-lg-recepcion-de" onclick="getValueSelect()"><img src="{{asset('images/entrega.jpg')}}" alt="Recepción de 3°" height="100">
+                    </div>
+                    <div class="card-footer">
+                        <a class="btn btn-secondary text-white">Ver detalle</a>
+                    </div>
+                </div>
+                <div class="text-center mt-5">   
+                    <i class="fas fa-arrow-alt-circle-up text-info fa-2x" style="margin-top: -15px;"></i>
+                </div>
+            </div>
+        </div>
+        <br>
+        <div class="row">
+            <div class="col-md-2"></div>
+            <div class="col-md-2">
+                <div class="card mb-3 text-center">
+                    <div class="card-header">
+                        <b>Recepción en 3°</b>
+                    </div>
+                    <div class="card-body imgHome">
+                        <a data-toggle="modal" data-target=".bd-example-modal-lg-recepcion-en"  onclick="getValueSelect()"><img src="{{asset('images/recepcion.jpg')}}" alt="Recepción en 3°" height="100"></a>
+                    </div>
+                    <div class="card-footer">
+                        <a class="btn btn-secondary text-white">Ver detalle</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-1">
+                <i class="mt-5 fas fa-arrow-alt-circle-right text-info fa-2x"></i>
+            </div>
+            <div class="col-md-2" style="margin-top: -25px;">
+                <div class="card mb-3 text-center">
+                    <div class="card-header">
+                        <b>Producción en 3°</b>
+                    </div>
+                    <div class="card-body imgHome">
+                        <a data-toggle="modal" data-target=".bd-example-modal-lg-produccion"  onclick="getValueSelect()"><img src="{{asset('images/produccion.jpg')}}" alt="Producción en 3°" height="100"></a>
+                    </div>
+                    <div class="card-footer">
+                        <a class="btn btn-secondary text-white">Ver detalle</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-1">
+                <i class="mt-5 fas fa-arrow-alt-circle-right text-info fa-2x"></i>
+            </div>
+            <div class="col-md-2">
+                <div class="card mb-3 text-center">
+                    <div class="card-header">
+                        <b>Devolución de 3°</b>
+                    </div>
+                    <div class="card-body imgHome">
+                        <a data-toggle="modal" data-target=".bd-example-modal-lg-devolucion"  onclick="getValueSelect()"><img src="{{asset('images/envio.png')}}" alt="Devolución de 3°" height="100"></a>
+                    </div>
+                    <div class="card-footer">
+                        <a class="btn btn-secondary text-white">Ver detalle</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<br>
+{% include 'home/envio.html.twig' with {'tipo': 'Envío a 3°'} %}
+{% include 'home/recepcionEnTercero.html.twig' with {'tipo': 'Recepción en 3°'} %}
+{% include 'home/recepcionDeTercero.html.twig' with {'tipo': 'Recepción de 3°'} %}
+{% include 'home/devolucionTercero.html.twig' with {'tipo': 'Devolución de 3°'} %}
+{% include 'home/produccionTercero.html.twig' with {'tipo': 'Producción en 3°'} %}
 
+{% endblock %}
+{% block javascript %}
+{{parent()}}
+<script src="{{asset('js/selectHome.js')}}"></script>
 {% endblock %}

@@ -1,0 +1,115 @@
+<!-- Modal -->
+<div class="modal fade bd-example-modal-lg-recepcion-en" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+    <form action="{{path('recepcionEnTercero')}}" method="POST">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">{{tipo}}</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-4 ">
+                        <h6> N° Registro: </h6>
+                        <input class="form-control mt-1 d-inline" type="text" required>
+                    </div>
+                </div>
+                <br>
+                <div class="row">
+                    <div class="col-md-4 ">
+                        <h6> Fecha: </h6>
+                        <input class="form-control mt-1 fechaActual" type="date" readonly>
+                    </div>
+                </div>
+                <br>  
+                <h6> De: </h6>
+                <div class="row">
+                    <div class="col-md-2">
+                        <input class="form-control mt-1" type="text" required>
+                    </div>
+                    <div class="col-md-6">
+                        <input class="form-control mt-1" type="text" required>
+                    </div>
+                </div>
+                <br>
+                <h6> N° Partida: </h6>
+                <div class="row">
+                    <div class="col-md-2">
+                        <input class="form-control mt-1" type="text" required>
+                    </div>
+                    <div class="col-md-4">
+                        <input class="form-control mt-1" type="text" required>
+                    </div>
+                    <div class="col-md-2">
+                        <input class="form-control mt-1" type="text" readonly>
+                    </div>
+                </div>
+                <br>
+                <div class="row">
+                    <div class="col-md-4 ">
+                        <h6> Válvula: </h6>
+                        <input class="form-control mt-1" type="text" required>
+                    </div>
+                </div>
+                <br>
+                <div class="row">
+                    <div class="col-md-4">
+                        <h6> Cantidad: </h6>
+                        <input class="form-control mt-1" type="text" required>
+                    </div>
+                    
+                    <div class="col-md-4 text-center">
+                        <h6> P.T.T Terminada </h6>
+                        <input class="mt-2" type="checkbox">
+                    </div>
+                </div>
+                <br>
+                <div class="row">
+                    <div class="col-md-5 text-center">
+                        <h6> Sin terminado de punta (Op. 180): </h6>
+                        <input class="" type="checkbox">
+                    </div>
+                    <div class="col-md-6 text-center">
+                        <h6> Válvulas para retrabajar </h6>
+                        <input class="" type="checkbox">
+                    </div>
+                </div>
+                <br>
+                <div class="row">
+                    <div class="col-md-12">
+                        <h6> Observaciones: </h6>
+                        <input class="form-control mt-1" type="text" required>
+                    </div>
+                </div>
+                <br>
+                <div class="row">
+                    <div class="col-md-12">
+                        <h6> Tipo: </h6>
+                        <input class="form-control mt-1" type="text" value="{{tipo}}" readonly>
+                    </div>
+                </div>
+                <br>
+                <div class="row">
+                    <div class="col-md-12">
+                        <h6> A: </h6>
+                        <input class="form-control mt-1" type="text" required>
+                    </div>
+                </div>
+                <br>
+                <div class="row">
+                    <div class="col-md-12">
+                        <h6> Para: </h6>
+                        <input class="form-control mt-1 para" type="text"  value=""  readonly>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="submit" class="btn btn-primary">Guardar</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+            </div>
+        </div>
+    </div>
+    </form>
+</div>

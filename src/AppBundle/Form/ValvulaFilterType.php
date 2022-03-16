@@ -16,15 +16,6 @@ class ValvulaFilterType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('tipoMovimiento', Filters\ChoiceFilterType::class, array(
-                'label' => 'Tipo de movimiento',
-                'choices'  => [
-                    'Envío a 3°'        => 1,
-                    'Reingreso de 3°'   => 2,
-                    'Recepción de 3°'   => 3,
-                    'Devolución de  3°' => 4,
-                ],
-            ))
             ->add('codDesvio', Filters\TextFilterType::class, array(
                 'label' => 'Código desvío'
             ))

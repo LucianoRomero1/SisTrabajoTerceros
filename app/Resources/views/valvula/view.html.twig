@@ -7,176 +7,30 @@
 <!-- HEADER -->
 <div class="row"> 
 
-<!-- FILTERING -->
-  <div class="col-md-12"> 
-    <div  id="filters" class="collapse"> 
-      <form class="card pl-3 pr-3 pt-2 bg-light mb-3" action="{{ path('viewValvulas') }}" method="get">
-        <div class="row">
-          <div class="col-md-2">{{ form_row(filterForm.tipoMovimiento) }}</div>
-          <div class="col-md-2">{{ form_row(filterForm.caracteristica) }}</div>
-          <div class="col-md-2">{{ form_row(filterForm.codDesvio) }}</div>
-          <div class="col-md-2">{{ form_row(filterForm.nroPartida) }}</div>
-          <div class="col-md-2">{{ form_row(filterForm.aRetrabajar) }}</div>
-          <div class="col-md-2">{{ form_row(filterForm.tipoMovimiento) }}</div>
-          <div class="col-md-2">{{ form_row(filterForm.codDeposito) }}</div>
-          {# INICIO Render manual date range#}
-          <div id="fecha" class="col-md-5">
-            <div class="row">
-              <div class="col-md-6">
-                <div class="form-group">
-                  <label class="control-label" for="fecha_left_date">Armado desde</label>
-                  <input type="date" id="fecha_left_date" name="fecha[left_date]" class="form-control" value="{{ filterForm.fecha.children.left_date.vars.value}}" />
-                </div>
-              </div>
-              <div class="col-md-6">
-                <div class="form-group">
-                  <label class="control-label" for="fecha_right_date">Armado hasta</label>
-                  <input type="date" id="fecha_right_date" name="fecha[right_date]" class="form-control" value="{{ filterForm.fecha.children.right_date.vars.value}}"/>
-                </div>
-              </div>
-            </div>
-          </div> 
-          {% do filterForm.fecha.setRendered %}
-          {# FIN Render manual date range#}
-          <div class="col-md-6">
-            {{ form_rest(filterForm) }}
-          </div>
-          <div class="col-md-12">
-              <div class="form-group">
-                  <button type="submit" class="btn btn-warning" name="filter_action" value="filter"><i class="fas fa-filter"></i> Filtrar</button>
-                  <button type="submit" class="btn btn-light" name="filter_action" value="reset"><i class="fas fa-minus"></i> Reset</button>
-              </div>
-          </div>
-        </div>
+  {% include 'valvula/_filteringTable.html.twig' with {'filterForm': filterForm } %}
 
-      </form>
-    </div>
-  </div>
-  <!-- END FILTERING -->
-
-  <!-- PAGE SIZE -->
-  <div class="col-md-3 pull-left">
-    <div class="pagination form-inline ">
-      <select class = "form-control"  onchange="window.location = this.value" >
-          <option value='{{ path('viewValvulas', app.request.query.all|merge({'pcg_show': '10'})) }}' {% if app.request.get('pcg_show')  == 10 %}  selected {% endif %}>10</option>
-          <option value='{{ path('viewValvulas', app.request.query.all|merge({'pcg_show': '20'})) }}' {% if app.request.get('pcg_show')  == 20 %}  selected {% endif %}>20</option>
-          <option value='{{ path('viewValvulas', app.request.query.all|merge({'pcg_show': '50'})) }}' {% if app.request.get('pcg_show')  == 50 %}  selected {% endif %}>50</option>
-          <option value='{{ path('viewValvulas', app.request.query.all|merge({'pcg_show': '100'})) }}' {% if app.request.get('pcg_show') == 100 %} selected {% endif %}>100</option>
-          <option value='{{ path('viewValvulas', app.request.query.all|merge({'pcg_show': '500'})) }}' {% if app.request.get('pcg_show') == 500 %} selected {% endif %}>500</option>
-      </select>
-    </div>
-      
-  </div>
-
-  <!-- END PAGE SIZE -->
-
-  <div class="col-md-6"></div>
-
-  <!-- FILTER BUTTON -->
-  <div class="col-md-3">
-    <div class="float-right">
-      <a class="btn  btn-secondary text-white dropdown-toggle pull-right h3" data-toggle="collapse" data-target="#filters">Filtro<span class="caret"></span></a>	
-      <a class="btn btn-primary h3 pull-right" href="{{ path('createValvula') }}" style="margin-bottom:10px"><i class="fas fa-plus"></i> Nuevo</a>
-    </div>	
-  </div>
-  <!-- END FILTER BUTTON -->
-
-  <!-- FORM ERRORS -->
-  <div class="col-md-12">
-        {%- if form_errors(filterForm) %}
-        <div class="alert alert-block alert-error fade in form-errors">
-            {{ form_errors(filterForm) }}
-        </div>
-        {% endif %}
-  </div>
-  <!-- FORM ERRORS -->
-
-<!-- END HEADER -->
+  {% include 'valvula/_actionsHeader.html.twig' with {'filterForm': filterForm } %}
+ 
 </div>
+<!-- END HEADER -->
 
-<!-- /TABLE WITH SORT -->
+<!-- TABLE  -->
 
-<form method="POST">
-  <div class="card mb-4 mt-4">
-    <table class="table table-striped table-hover table-sm" id="tabla" namefile="PartidasMov">
-      <thead>
-        <tr>
-          {% import "@generator_bundle/th_sortable.html.twig" as macros %} 
-          <th style="border:0px;">{{macros.th_sortable('id',app.request.get('pcg_sort_col'), app.request.get('pcg_sort_order') , 'viewValvulas','Envío')}}</th>
-          <th style="border:0px;">{{macros.th_sortable('id',app.request.get('pcg_sort_col'), app.request.get('pcg_sort_order') , 'viewValvulas','Fecha')}}</th>
-          <th colspan="2" style="border:0px;">{{macros.th_sortable('id',app.request.get('pcg_sort_col'), app.request.get('pcg_sort_order') , 'viewValvulas','N° partida')}}</th>
-          <th style="border:0px;">{{macros.th_sortable('id',app.request.get('pcg_sort_col'), app.request.get('pcg_sort_order') , 'viewValvulas','Válvula')}}</th>
-          <th style="border:0px;">{{macros.th_sortable('id',app.request.get('pcg_sort_col'), app.request.get('pcg_sort_order') , 'viewValvulas','Tipo')}}</th>
-          <th style="border:0px;">{{macros.th_sortable('id',app.request.get('pcg_sort_col'), app.request.get('pcg_sort_order') , 'viewValvulas','Cantidad')}}</th>
-          <th style="border:0px;">{{macros.th_sortable('id',app.request.get('pcg_sort_col'), app.request.get('pcg_sort_order') , 'viewValvulas','De')}}</th>
-          <th style="border:0px;">{{macros.th_sortable('id',app.request.get('pcg_sort_col'), app.request.get('pcg_sort_order') , 'viewValvulas','A')}}</th>
-          <th style="border:0px;">{{macros.th_sortable('id',app.request.get('pcg_sort_col'), app.request.get('pcg_sort_order') , 'viewValvulas','Para')}}</th>
-          <th style="border:0px;">{{macros.th_sortable('id',app.request.get('pcg_sort_col'), app.request.get('pcg_sort_order') , 'viewValvulas','A retrabajar')}}</th>
-          <th style="border:0px;" width = "100px" class="noExl">Acciones</th>
-        </tr>
-      </thead>
-      <tbody> 
-        {% for valvula in valvulas %}
-        <tr>
-          <td>{{ valvula.id }}</td>
-          <td>{{ valvula.fecha|date('d-m-Y') }}</td>
-          <td>{{ valvula.codDesvio }}</td>
-          <td>{{ valvula.nroPartida }}</td>
-          <td>{{ valvula.codArticulo.id }} - <i>{{ valvula.codArticulo.descripcion }}</i></td>
-          <td>{% include 'valvula/_tipoMovimiento.html.twig' with {'tipoMovimiento': valvula.tipoMovimiento } %}</td>
-          <td>{{ valvula.cantidad }}</td>
-          <td>{{ valvula.codDeposito.id }} - <i>{{ valvula.codDeposito.descripcion }}</i></td>
-          <td>{{ valvula.codProveedor.id }} - <i>{{ valvula.codProveedor.descripcion }}</i></td>
-          <td>{% include 'valvula/_caracteristica.html.twig' with {'caracteristica': valvula.caracteristica } %}</td>
-          <td>{% include 'valvula/_aRetrabajar.html.twig' with {'aRetrabajar': valvula.aRetrabajar } %}</td>
-          <td class="actions  noExl">
-            <div class="btn-group">
-              <button class="btn btn-primary btn-xs dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Opciones <span class="caret"></span>
-              </button>
-              <div class="dropdown-menu">
-                <a class="dropdown-item" title='Editar'  href="{{ path('editValvula', { 'id': valvula.id }) }}">Editar registro<i class="ml-1 text-success far fa-edit"></i></a>
-                <div class="dropdown-divider"></div>
-                <a class="dropdown-item" title="Eliminar" onclick="sweetAlertDelete({{valvula.id}})" href="#">Eliminar registro<i class="ml-1 text-danger far fa-trash-alt"></i></a>
-              </div>
-            </div>
-          </td>
-        </tr>
-        {% endfor %}
-      </tbody>
-    </table>
-  </div>
-</form>
+{% include 'valvula/_table.html.twig' with {'valvulas': valvulas } %}
+
 <!-- END TABLE -->
 
-<div class="row">
-  <div class="col-md-4 pull-left">
-    <!-- EXPORT DATE -->
-    <div class="dropdown dropup">
-        <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown"><i class="fa fa-bars"></i> Exportar Datos
-        <span class="caret"></span></button>
-        <div class="dropdown-menu">
-            <a class="dropdown-item" onclick="exportToExcel()" href="#"><img src="{{ asset('images/icons/xls.png') }}" width="24"> Excel</a>
-        </div>
-    </div>
-    <!-- END EXPORT DATE -->
-  </div>
-    
-  <div class='col-md-3 text-center'>
-        <p>{{totalOfRecordsString}}</p>
-  </div>
+<!-- TOTAL -->
+{% include 'valvula/_resumenTotal.html.twig' with {'amountValvulas': amountValvulas} %}
+<!-- END TOTAL -->
 
-  <div class="col-md-5">
-    <div class="float-right">
-      {{ pagerHtml|raw }} 
-    </div>
-  </div>
-</div>
+
+<!-- FOOTER TABLE -->
+{% include 'valvula/_footerTable.html.twig' with {'totalOfRecordsString': totalOfRecordsString, 'pagerHtml': pagerHtml } %}
+<!-- END FOOTER TABLE -->
 
 {% endblock %}
 
 {% block javascript %}
-    {{ parent()}}
-    <script type="text/javascript" src=" {{ asset('js/jquery.table2excel.js') }}"></script>
-    <script src="{{ asset('js/customAlerts.js') }}"></script>
+  {{ parent()}}
 {% endblock %} 

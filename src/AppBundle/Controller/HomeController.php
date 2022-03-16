@@ -77,9 +77,18 @@ class HomeController extends BaseController
         /**
      * @Route("/controlStock", name="controlStock")
      */
-    public function controlStock(){
-        dump("controlStock");
-        die;
+    public function controlStock(Request $request){ 
+        $entityManager = $this->getEm();
+        $this->setBreadCrumbs("Movimientos válvulas", "controlStock");
+
+        $arrayTable = $this->baseService->renderTable($entityManager, $request, "Valvula", "StockFilterType", "StockFilterController", "controlStock");
+
+        return $this->render('controlStock/index.html.twig', array(
+            'valvulas'                  => $arrayTable[0],
+            'pagerHtml'                 => $arrayTable[1],
+            'filterForm'                => $arrayTable[2]->createView(),
+            'totalOfRecordsString'      => $arrayTable[3],
+        ));
     }
 
 

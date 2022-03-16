@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+<!-- HEADER -->
+<div class="row"> 
+
+  {% include 'controlStock/_filteringTable.html.twig' with {'filterForm': filterForm } %}
+
+  {% include 'controlStock/_actionsHeader.html.twig' with {'filterForm': filterForm } %}
+ 
+</div>
+<!-- END HEADER -->
+
+<!-- TABLE  -->
+
+{% include 'controlStock/_table.html.twig' with {'valvulas': valvulas } %}
+
+<!-- END TABLE -->
+
+<!-- FOOTER TABLE -->
+{% include 'controlStock/_footerTable.html.twig' with {'totalOfRecordsString': totalOfRecordsString, 'pagerHtml': pagerHtml } %}
+<!-- END FOOTER TABLE -->
+
+{% endblock %}
+{% block javascript %}
+  {{ parent()}}
+{% endblock %} 

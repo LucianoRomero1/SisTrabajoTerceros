@@ -4,7 +4,7 @@
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Envíos a terceros</h5>
+                <h5 class="modal-title">{{tipo}}</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -20,16 +20,16 @@
                 <div class="row">
                     <div class="col-md-4 ">
                         <h6> Fecha: </h6>
-                        <input class="form-control mt-1" type="date" required>
+                        <input class="form-control mt-1 fechaActual" type="date" required>
                     </div>
                 </div>
                 <br>  
                 <h6> De: </h6>
                 <div class="row">
-                    <div class="col-md-4">
+                    <div class="col-md-2">
                         <input class="form-control mt-1" type="text" required>
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-md-6">
                         <input class="form-control mt-1" type="text" required>
                     </div>
                 </div>
@@ -62,18 +62,18 @@
                     
                     <div class="col-md-4 text-center">
                         <h6> P.T.T Terminada </h6>
-                        <input class="mt-2" type="checkbox" required>
+                        <input class="mt-2" type="checkbox">
                     </div>
                 </div>
                 <br>
                 <div class="row">
                     <div class="col-md-5 text-center">
                         <h6> Sin terminado de punta (Op. 180): </h6>
-                        <input class="" type="checkbox" required>
+                        <input class="" type="checkbox">
                     </div>
                     <div class="col-md-6 text-center">
                         <h6> Válvulas para retrabajar </h6>
-                        <input class="" type="checkbox" required>
+                        <input class="" type="checkbox">
                     </div>
                 </div>
                 <br>
@@ -101,7 +101,7 @@
                 <div class="row">
                     <div class="col-md-12">
                         <h6> Para: </h6>
-                        <input class="form-control mt-1" type="text" value="getValueSelect()"  required>
+                        <input class="form-control mt-1 para" type="text"  value=""  readonly>
                     </div>
                 </div>
             </div>

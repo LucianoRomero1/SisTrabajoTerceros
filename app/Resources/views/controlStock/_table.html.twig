@@ -17,7 +17,7 @@
       <tbody> 
         {% for valvula in valvulas %}
         <tr>
-            <td>{{ valvula.codArticulo.descripcion }}</td>
+            <td>{% if valvula.codArticulo != null %}{{ valvula.codArticulo.descripcion }}{% endif %}</td>
             <td>{{ valvula.codDesvio }}</td>
             <td>{{ valvula.nroPartida }}</td>
             <td>{{ valvula.cantidad }}</td> {# Aca tengo que hacer los cálculos por partida #}

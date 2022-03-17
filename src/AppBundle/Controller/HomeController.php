@@ -39,11 +39,10 @@ class HomeController extends BaseController
         $this->setBreadCrumbs();
         $em = $this->getEm();
         $caracteristicas = $this->homeService->getCaracteristicas($em);
-        $arrayCaracteristicas = $this->homeService->getArrayCaracteristicas();
+        //$arrayCaracteristicas = $this->homeService->getArrayCaracteristicas();
         
         return $this->render('home/index.html.twig', array(
-            'caracteristicas'       => $caracteristicas,
-            'arrayCaracteristicas'  => $arrayCaracteristicas
+            'caracteristicas'       => $caracteristicas
         ));
     }
 
@@ -87,17 +86,17 @@ class HomeController extends BaseController
         die;
     }
 
-    /**
-     * @Route("/controlStock/{id}", defaults={"id" = 0}, name="controlStock")
+      /**
+     * @Route("/controlStock", name="controlStock")
      * 
     */
-    public function controlStock(Request $request, $id){ 
+    public function controlStock(Request $request){ 
         $entityManager = $this->getEm();
         $this->setBreadCrumbs("Movimientos válvulas", "controlStock");
         
-        $test = $request->get('caracteristica');
+        $caracteristica = $request->get('caracteristica');
 
-        dump($test);
+        dump($caracteristica);
         die;
 
         $arrayTable = $this->baseService->renderTable($entityManager, $request, "Valvula", "StockFilterType", "StockFilterController", "controlStock");
@@ -112,6 +111,10 @@ class HomeController extends BaseController
     }
 
 
+    //  /**
+    //  * @Route("/controlStock/{id}", defaults={"id" = 0}, name="controlStock")
+    //  * 
+    // */
     /**
     * Create filter form and process filter request.
     *

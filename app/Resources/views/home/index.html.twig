@@ -2,6 +2,7 @@
 
 {% block body %}
 <div class="boxHome">
+    <form action="controlStock">
     <br>
     <div class="text-center">
         <b class="mt-2"> Traslado/a de proceso </b>
@@ -43,7 +44,10 @@
                         <b>Control Stock en 3°</b>
                     </div>
                     <div class="card-body imgHome">
-                        <a href="{{path('controlStock', {'id': arrayCaracteristicas[1]})}}"><img src="{{asset('images/control_stock.png')}}" alt="Control de stock" height="100"></a>
+                        
+                            <button type="submit">CONTROL DE STOCK</button>
+                        
+                        {# <a href="{{path('controlStock', {'id': arrayCaracteristicas[1]})}}"><img src="{{asset('images/control_stock.png')}}" alt="Control de stock" height="100"></a> #}
                     </div>
                 </div>
             </div>
@@ -115,6 +119,7 @@
             </div>
         </div>
     </div>
+    </form>
 </div>
 <br>
 {% include 'home/envio.html.twig' with {'tipo': 'Envío a 3°'} %}

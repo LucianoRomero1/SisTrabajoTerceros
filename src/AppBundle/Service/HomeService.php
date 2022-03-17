@@ -21,17 +21,17 @@ class HomeService extends BaseService
         return $caracteristicas;
     }
 
-    public function getArrayCaracteristicas(){
-        $arrayCaracteristicas = array(
-            0 => "Nitrurar",
-            1 => "PVD - Nitruro de Cromo",
-            2 => "Mecanizado Final",
-            3 => "Forja - Tratamiento térmico",
-            4 => "Huecas a perforar"
-        );
+    // public function getArrayCaracteristicas(){
+    //     $arrayCaracteristicas = array(
+    //         0 => "Nitrurar",
+    //         1 => "PVD - Nitruro de Cromo",
+    //         2 => "Mecanizado Final",
+    //         3 => "Forja - Tratamiento térmico",
+    //         4 => "Huecas a perforar"
+    //     );
 
-        return $arrayCaracteristicas;
-    }
+    //     return $arrayCaracteristicas;
+    // }
 
     public function getAmountByTipoMovimiento($valvulas){
         foreach($valvulas as $valvula){

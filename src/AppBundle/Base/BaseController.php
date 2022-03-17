@@ -1,22 +1,20 @@
 <?php
 
 namespace AppBundle\Base;
+
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use WhiteOctober\BreadcrumbsBundle\Model\Breadcrumbs;
 
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 
-
-class BaseController extends AbstractController
+class BaseController extends Controller
 {
     
-
-
     public static function getSubscribedServices()
     {
         $services = parent::getSubscribedServices();
         return array_merge($services, array(
-            'white_october_breadcrumbs' => '?'.Breadcrumbs::class,
+            'white_october_breadcrumbs'         => '?'.Breadcrumbs::class,
         ));
     }
     

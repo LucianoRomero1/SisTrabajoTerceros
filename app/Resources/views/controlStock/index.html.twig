@@ -19,7 +19,7 @@
 <!-- END TABLE -->
 
 <!-- FOOTER TABLE -->
-{% include 'controlStock/_footerTable.html.twig' with {'totalOfRecordsString': totalOfRecordsString, 'pagerHtml': pagerHtml } %}
+{% include 'controlStock/_footerTable.html.twig' with {'totalOfRecordsString': valvulas|length, 'pagerHtml': pagerHtml } %}
 <!-- END FOOTER TABLE -->
 
 {% endblock %}

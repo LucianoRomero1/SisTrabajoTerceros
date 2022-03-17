@@ -20,4 +20,11 @@ class HomeService extends BaseService
 
         return $caracteristicas;
     }
+
+    public function getAmountByTipoMovimiento($valvulas){
+        foreach($valvulas as $valvula){
+            dump($valvula->getCodArticulo()->getId());
+        }
+        die;
+    }
 }

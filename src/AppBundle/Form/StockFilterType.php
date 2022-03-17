@@ -17,9 +17,7 @@ class StockFilterType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('descripcion', Filters\TextFilterType::class, array(
-                'label' => 'Código 3B'
-            ));
+            ->add('codArticulo');
             // ->add('codArticulo', Filters\EntityFilterType::class, array(
             //     'class' => 'AppBundle\Entity\Articulo',
             //     'choice_label' => 'descripcion',

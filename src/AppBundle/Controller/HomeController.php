@@ -7,6 +7,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use AppBundle\Base\BaseController;
 use AppBundle\Base\BaseService;
+use AppBundle\Repository\ValvulaRepository;
 use AppBundle\Service\HomeService;
 
 class HomeController extends BaseController
@@ -83,6 +84,7 @@ class HomeController extends BaseController
 
         $arrayTable = $this->baseService->renderTable($entityManager, $request, "Valvula", "StockFilterType", "StockFilterController", "controlStock");
 
+        //$this->homeService->getAmountByTipoMovimiento($arrayTable[0]);
         return $this->render('controlStock/index.html.twig', array(
             'valvulas'                  => $arrayTable[0],
             'pagerHtml'                 => $arrayTable[1],
@@ -90,6 +92,8 @@ class HomeController extends BaseController
             'totalOfRecordsString'      => $arrayTable[3],
         ));
     }
+
+
 
 
 }

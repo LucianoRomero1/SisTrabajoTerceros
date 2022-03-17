@@ -2,19 +2,18 @@
 <div class="col-md-12"> 
 <div  id="filters" class="collapse"> 
     <form class="card pl-3 pr-3 pt-2 bg-light mb-3" action="{{ path('controlStock') }}" method="get">
-    <div class="row">
-        <div class="col-md-3">{{ form_row(filterForm.descripcion) }}</div>
-        <div class="col-md-6">
-        {{ form_rest(filterForm) }}
-        </div>
-        <div class="col-md-12">
-            <div class="form-group">
-                <button type="submit" class="btn btn-warning" name="filter_action" value="filter"><i class="fas fa-filter"></i> Filtrar</button>
-                <button type="submit" class="btn btn-light" name="filter_action" value="reset"><i class="fas fa-minus"></i> Reset</button>
+        <div class="row">
+            <div class="col-md-3">{{ form_row(filterForm.codArticulo) }}</div>
+            <div class="col-md-6">
+            {{ form_rest(filterForm) }}
+            </div>
+            <div class="col-md-12">
+                <div class="form-group">
+                    <button type="submit" class="btn btn-warning" name="filter_action" value="filter"><i class="fas fa-filter"></i> Filtrar</button>
+                    <button type="submit" class="btn btn-light" name="filter_action" value="reset"><i class="fas fa-minus"></i> Reset</button>
+                </div>
             </div>
         </div>
-    </div>
-
     </form>
 </div>
 </div>

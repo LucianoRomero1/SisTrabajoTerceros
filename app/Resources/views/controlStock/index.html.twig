@@ -2,27 +2,37 @@
 
 {% block body %}
 
-<!-- HEADER -->
-<div class="row"> 
-
-  {% include 'controlStock/_filteringTable.html.twig' with {'filterForm': filterForm } %}
-
-  {% include 'controlStock/_actionsHeader.html.twig' with {'filterForm': filterForm } %}
+<div class="page">
  
+  <!-- TABLE  -->
+
+  {% include 'controlStock/_table.html.twig' with {'valvulas': valvulas } %}
+
+  <!-- END TABLE -->
+
+  <!-- FOOTER TABLE  -->
+
+  {% include 'controlStock/_footerTable.html.twig'  %}
+
+  <!-- END FOOTER TABLE -->
+
 </div>
-<!-- END HEADER -->
+<div id="loading"></div>
 
-<!-- TABLE  -->
-
-{% include 'controlStock/_table.html.twig' with {'valvulas': valvulas } %}
-
-<!-- END TABLE -->
-
-<!-- FOOTER TABLE -->
-{% include 'controlStock/_footerTable.html.twig' with {'totalOfRecordsString': valvulas|length, 'pagerHtml': pagerHtml } %}
-<!-- END FOOTER TABLE -->
 
 {% endblock %}
+
 {% block javascript %}
   {{ parent()}}
+  <script>
+    
+  </script>
+  <script src="{{ asset('js/dataTableStock.js') }}"></script>
+  <script src="{{ asset('js/dataTableBtn.js') }}"></script>
+  <script src="{{ asset('js/dataTableBtnHtml.js') }}"></script>
+  <script src="{{ asset('js/alignBtnDataTable.js') }}"></script>
+  <script src="{{ asset('js/loadingStock.js') }}"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
 {% endblock %} 

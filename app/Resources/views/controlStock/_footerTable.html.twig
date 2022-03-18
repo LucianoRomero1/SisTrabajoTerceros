@@ -1,26 +1,13 @@
-<br>
 <div class="row">
   <div class="col-md-4 pull-left">
     <!-- EXPORT DATE -->
     <div class="dropdown dropup">
         <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown"><i class="fa fa-bars"></i> Exportar Datos
         <span class="caret"></span></button>
-        <div class="dropdown-menu">
-            <a class="dropdown-item" onclick="exportToExcel()" href="#"><img src="{{ asset('images/icons/xls.png') }}" width="24"> Excel</a>
+        <div class="dropdown-menu p-4">
+            {# <a class="dropdown-item" onclick="exportToExcel()" href="#"><img src="{{ asset('images/icons/xls.png') }}" width="24"> Excel</a> #}
         </div>
     </div>
     <!-- END EXPORT DATE -->
   </div>
-    
-  <div class='col-md-3 text-center'>
-      {# <p>{{totalOfRecordsString}}</p> #}
-      {# <p>Mostrando - {{totalOfRecordsString}} registros</p> #}
-  </div>
-
-  <div class="col-md-5">
-    <div class="float-right">
-      {{ pagerHtml|raw }} 
-    </div>
-  </div>
 </div>
-<br>

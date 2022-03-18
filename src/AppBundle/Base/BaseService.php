@@ -19,14 +19,14 @@ class BaseService extends AbstractController
     }
 
     public function renderTable($entityManager, $request, $className, $formName, $filterController, $routeName){
-        $queryBuilder = $entityManager->getRepository("AppBundle:$className")->createQueryBuilder('e');
+        $queryBuilder                       = $entityManager->getRepository("AppBundle:$className")->createQueryBuilder('e');
 
-        list($filterForm, $queryBuilder) = $this->filter($queryBuilder, $request, $formName, $filterController);
-        list($partidasMov, $pagerHtml) = $this->paginator($queryBuilder, $request, $routeName);
+        list($filterForm, $queryBuilder)    = $this->filter($queryBuilder, $request, $formName, $filterController);
+        list($data, $pagerHtml)             = $this->paginator($queryBuilder, $request, $routeName);
 
-        $totalOfRecordsString = $this->getTotalOfRecordsString($queryBuilder, $request);
+        $totalOfRecordsString               = $this->getTotalOfRecordsString($queryBuilder, $request);
 
-        return array($partidasMov, $pagerHtml, $filterForm,  $totalOfRecordsString);
+        return array($data, $pagerHtml, $filterForm,  $totalOfRecordsString);
     }
 
     /**

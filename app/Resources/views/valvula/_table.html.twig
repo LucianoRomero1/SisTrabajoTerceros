@@ -19,12 +19,14 @@
       </thead>
       <tbody> 
         {% for valvula in valvulas %}
+        {% if valvula.codArticulo.descripcion is defined %}
         <tr>
           <td>{{ valvula.id }}</td>
           <td>{{ valvula.fecha|date('d-m-Y') }}</td>
           <td>{{ valvula.codDesvio }}</td>
           <td>{{ valvula.nroPartida }}</td>
-          <td>{{ valvula.codArticulo.id }} - <i>{{ valvula.codArticulo.descripcion }}</i></td>
+          <td>{{valvula.codArticulo.descripcion}}</td>
+          {# <td>{{ valvula.codArticulo.id }} - <i>{{ valvula.codArticulo.descripcion }}</i></td> #}
           <td>{% include 'valvula/_tipoMovimiento.html.twig' with {'tipoMovimiento': valvula.tipoMovimiento } %}</td>
           <td>{{ valvula.cantidad }}</td>
           {% include 'valvula/_rowColor.html.twig' with {'codDeposito': valvula.codDeposito.id} %}{{ valvula.codDeposito.id }} - <i>{{ valvula.codDeposito.descripcion }}</i></td>
@@ -44,6 +46,7 @@
             </div>
           </td>
         </tr>
+        {% endif %}
         {% endfor %}
       </tbody>
     </table>

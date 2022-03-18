@@ -39,6 +39,7 @@ class ValvulaController extends BaseController
         $arrayTable     = $this->baseService->renderTable($entityManager, $request, "Valvula", "ValvulaFilterType", "ValvulaFilterController", "viewValvulas");
         $articulos      = $this->valvulaService->getValuesAnotherTable();
         $amountValvulas = $this->valvulaService->getAmountValvula($arrayTable[0]);
+        
 
         return $this->render('valvula/view.html.twig', array(
             'valvulas'                  => $arrayTable[0],

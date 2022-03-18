@@ -2,12 +2,12 @@
 
 namespace AppBundle\Base;
 
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use WhiteOctober\BreadcrumbsBundle\Model\Breadcrumbs;
 
 
 
-class BaseController extends Controller
+class BaseController extends AbstractController
 {
     
     public static function getSubscribedServices()

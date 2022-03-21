@@ -18,11 +18,20 @@ class BaseService extends AbstractController
         $this->filter = $filter;
     }
 
-    public function renderTable($entityManager, $request, $className, $formName, $filterController, $routeName){
+    public function renderTable($entityManager, $request, $className, $formName, $filterController, $routeName, $tipoAccion = null){
         $queryBuilder                       = $entityManager->getRepository("AppBundle:$className")->createQueryBuilder('e');
 
+        if($tipoAccion != null){
+            // dump($queryBuilder->where('e.tipo = '. $tipoAccion));
+            // die;
+            $queryBuilder->where('e.tipoMovimiento = '. $tipoAccion);
+        }
+    
         list($filterForm, $queryBuilder)    = $this->filter($queryBuilder, $request, $formName, $filterController);
         list($data, $pagerHtml)             = $this->paginator($queryBuilder, $request, $routeName);
+
+        // dump($data);
+        // die;
 
         $totalOfRecordsString               = $this->getTotalOfRecordsString($queryBuilder, $request);
 

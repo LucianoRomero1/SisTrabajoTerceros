@@ -1,0 +1,13 @@
+{% if codDeposito == 100 %}
+    <input class="form-control mt-1" type="text" value="(MP) PRODUCCION" readonly>
+{% elseif codDeposito == 102 %} 
+    <input class="form-control mt-1" type="text" value="(MP) INSP. FINAL" readonly>
+{% elseif codDeposito == 103 %} 
+    <input class="form-control mt-1" type="text" value="(3B) PRODUCCION" readonly>
+{% if codDeposito == 201 %}
+    <input class="form-control mt-1" type="text" value="(P.I) PARQUE INS FINAL" readonly>
+{% elseif codDeposito == 202 %} 
+    <input class="form-control mt-1" type="text" value="(3B) INSPECCIÓN FINAL" readonly>
+{% elseif codDeposito == 301 %} 
+    <input class="form-control mt-1" type="text" value="(P.I) PRODUCCION" readonly>
+{% endif %}

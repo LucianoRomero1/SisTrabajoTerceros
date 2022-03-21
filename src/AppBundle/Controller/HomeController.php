@@ -7,16 +7,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use AppBundle\Base\BaseController;
 use AppBundle\Base\BaseService;
-use AppBundle\Repository\ValvulaRepository;
 use AppBundle\Service\HomeService;
-use AppBundle\Entity\Valvula;
-use AppBundle\Form\StockType;
-use AppBundle\Entity\Busqueda;
-use AppBundle\Form\BusquedaType;
-
-use Pagerfanta\Pagerfanta;
-use Pagerfanta\Adapter\DoctrineORMAdapter;
-use Pagerfanta\View\TwitterBootstrap3View;
 
 
 class HomeController extends BaseController
@@ -49,15 +40,18 @@ class HomeController extends BaseController
      /**
      * @Route("/envioTercero", name="envioTercero")
      */
-    public function envioTercero(){
+    public function envioTercero(Request $request){
+        $formArea = $request->get("Valvula");
         dump("envioTercero");
         die;
     }
 
+
     /**
      * @Route("/recepcionEnTercero", name="recepcionEnTercero")
      */
-    public function recepcionEnTercero(){
+    public function recepcionEnTercero(Request $request){
+        $formArea = $request->get("Valvula");
         dump("recepcionEnTercero");
         die;
     }
@@ -65,7 +59,8 @@ class HomeController extends BaseController
       /**
      * @Route("/recepcionDeTercero", name="recepcionDeTercero")
      */
-    public function recepcionDeTercero(){
+    public function recepcionDeTercero(Request $request){
+        $formArea = $request->get("Valvula");
         dump("recepcionDeTercero");
         die;
     }
@@ -73,7 +68,8 @@ class HomeController extends BaseController
       /**
      * @Route("/produccionTercero", name="produccionTercero")
      */
-    public function produccionTercero(){
+    public function produccionTercero(Request $request){
+        $formArea = $request->get("Valvula");
         dump("produccionTercero");
         die;
     }
@@ -81,7 +77,8 @@ class HomeController extends BaseController
       /**
      * @Route("/devolucionTercero", name="devolucionTercero")
      */
-    public function devolucionTercero(){
+    public function devolucionTercero(Request $request){
+        $formArea = $request->get("Valvula");
         dump("devolucionTercero");
         die;
     }
@@ -95,9 +92,8 @@ class HomeController extends BaseController
         $this->setBreadCrumbs("Movimientos válvulas", "controlStock");
         
         $caracteristica = $request->get('caracteristica');
-
-        $arrayTable = $this->baseService->renderTable($entityManager, $request, "Valvula", "StockFilterType", "StockFilterController", "controlStock");
-        $results    = $this->homeService->getStock($entityManager, $caracteristica);
+        $arrayTable     = $this->baseService->renderTable($entityManager, $request, "Valvula", "StockFilterType", "StockFilterController", "controlStock");
+        $results        = $this->homeService->getStock($entityManager, $caracteristica);
 
         return $this->render('controlStock/index.html.twig', array(
             'valvulas'                  => $results,

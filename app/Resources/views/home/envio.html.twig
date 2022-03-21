@@ -27,10 +27,18 @@
                 <h6> De: </h6>
                 <div class="row">
                     <div class="col-md-2">
-                        <input class="form-control mt-1" type="text" required>
+                        <select class="form-control mt-1" id="codDeposito" onchange="changeValue()" required>
+                            <option value="">Seleccione una opción</option>
+                            <option value="100">100</option>
+                            <option value="102">102</option>
+                            <option value="103">103</option>
+                            <option value="201">201</option>
+                            <option value="202">202</option>
+                            <option value="301">301</option>
+                        </select>
                     </div>
                     <div class="col-md-6">
-                        <input class="form-control mt-1" type="text" required>
+                        <input class="form-control mt-1" type="text" id="descripcionDepo" readonly>
                     </div>
                 </div>
                 <br>
@@ -113,3 +121,4 @@
     </div>
     </form>
 </div>
+<script src="{{asset('js/changeValueDepo.js')}}"></script>

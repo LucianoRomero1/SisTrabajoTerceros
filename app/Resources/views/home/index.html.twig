@@ -2,6 +2,7 @@
 
 {% block body %}
 <div class="boxHome">
+    <form action="controlStock">
     <br>
     <div class="text-center">
         <b class="mt-2"> Traslado/a de proceso </b>
@@ -28,7 +29,7 @@
                         <a data-toggle="modal" data-target=".bd-example-modal-lg-envio" onclick="getValueSelect()"><img src="{{asset('images/devolucion.png')}}" alt="Envío" height="100"></a>
                     </div>
                     <div class="card-footer">
-                        <a class="btn btn-secondary text-white">Ver detalle</a>
+                        <a href="{{path('viewValvulas', {'id': '1'})}}" class="btn btn-secondary text-white">Ver detalle</a>
                     </div>
                 </div>
                 <div class="text-center">   
@@ -36,13 +37,14 @@
                 </div>
             </div>
             <div class="col-md-1"></div>
+            
             <div class="col-md-2 mt-5">
                 <div class="card mb-3 text-center">
                     <div class="card-header">
                         <b>Control Stock en 3°</b>
                     </div>
                     <div class="card-body imgHome">
-                        <a href="{{path('controlStock')}}"><img src="{{asset('images/control_stock.png')}}" alt="Control de stock" height="100"></a>
+                        <button type="submit" class="buttonInicio"><img src="{{asset('images/control_stock.png')}}" alt="Control de stock" height="100"></button>
                     </div>
                 </div>
             </div>
@@ -56,7 +58,7 @@
                         <a data-toggle="modal" data-target=".bd-example-modal-lg-recepcion-de" onclick="getValueSelect()"><img src="{{asset('images/entrega.jpg')}}" alt="Recepción de 3°" height="100">
                     </div>
                     <div class="card-footer">
-                        <a class="btn btn-secondary text-white">Ver detalle</a>
+                        <a href="{{path('viewValvulas', {'id': '2'})}}" class="btn btn-secondary text-white">Ver detalle</a>
                     </div>
                 </div>
                 <div class="text-center mt-5">   
@@ -76,15 +78,18 @@
                         <a data-toggle="modal" data-target=".bd-example-modal-lg-recepcion-en"  onclick="getValueSelect()"><img src="{{asset('images/recepcion.jpg')}}" alt="Recepción en 3°" height="100"></a>
                     </div>
                     <div class="card-footer">
-                        <a class="btn btn-secondary text-white">Ver detalle</a>
+                        <a href="{{path('viewValvulas', {'id': '3'})}}" class="btn btn-secondary text-white">Ver detalle</a>
                     </div>
                 </div>
             </div>
-            <div class="col-md-1">
-                <i class="mt-5 fas fa-arrow-alt-circle-right text-info fa-2x"></i>
+            <div class="col-md-1"></div>
+            <div class="col-md-3">
+                <i style="margin-top: 100px; margin-left: 80px;" class="fas fa-arrow-alt-circle-right text-info fa-2x"></i>
             </div>
+            {# <div class="col-md-3"></div> #}
+            {# SI BIEN ESTO NO VA, LO DEJO POR LAS DUDAS, ES EL DE PRODUCCION
             <div class="col-md-2" style="margin-top: -25px;">
-                <div class="card mb-3 text-center">
+                <div class="card mb-3 text-center d-none" >
                     <div class="card-header">
                         <b>Producción en 3°</b>
                     </div>
@@ -92,13 +97,13 @@
                         <a data-toggle="modal" data-target=".bd-example-modal-lg-produccion"  onclick="getValueSelect()"><img src="{{asset('images/produccion.jpg')}}" alt="Producción en 3°" height="100"></a>
                     </div>
                     <div class="card-footer">
-                        <a class="btn btn-secondary text-white">Ver detalle</a>
+                        <a href="{{path('viewValvulas', {'id': '3'})}}" class="btn btn-secondary text-white">Ver detalle</a>
                     </div>
                 </div>
             </div>
             <div class="col-md-1">
                 <i class="mt-5 fas fa-arrow-alt-circle-right text-info fa-2x"></i>
-            </div>
+            </div> #}
             <div class="col-md-2">
                 <div class="card mb-3 text-center">
                     <div class="card-header">
@@ -108,12 +113,13 @@
                         <a data-toggle="modal" data-target=".bd-example-modal-lg-devolucion"  onclick="getValueSelect()"><img src="{{asset('images/envio.png')}}" alt="Devolución de 3°" height="100"></a>
                     </div>
                     <div class="card-footer">
-                        <a class="btn btn-secondary text-white">Ver detalle</a>
+                        <a href="{{path('viewValvulas', {'id': '4'})}}" class="btn btn-secondary text-white">Ver detalle</a>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+    </form>
 </div>
 <br>
 {% include 'home/envio.html.twig' with {'tipo': 'Envío a 3°'} %}

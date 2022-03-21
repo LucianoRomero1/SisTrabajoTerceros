@@ -35,9 +35,24 @@ class ValvulaFilterType extends AbstractType
                     'A retrabajar'    => 1,
                 ],
             ))
-            ->add('codDeposito', Filters\TextFilterType::class, array(
-                'label' => 'Código depósito'
+            ->add('codDeposito', Filters\EntityFilterType::class, array(
+                'class' => 'AppBundle\Entity\Deposito',
+                'choice_label' => 'id',
+                'label' => 'Código depósito',
+                'query_builder' => function (\AppBundle\Repository\DepositoRepository $er) {
+                    return $er->createQueryBuilder('c')
+                        ->where('c.id = 100')
+                        ->orWhere('c.id = 102')
+                        ->orWhere('c.id = 103')
+                        ->orWhere('c.id = 201')
+                        ->orWhere('c.id = 202')
+                        ->orWhere('c.id = 301')
+                        ->orderBy('c.id', 'ASC');
+                    }
             ))
+            // ->add('codDeposito', Filters\TextFilterType::class, array(
+            //     'label' => 'Código depósito'
+            // ))
             ->add('fecha', Filters\DateRangeFilterType::class,  array(
                 'label' => 'Fecha',
                 'left_date_options' => array(

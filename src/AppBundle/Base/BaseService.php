@@ -18,15 +18,24 @@ class BaseService extends AbstractController
         $this->filter = $filter;
     }
 
-    public function renderTable($entityManager, $request, $className, $formName, $filterController, $routeName){
-        $queryBuilder = $entityManager->getRepository("AppBundle:$className")->createQueryBuilder('e');
+    public function renderTable($entityManager, $request, $className, $formName, $filterController, $routeName, $tipoAccion = null){
+        $queryBuilder                       = $entityManager->getRepository("AppBundle:$className")->createQueryBuilder('e');
 
-        list($filterForm, $queryBuilder) = $this->filter($queryBuilder, $request, $formName, $filterController);
-        list($partidasMov, $pagerHtml) = $this->paginator($queryBuilder, $request, $routeName);
+        if($tipoAccion != null){
+            // dump($queryBuilder->where('e.tipo = '. $tipoAccion));
+            // die;
+            $queryBuilder->where('e.tipoMovimiento = '. $tipoAccion);
+        }
+    
+        list($filterForm, $queryBuilder)    = $this->filter($queryBuilder, $request, $formName, $filterController);
+        list($data, $pagerHtml)             = $this->paginator($queryBuilder, $request, $routeName);
 
-        $totalOfRecordsString = $this->getTotalOfRecordsString($queryBuilder, $request);
+        // dump($data);
+        // die;
 
-        return array($partidasMov, $pagerHtml, $filterForm,  $totalOfRecordsString);
+        $totalOfRecordsString               = $this->getTotalOfRecordsString($queryBuilder, $request);
+
+        return array($data, $pagerHtml, $filterForm,  $totalOfRecordsString);
     }
 
     /**

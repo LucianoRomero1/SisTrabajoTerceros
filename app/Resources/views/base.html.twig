@@ -8,7 +8,8 @@
     <title>{% block title %} Proyecto Base {% endblock %}</title>
 
     {% block stylesheets %}
-
+    <link href="https://cdn.datatables.net/buttons/2.2.2/css/buttons.dataTables.min.css" rel="stylesheet">
+    <link href="{{ asset('css/dataTable.css') }}" rel="stylesheet">
     <link href="{{ asset('css/bootstrap.css') }}" rel="stylesheet">
     <link href="{{ asset('css/site.css') }}" rel="stylesheet">
     <link href="{{ asset('css/fontawesome-all.css') }}" rel="stylesheet">
@@ -79,6 +80,7 @@
     </div>
     {% block bodyFooter %}
         <br>
+        <br>
         <div class="fixed-bottom row" style="color: white;vertical-align: middle;text-align: center;background-color: black;font-size: 12px;">
             <div class="col-md-4" id="footer-1" name="footer-1">
             </div>
@@ -102,6 +104,8 @@
         <script src="{{ asset('js/tooltip.js') }}"></script>
         <script src="{{ asset('js/addFlash.js') }}" data-search-pseudo-elements></script>
         <script src="{{ asset('js/customAlerts.js') }}"></script>
+        <script src="{{ asset('js/dataTablejQuery.js') }}"></script>
+        <script src="{{ asset('js/dataTableBs.js') }}"></script>
         <script type="text/javascript" src=" {{ asset('js/jquery.table2excel.js') }}"></script>
     {% endblock %}
 </body>

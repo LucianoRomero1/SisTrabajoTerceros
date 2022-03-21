@@ -36,9 +36,6 @@ class PartidasMovController extends BaseController
     */
     public function view(){
         return $this->render('partidasMov/view.html.twig');
-
-       
-        
     }
 
     /**

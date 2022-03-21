@@ -62,7 +62,6 @@ window.onload = function(){
 }
 
 function setDate(fechas, anio, mes, dia){
-    console.log(fechas);
     for (let index = 0; index < fechas.length; index++) {
         fechas[index].value = anio+"-"+mes+"-"+dia;
     }

@@ -13,103 +13,99 @@
                 <div class="row">
                     <div class="col-md-4 ">
                         <h6> N° Registro: </h6>
-                        <input class="form-control mt-1 d-inline" type="text" required>
+                        <input class="form-control mt-1 d-inline" type="text" value="{{nroRegistro[1]}}" name="Valvula[nroRegistro]" readonly>
                     </div>
                 </div>
                 <br>
                 <div class="row">
                     <div class="col-md-4 ">
                         <h6> Fecha: </h6>
-                        <input class="form-control mt-1 fechaActual" type="date" required>
+                        <input class="form-control mt-1 fechaActual" type="date" name="Valvula[fecha]" required>
                     </div>
                 </div>
                 <br>  
                 <h6> De: </h6>
                 <div class="row">
                     <div class="col-md-2">
-                        <select class="form-control mt-1" id="codDeposito" onchange="changeValue()" required>
-                            <option value="">Seleccione una opción</option>
-                            <option value="100">100</option>
-                            <option value="102">102</option>
-                            <option value="103">103</option>
-                            <option value="201">201</option>
-                            <option value="202">202</option>
-                            <option value="301">301</option>
-                        </select>
+                        <input class="form-control mt-1" type="text" id="codDeposito" name="Valvula[aProveedor]" onfocusout="getDeposito()" required>
                     </div>
                     <div class="col-md-6">
-                        <input class="form-control mt-1" type="text" id="descripcionDepo" readonly>
+                        <input class="form-control mt-1" type="text" id="descripcionDepo"  readonly>
                     </div>
                 </div>
                 <br>
                 <h6> N° Partida: </h6>
                 <div class="row">
                     <div class="col-md-2">
-                        <input class="form-control mt-1" type="text" required>
+                        <input class="form-control mt-1" type="text" value="0" name="Valvula[codDesvio]" id="codDesvio" required>
                     </div>
                     <div class="col-md-4">
-                        <input class="form-control mt-1" type="text" required>
+                        <input class="form-control mt-1" type="text" name="Valvula[nroPartida]" id="nroPartida" onfocusout="getValvula()" required>
                     </div>
+                    {# Este se muestra cuando se edita
                     <div class="col-md-2">
-                        <input class="form-control mt-1" type="text" readonly>
-                    </div>
+                        <input class="form-control mt-1" type="text" name="Valvula[]" readonly>
+                    </div> #}
                 </div>
                 <br>
                 <div class="row">
                     <div class="col-md-4 ">
                         <h6> Válvula: </h6>
-                        <input class="form-control mt-1" type="text" required>
+                        <input class="form-control mt-1" type="text" name="Valvula[valvula]" id="valvula" readonly>
                     </div>
                 </div>
                 <br>
                 <div class="row">
                     <div class="col-md-4">
                         <h6> Cantidad: </h6>
-                        <input class="form-control mt-1" type="text" required>
+                        <input class="form-control mt-1" type="text" name="Valvula[cantidad]" required>
                     </div>
                     
                     <div class="col-md-4 text-center">
                         <h6> P.T.T Terminada </h6>
-                        <input class="mt-2" type="checkbox">
+                        <input class="mt-2" type="checkbox"name="Valvula[ppt]" >
                     </div>
                 </div>
                 <br>
                 <div class="row">
                     <div class="col-md-5 text-center">
                         <h6> Sin terminado de punta (Op. 180): </h6>
-                        <input class="" type="checkbox">
+                        <input class="" type="checkbox"name="Valvula[sinPunta]" >
                     </div>
                     <div class="col-md-6 text-center">
                         <h6> Válvulas para retrabajar </h6>
-                        <input class="" type="checkbox">
+                        <input class="" type="checkbox"name="Valvula[retrabajar]" >
                     </div>
                 </div>
                 <br>
                 <div class="row">
                     <div class="col-md-12">
                         <h6> Observaciones: </h6>
-                        <input class="form-control mt-1" type="text" required>
+                        <input class="form-control mt-1" type="text" name="Valvula[observaciones]" required>
                     </div>
                 </div>
                 <br>
                 <div class="row">
                     <div class="col-md-12">
                         <h6> Tipo: </h6>
-                        <input class="form-control mt-1" type="text" value="{{tipo}}" readonly>
+                        <input class="form-control mt-1" type="text" value="{{tipo}}" name="Valvula[tipo]" readonly>
                     </div>
                 </div>
                 <br>
+                <h6> A: </h6>
                 <div class="row">
-                    <div class="col-md-12">
-                        <h6> A: </h6>
-                        <input class="form-control mt-1" type="text" required>
+                    <div class="col-md-2">
+                        <input class="form-control mt-1" type="text" name="Valvula[aProveedor]" id="codProveedor" onfocusout="getProveedor()" value="" required>
+                    </div>
+                    <div class="col-md-6">
+                        <input class="form-control mt-1" id="descripcionProv" type="text" readonly>
                     </div>
                 </div>
                 <br>
                 <div class="row">
                     <div class="col-md-12">
                         <h6> Para: </h6>
-                        <input class="form-control mt-1 para" type="text"  value=""  readonly>
+                        <input class="form-control mt-1 para" type="text"  name="Valvula[para]" value=""  readonly>
                     </div>
                 </div>
             </div>
@@ -118,7 +114,9 @@
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
             </div>
         </div>
+        
     </div>
+    
     </form>
 </div>
-<script src="{{asset('js/changeValueDepo.js')}}"></script>
+<script src="{{asset('js/ajaxModals.js')}}"></script>

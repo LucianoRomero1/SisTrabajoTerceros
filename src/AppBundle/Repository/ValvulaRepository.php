@@ -10,4 +10,12 @@ namespace AppBundle\Repository;
  */
 class ValvulaRepository extends \Doctrine\ORM\EntityRepository
 {
+    public function getCountValvulas(){
+        $qb = $this
+            ->createQueryBuilder('v')
+            ->select('MAX(v.id)');
+            
+        return $qb->getQuery()->getSingleResult();
+            
+    }
 }

@@ -3,6 +3,8 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use AppBundle\Entity\TipoMovPartida;
+use AppBundle\Entity\Articulo;
 
 /**
  * PartidasMov
@@ -17,23 +19,26 @@ class PartidasMov
      *
      * @ORM\Column(name="nro_partida", type="integer")
      * @ORM\Id
-     * @ORM\GeneratedValue(strategy="AUTO")
      */
-    private $id;
+    private $nroPartida;
 
     /**
      * @var string
      *
      * @ORM\Column(name="cod_desvio", type="string", length=255)
+     * @ORM\Id
      */
     private $codDesvio;
 
     /**
      * @var int
      *
-     * @ORM\Column(name="cod_tipo_mov", type="integer")
+     * @ORM\ManyToOne(targetEntity="TipoMovPartida")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="cod_tipo_mov", referencedColumnName="cod_tipo_mov", nullable=false)
+     * })
      */
-    private $codTipoMov;
+    private $tipoMovPartida;
 
     /**
      * @var \DateTime
@@ -46,15 +51,19 @@ class PartidasMov
      * @var int
      *
      * @ORM\Column(name="nro_mov", type="integer")
+     * @ORM\Id
      */
     private $nroMov;
 
     /**
      * @var int
      *
-     * @ORM\Column(name="cod_articulo", type="integer")
+     * @ORM\ManyToOne(targetEntity="Articulo")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="cod_articulo", referencedColumnName="cod_articulo", nullable=false)
+     * })
      */
-    private $codArticulo;
+    private $articulo;
 
     /**
      * @var int
@@ -92,14 +101,28 @@ class PartidasMov
     private $codCpte;
 
 
+   /**
+     * Set nroPartida
+     *
+     * @param string $nroPartida
+     *
+     * @return PartidasMov
+     */
+    public function setNroPartida($nroPartida)
+    {
+        $this->nroPartida = $nroPartida;
+
+        return $this;
+    }
+    
     /**
-     * Get id
+     * Get nroPartida
      *
      * @return int
      */
-    public function getId()
+    public function getNroPartida()
     {
-        return $this->id;
+        return $this->nroPartida;
     }
 
     /**
@@ -126,28 +149,28 @@ class PartidasMov
         return $this->codDesvio;
     }
 
-    /**
-     * Set codTipoMov
+       /**
+     * Set tipoMovPartida
      *
-     * @param integer $codTipoMov
+     * @param TipoMovPartida $tipoMovPartida
      *
      * @return PartidasMov
      */
-    public function setCodTipoMov($codTipoMov)
+    public function setTipoMovPartida(TipoMovPartida $tipoMovPartida = null )
     {
-        $this->codTipoMov = $codTipoMov;
+        $this->tipoMovPartida = $tipoMovPartida;
 
         return $this;
     }
 
     /**
-     * Get codTipoMov
+     * Get tipoMovPartida
      *
-     * @return int
+     * @return TipoMovPartida
      */
-    public function getCodTipoMov()
+    public function getTipoMovPartida()
     {
-        return $this->codTipoMov;
+        return $this->tipoMovPartida;
     }
 
     /**
@@ -199,27 +222,27 @@ class PartidasMov
     }
 
     /**
-     * Set codArticulo
+     * Set articulo
      *
-     * @param integer $codArticulo
+     * @param integer $articulo
      *
      * @return PartidasMov
      */
-    public function setCodArticulo($codArticulo)
+    public function setArticulo(Articulo $articulo = null)
     {
-        $this->codArticulo = $codArticulo;
+        $this->articulo = $articulo;
 
         return $this;
     }
 
     /**
-     * Get codArticulo
+     * Get articulo
      *
      * @return int
      */
-    public function getCodArticulo()
+    public function getArticulo()
     {
-        return $this->codArticulo;
+        return $this->articulo;
     }
 
     /**

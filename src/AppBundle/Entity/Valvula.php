@@ -17,7 +17,7 @@ class Valvula
      *
      * @ORM\Column(name="nro_registro", type="integer")
      * @ORM\Id
-     * @ORM\GeneratedValue(strategy="AUTO")
+     * @ORM\GeneratedValue(strategy="NONE")
      */
     private $id;
 
@@ -184,6 +184,17 @@ class Valvula
      */
     private $pttTerminada;
 
+    /**
+     * Set id
+     * @param integer $id
+     * @return Valvula
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
+
+        return $this;
+    }
 
     /**
      * Get id

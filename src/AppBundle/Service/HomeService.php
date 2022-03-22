@@ -3,8 +3,10 @@
 namespace AppBundle\Service;
 
 use AppBundle\Base\BaseService;
+use AppBundle\Base\BaseController;
 use AppBundle\Entity\TrabajoCaracteristica;
 use AppBundle\Entity\Valvula;
+use AppBundle\Entity\PartidasMov;
 
 
 class HomeService extends BaseService
@@ -52,4 +54,44 @@ class HomeService extends BaseService
 
         return $resultados;
     }
+
+    public function setValvula($form){
+        $valvula = new Valvula();
+        $valvula->setId($form['nroRegistro']);
+        $valvula->setFecha(new \DateTime($form['fecha']));
+        $valvula->setFecha(new \DateTime($form['fecha'])); //Aca es la fecha de grabación en tiempo real
+        $valvula->setCodDesvio($form['']);
+        $valvula->setNroPartida($form['']);
+        $valvula->setTipoMovimiento($form['']); //CREO que es una relacion tambien o deberia hacerla jejejeje
+        $valvula->setCodArticulo($form['']); //Este campo lo tengo que sacar de NO SE DONDE LO TENGO QUE SACAR, creo que de la tabla articulos
+        $valvula->setCantidad($form['']);
+        $valvula->setCodDeposito($form['']); //Relacion
+        $valvula->setCodProveedor($form['']); //Relacion
+        $valvula->setObservaciones($form['']);
+        $valvula->setFechaM($form['']);
+        $valvula->setUsuarioM($form['']);
+        $valvula->setNroMovPartida($form['']);
+        $valvula->setARetrabajar($form['']);
+        $valvula->setPttTerminada($form['']);
+    }
+
+    public function setPartidasMov($form, $entityManager){
+        $partidasMov = new PartidasMov();
+        $nroMov = $entityManager->getRepository(PartidasMov::class)->getLastNroMov($form['codDesvio'], $form['nroPartida']);
+        
+        $partidasMov->setNroMov($nroMov); //Este es el cmapo que tengo que hacer la consulta SQL
+        $partidasMov->setNroPartida($form['']);
+        $partidasMov->setCodDesvio($form['']);
+        $partidasMov->setTipoMovPartida($form['']); //Relacion
+        $partidasMov->setFecha($form['']);
+        $partidasMov->setArticulo($form['']); //Relacion
+        $partidasMov->setCantidad($form['']);
+        $partidasMov->setDepoOrigen($form['']);
+    }
+
+
+
+
+
+ 
 }

@@ -4,7 +4,7 @@ namespace AppBundle\Base;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use WhiteOctober\BreadcrumbsBundle\Model\Breadcrumbs;
-
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 
 class BaseController extends AbstractController
@@ -39,4 +39,37 @@ class BaseController extends AbstractController
         
         $breadcrumbs->prependRouteItem("Inicio", "homepage");
     }
+
+     /* 
+        Prepara la forma en que respondemos en todos los servicios.
+        result = Respuesta json,
+        error  = Error en string,
+        info   = Información extra de result.
+    */
+    public function createResultResponse($result, $info = null){
+        $response = new JsonResponse();
+        $response->setData([
+            "result" => $result,
+            "error"  => null,
+            "info"   => $info,
+        ]);
+        return $response;
+    }
+
+    /* 
+        Prepara la forma en que respondemos en todos los servicios.
+        result = Respuesta json,
+        error  = Error en string,
+        info   = Información extra de result.
+    */
+    public function createErrorResponse($error, $info = null){
+        $response = new JsonResponse();
+        $response->setData([
+            "result" => null,
+            "error"  => $error,
+            "info"   => null
+        ]);
+        return $response;
+    }
+
 }

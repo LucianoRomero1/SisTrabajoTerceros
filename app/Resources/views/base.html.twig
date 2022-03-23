@@ -29,7 +29,8 @@
 
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav ml-auto">
-                    {# <li class="nav-item dropdown">
+                    {% if is_granted('ROLE_SUPERADMIN') %}
+                    <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         Ejemplo
                         </a>
@@ -39,7 +40,8 @@
                             <a class="dropdown-item" href="#">Detalle </a>
                             
                         </div>
-                    </li> #}
+                    </li>
+                    {% endif %}
                     {% if app.user %}
                     <li class="ml-5 nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownUser" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -106,6 +108,7 @@
         <script src="{{ asset('js/customAlerts.js') }}"></script>
         <script src="{{ asset('js/dataTablejQuery.js') }}"></script>
         <script src="{{ asset('js/dataTableBs.js') }}"></script>
+        <script src="{{ asset('js/staticModal.js') }}"></script>
         <script type="text/javascript" src=" {{ asset('js/jquery.table2excel.js') }}"></script>
     {% endblock %}
 </body>

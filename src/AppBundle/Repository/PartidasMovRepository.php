@@ -10,4 +10,14 @@ namespace AppBundle\Repository;
  */
 class PartidasMovRepository extends \Doctrine\ORM\EntityRepository
 {
+    public function getLastNroMov($codDesvio, $nroPartida){
+        $qb = $this
+            ->createQueryBuilder('p')
+            ->select('MAX(p.nroMov)')
+            ->where('p.codDesvio = '. $codDesvio)
+            ->andWhere('p.nroPartida = '. $nroPartida);
+            
+        return $qb->getQuery()->getSingleResult();
+            
+    }
 }

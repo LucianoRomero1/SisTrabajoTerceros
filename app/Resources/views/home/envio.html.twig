@@ -1,5 +1,5 @@
 <!-- Modal -->
-<div class="modal fade bd-example-modal-lg-envio" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+<div class="modal fade bd-example-modal-lg-envio" tabindex="-1" role="dialog" id="modalClose" aria-labelledby="myLargeModalLabel" aria-hidden="true">
     <form action="{{path('envioTercero')}}" method="POST">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
@@ -27,7 +27,7 @@
                 <h6> De: </h6>
                 <div class="row">
                     <div class="col-md-2">
-                        <input class="form-control mt-1" type="text" id="codDeposito" name="Valvula[aProveedor]" onfocusout="getDeposito()" required>
+                        <input class="form-control mt-1" type="text" id="codDeposito" name="Valvula[codDeposito]" onfocusout="getDeposito()" required>
                     </div>
                     <div class="col-md-6">
                         <input class="form-control mt-1" type="text" id="descripcionDepo"  readonly>
@@ -63,18 +63,18 @@
                     
                     <div class="col-md-4 text-center">
                         <h6> P.T.T Terminada </h6>
-                        <input class="mt-2" type="checkbox"name="Valvula[ppt]" >
+                        <input class="mt-2" type="checkbox"name="Valvula[ppt]" value="1">
                     </div>
                 </div>
                 <br>
                 <div class="row">
                     <div class="col-md-5 text-center">
                         <h6> Sin terminado de punta (Op. 180): </h6>
-                        <input class="" type="checkbox"name="Valvula[sinPunta]" >
+                        <input class="" type="checkbox"name="Valvula[sinPunta]" value="1">
                     </div>
                     <div class="col-md-6 text-center">
                         <h6> Válvulas para retrabajar </h6>
-                        <input class="" type="checkbox"name="Valvula[retrabajar]" >
+                        <input class="" type="checkbox"name="Valvula[retrabajar]" value="1">
                     </div>
                 </div>
                 <br>
@@ -95,7 +95,7 @@
                 <h6> A: </h6>
                 <div class="row">
                     <div class="col-md-2">
-                        <input class="form-control mt-1" type="text" name="Valvula[aProveedor]" id="codProveedor" onfocusout="getProveedor()" value="" required>
+                        <input class="form-control mt-1" type="text" name="Valvula[codProveedor]" id="codProveedor" onfocusout="getProveedor()" value="" required>
                     </div>
                     <div class="col-md-6">
                         <input class="form-control mt-1" id="descripcionProv" type="text" readonly>

@@ -3,6 +3,9 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use AppBundle\Entity\Deposito;
+use AppBundle\Entity\Proveedor;
+use AppBundle\Entity\Articulo;
 
 /**
  * Valvula
@@ -405,7 +408,7 @@ class Valvula
      *
      * @return Valvula
      */
-    public function setCodDeposito(\AppBundle\Entity\Deposito $codDeposito = null)
+    public function setCodDeposito(Deposito $codDeposito = null)
     {
         $this->codDeposito = $codDeposito;
 
@@ -429,7 +432,7 @@ class Valvula
      *
      * @return Valvula
      */
-    public function setCodProveedor(\AppBundle\Entity\Proveedor $codProveedor = null)
+    public function setCodProveedor(Proveedor $codProveedor = null)
     {
         $this->codProveedor = $codProveedor;
 
@@ -621,7 +624,7 @@ class Valvula
      *
      * @return Valvula
      */
-    public function setCodArticulo(\AppBundle\Entity\Articulo $codArticulo = null)
+    public function setCodArticulo(Articulo $codArticulo = null)
     {
         $this->codArticulo = $codArticulo;
 

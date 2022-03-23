@@ -1,5 +1,5 @@
 <!-- Modal -->
-<div class="modal fade bd-example-modal-lg-recepcion-en" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+<div class="modal fade bd-example-modal-lg-recepcion-en" tabindex="-1" role="dialog" id="modalClose" aria-labelledby="myLargeModalLabel" aria-hidden="true">
     <form action="{{path('recepcionEnTercero')}}" method="POST">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
@@ -27,7 +27,7 @@
                 <h6> De: </h6>
                 <div class="row">
                     <div class="col-md-2">
-                        <input class="form-control mt-1" type="text" id="codDeposito" name="Valvula[aProveedor]" onfocusout="getDeposito()" required>
+                        <input class="form-control mt-1" type="text" id="codDeposito" name="Valvula[codDeposito]" onfocusout="getDeposito()" required>
                     </div>
                     <div class="col-md-6">
                         <input class="form-control mt-1" type="text" id="descripcionDepo"  readonly>
@@ -95,7 +95,7 @@
                 <h6> A: </h6>
                 <div class="row">
                     <div class="col-md-2">
-                        <input class="form-control mt-1" type="text" name="Valvula[aProveedor]" id="codProveedor" onfocusout="getProveedor()" value="" required>
+                        <input class="form-control mt-1" type="text" name="Valvula[codProveedor]" id="codProveedor" onfocusout="getProveedor()" value="" required>
                     </div>
                     <div class="col-md-6">
                         <input class="form-control mt-1" id="descripcionProv" type="text" readonly>

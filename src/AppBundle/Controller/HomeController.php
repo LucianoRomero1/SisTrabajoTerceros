@@ -8,11 +8,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use AppBundle\Base\BaseController;
 use AppBundle\Base\BaseService;
-use AppBundle\Entity\PartidasMov;
 use AppBundle\Service\HomeService;
-use AppBundle\Repository\ValvulaRepository;
 use AppBundle\Entity\Valvula;
-
 
 
 class HomeController extends BaseController
@@ -37,6 +34,9 @@ class HomeController extends BaseController
         $caracteristicas    = $this->homeService->getCaracteristicas($entityManager);
         $nroRegistro        = $entityManager->getRepository(Valvula::class)->getCountValvulas($entityManager);
         //$arrayCaracteristicas = $this->homeService->getArrayCaracteristicas();
+
+        // dump($entityManager->getRepository(DesvioPartidas::class)->findAll());
+        // die;
         
         return $this->render('home/index.html.twig', array(
             'caracteristicas'       => $caracteristicas,
@@ -51,7 +51,8 @@ class HomeController extends BaseController
         $entityManager      = $this->getEm();
         $form = $request->get("Valvula");
         if($form != null){
-            $this->homeService->setPartidasMov($form, $entityManager);
+            $this->homeService->setValvula($form, $entityManager);
+            //$this->homeService->setPartidasMov($form, $entityManager);
             
             
             //$entityManager->persist($valvula);

@@ -135,4 +135,10 @@ class BaseService extends AbstractController
         return "Mostrando $startRecord - $endRecord de $totalOfRecords reg.";
     }
 
+    public function getFechActual(){
+        $fechaActual=  new \DateTime();
+                
+        return $fechaActual;
+    }
+
 }

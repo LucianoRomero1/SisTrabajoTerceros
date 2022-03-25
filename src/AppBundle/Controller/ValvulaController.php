@@ -7,6 +7,7 @@ use Symfony\Component\HttpFoundation\Request;
 use AppBundle\Service\ValvulaService;
 use AppBundle\Base\BaseController;
 use AppBundle\Base\BaseService;
+use AppBundle\Entity\Valvula;
 
 
 /**
@@ -56,8 +57,20 @@ class ValvulaController extends BaseController
     /**
     * @Route("/edit/{id}", name="editValvula")
     */
-    public function edit(){
-        return $this->render('valvula/create.html.twig');
+    public function edit(Request $request, $id){
+        $entityManager      = $this->getEm();
+        $valvula            = $entityManager->getRepository(Valvula::class)->find($id); 
+        $nroRegistro        = $entityManager->getRepository(Valvula::class)->getCountValvulas($entityManager);
+
+        $form = $request->get("Valvula");
+        if($form != null){
+            //Hacer la logica del edit en el service
+        }
+
+        return $this->render('valvula/create.html.twig', array(
+            'nroRegistro'   => $nroRegistro,
+            'valvula'       => $valvula
+        ));
     }
 
     /**

@@ -27,20 +27,20 @@
                 <h6> De: </h6>
                 <div class="row">
                     <div class="col-md-2">
-                        <input class="form-control mt-1" type="text" id="codDeposito" name="Valvula[codDeposito]" onfocusout="getDeposito()" required>
+                        <input class="form-control mt-1 codDeposito" type="text" id="codDeposito_3" name="Valvula[codDeposito]" onfocusout="getDeposito('devolucion')" required>
                     </div>
                     <div class="col-md-6">
-                        <input class="form-control mt-1" type="text" id="descripcionDepo"  readonly>
+                        <input class="form-control mt-1" type="text" id="descripcionDepo_3"  readonly>
                     </div>
                 </div>
                 <br>
                 <h6> N° Partida: </h6>
                 <div class="row">
                     <div class="col-md-2">
-                        <input class="form-control mt-1" type="text" value="0" name="Valvula[codDesvio]" id="codDesvio" required>
+                        <input class="form-control mt-1" type="text" value="0" name="Valvula[codDesvio]" id="codDesvio_3" required>
                     </div>
                     <div class="col-md-4">
-                        <input class="form-control mt-1" type="text" name="Valvula[nroPartida]" id="nroPartida" onfocusout="getValvula()" required>
+                        <input class="form-control mt-1" type="text" name="Valvula[nroPartida]" id="nroPartida_3" onfocusout="getValvula('devolucion')" required>
                     </div>
                     {# Este se muestra cuando se edita
                     <div class="col-md-2">
@@ -51,7 +51,7 @@
                 <div class="row">
                     <div class="col-md-4 ">
                         <h6> Válvula: </h6>
-                        <input class="form-control mt-1" type="text" name="Valvula[valvula]" id="valvula" readonly>
+                        <input class="form-control mt-1" type="text" name="Valvula[valvula]" id="valvula_3" readonly>
                     </div>
                 </div>
                 <br>
@@ -95,10 +95,10 @@
                 <h6> A: </h6>
                 <div class="row">
                     <div class="col-md-2">
-                        <input class="form-control mt-1" type="text" name="Valvula[codProveedor]" id="codProveedor" onfocusout="getProveedor()" value="" required>
+                        <input class="form-control mt-1" type="text" name="Valvula[codProveedor]" id="codProveedor_3" onfocusout="getProveedor('devolucion')" value="" required>
                     </div>
                     <div class="col-md-6">
-                        <input class="form-control mt-1" id="descripcionProv" type="text" readonly>
+                        <input class="form-control mt-1" id="descripcionProv_3" type="text" readonly>
                     </div>
                 </div>
                 <br>
@@ -119,3 +119,4 @@
     
     </form>
 </div>
+<script src="{{asset('js/ajaxModals.js')}}"></script>

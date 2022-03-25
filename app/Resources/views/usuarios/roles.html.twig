@@ -1,0 +1,36 @@
+{% extends "base.html.twig" %}
+
+{% block body %}
+
+<div class="card mb-4 mt-4">
+    <table class="table table-striped table-hover table-sm">
+        <thead>
+            <tr>
+                <th>Usuario</th>
+                <th class="text-center">Asignar Rol</th>
+            </tr>
+        </thead>
+        <tbody> 
+            {% for usuario in usuarios %}
+            <tr>
+                <td>{{usuario.username}}</td>
+                <td class="text-center">
+                    {# {% for rol in usuario.roles %}
+                        {% if loop.last %}
+                            {% include 'usuarios/_changeRol.html.twig' with {'rol': usuario, 'username': usuario.username} %}
+                        {% endif %}
+                    {% endfor %}
+                    {% if usuario.roles is empty %}
+                         {% include 'usuarios/_emptyRol.html.twig' with {'usuario': usuario} %}
+                    {% endif %} #}
+                    {% include 'usuarios/_emptyRol.html.twig' with {'usuario': usuario} %}
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+
+
+{% endblock %}

@@ -10,6 +10,7 @@ use AppBundle\Base\BaseController;
 use AppBundle\Base\BaseService;
 use AppBundle\Service\HomeService;
 use AppBundle\Entity\Valvula;
+use AppBundle\Entity\Deposito;
 
 
 class HomeController extends BaseController
@@ -33,11 +34,7 @@ class HomeController extends BaseController
         $entityManager      = $this->getEm();
         $caracteristicas    = $this->homeService->getCaracteristicas($entityManager);
         $nroRegistro        = $entityManager->getRepository(Valvula::class)->getCountValvulas($entityManager);
-        //$arrayCaracteristicas = $this->homeService->getArrayCaracteristicas();
 
-        // dump($entityManager->getRepository(DesvioPartidas::class)->findAll());
-        // die;
-        
         return $this->render('home/index.html.twig', array(
             'caracteristicas'       => $caracteristicas,
             'nroRegistro'           => $nroRegistro
@@ -52,12 +49,7 @@ class HomeController extends BaseController
         $form = $request->get("Valvula");
         if($form != null){
             $this->homeService->setValvula($form, $entityManager);
-            //$this->homeService->setPartidasMov($form, $entityManager);
-            
-            
-            //$entityManager->persist($valvula);
-            //$entityManager->persist($partidaMov);
-            $entityManager->flush();
+            $this->homeService->setPartidasMov($form, $entityManager);
         }
         dump("envioTercero");
         die;
@@ -129,10 +121,9 @@ class HomeController extends BaseController
      * @Route("/ajaxDeposito", name="ajaxDeposito")
      * @Method({"POST"})
      */
-    public function ajaxDeposito(Request $request){
+    public function ajaxDeposito(){
         $entityManager      = $this->getEm();
         $codDeposito        = $_REQUEST['codDeposito'];
-        
         $depo               =  $entityManager->getRepository(Valvula::class)->findOneBy(array("codDeposito"=>$codDeposito));
     
         if(is_null($depo)){
@@ -148,7 +139,7 @@ class HomeController extends BaseController
      * @Route("/ajaxProveedor", name="ajaxProveedor")
      * @Method({"POST"})
      */
-    public function ajaxProveedor(Request $request){
+    public function ajaxProveedor(){
         $entityManager      = $this->getEm();
         $codProveedor       = $_REQUEST['codProveedor'];
         
@@ -167,7 +158,7 @@ class HomeController extends BaseController
      * @Route("/ajaxValvula", name="ajaxValvula")
      * @Method({"POST"})
      */
-    public function ajaxValvula(Request $request){
+    public function ajaxValvula(){
         $entityManager      = $this->getEm();
         $codDesvio          = $_REQUEST["codDesvio"];
         $nroPartida         = $_REQUEST["nroPartida"];

@@ -10,6 +10,7 @@ use AppBundle\Entity\DesvioPartidas;
 use AppBundle\Entity\Deposito;
 use AppBundle\Entity\Proveedor;
 use AppBundle\Entity\Articulo;
+use AppBundle\Entity\TipoMovPartida;
 
 class HomeService extends BaseService
 {   
@@ -64,6 +65,7 @@ class HomeService extends BaseService
         $codDeposito        = $entityManager->getRepository(Deposito::class)->findOneBy(array("id"=>$form['codDeposito']));
         $codProveedor       = $entityManager->getRepository(Proveedor::class)->findOneBy(array("id"=>$form['codProveedor']));
         $nroMov             = $entityManager->getRepository(PartidasMov::class)->getLastNroMov($form['codDesvio'], $form['nroPartida']);
+        $tipoMov            = $this->getTipoMovimiento($form['tipo']);
         $username           = $this->getUser()->getUsername(); 
 
         $valvula->setId($form['nroRegistro']);
@@ -71,7 +73,7 @@ class HomeService extends BaseService
         $valvula->setFechaM($this->baseService->getFechActual());
         $valvula->setCodDesvio($form['codDesvio']);
         $valvula->setNroPartida($form['nroPartida']);
-        $valvula->setTipoMovimiento($this->getTipoMovimiento($form['tipo']));
+        $valvula->setTipoMovimiento($tipoMov);
         $valvula->setCodArticulo($codArticulo); 
         $valvula->setCantidad($form['cantidad']);
         $valvula->setCodDeposito($codDeposito); 
@@ -80,28 +82,47 @@ class HomeService extends BaseService
         $valvula->setUsuarioM($username); 
         $valvula->setNroMovPartida($nroMov);
         $valvula = $this->setCheckBox($valvula, $form);
-
-        dump($valvula);
-        die;
+        
         $entityManager->persist($valvula);
         $entityManager->flush();
 
     }
 
     public function setPartidasMov($form, $entityManager){
-        //IF == ENVIO O REINGRESO GUARDAR - CASO CONTRARIO NO
-        $partidasMov = new PartidasMov();
-        $nroMov = $entityManager->getRepository(PartidasMov::class)->getLastNroMov($form['codDesvio'], $form['nroPartida']);
+        $tipoMov            = $this->getTipoMovimiento($form['tipo']);
+        if($tipoMov == 1 || $tipoMov == 2){
+            $partidasMov        = new PartidasMov();
+            $tipoMovPartida     = $this->getTipoMovPartida($tipoMov, $entityManager);
+            $nroMov             = $entityManager->getRepository(PartidasMov::class)->getLastNroMov($form['codDesvio'], $form['nroPartida']);
+            $codArticuloDesvio  = $entityManager->getRepository(DesvioPartidas::class)->findOneBy(array("codDesvio"=>$form['codDesvio'], "nroPartida"=>$form['nroPartida']));
+            $codArticulo        = $entityManager->getRepository(Articulo::class)->findOneBy(array("id"=>$codArticuloDesvio->getCodArticulo()));
+            
+            $partidasMov->setNroPartida($form['nroPartida']);
+            $partidasMov->setCodDesvio($form['codDesvio']);
+            $partidasMov->setNroMov($nroMov); 
+            $partidasMov->setTipoMovPartida($tipoMovPartida); 
+            $partidasMov->setFecha(new \DateTime($form['fecha']));
+            $partidasMov->setArticulo($codArticulo);
+            $partidasMov->setCantidad($form['cantidad']);
+            $partidasMov->setDepoOrigen($form['codDeposito']);
+
+            $entityManager->persist($partidasMov);
+            $entityManager->flush();
+        }
         
-        $partidasMov->setNroMov($nroMov); //Este es el campo que tengo que hacer la consulta SQL
-        $partidasMov->setNroPartida($form['']);
-        $partidasMov->setCodDesvio($form['']);
+    }
+
+
+    public function getTipoMovPartida($tipoMov, $entityManager){
+        if($tipoMov == 1){
+            $tipoMovPartida     = $entityManager->getRepository(TipoMovPartida::class)->findOneBy(array("id"=>"9"));
+        }
+        if($tipoMov == 2){
+            $tipoMovPartida     = $entityManager->getRepository(TipoMovPartida::class)->findOneBy(array("id"=>"7"));
+        }
+
+        return $tipoMovPartida;
         
-        $partidasMov->setTipoMovPartida($form['']); //Relacion
-        $partidasMov->setFecha($form['']);
-        $partidasMov->setArticulo($form['']); //Relacion
-        $partidasMov->setCantidad($form['']);
-        $partidasMov->setDepoOrigen($form['']);
     }
 
 

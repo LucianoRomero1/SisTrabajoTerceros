@@ -266,6 +266,14 @@ h6 {
   margin-top: -45px;
 }
 
+.btn-lightGrey{
+  background-color: #D3D3D3;
+}
+
+.btn-lightGrey:hover{
+  background-color: #bdacac;
+}
+
 @media (min-width: 1200px) {
   .container{
       max-width: 1200px;

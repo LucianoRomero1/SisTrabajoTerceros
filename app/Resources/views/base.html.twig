@@ -29,16 +29,13 @@
 
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav ml-auto">
-                    {% if is_granted('ROLE_SUPERADMIN') %}
+                    {% if is_granted('ROLE_ADMIN') %}
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Ejemplo
+                        Roles
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="#">Cargar</a>
-                            <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="#">Detalle </a>
-                            
+                            <a class="dropdown-item" href="{{path('roles')}}">Detalle</a>
                         </div>
                     </li>
                     {% endif %}

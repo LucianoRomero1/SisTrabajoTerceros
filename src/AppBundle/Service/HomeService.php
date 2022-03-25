@@ -64,13 +64,15 @@ class HomeService extends BaseService
         $codArticulo        = $entityManager->getRepository(Articulo::class)->findOneBy(array("id"=>$codArticuloDesvio->getCodArticulo()));
         $codDeposito        = $entityManager->getRepository(Deposito::class)->findOneBy(array("id"=>$form['codDeposito']));
         $codProveedor       = $entityManager->getRepository(Proveedor::class)->findOneBy(array("id"=>$form['codProveedor']));
-        $nroMov             = $entityManager->getRepository(PartidasMov::class)->getLastNroMov($form['codDesvio'], $form['nroPartida']);
+        $nroMovArray        = $entityManager->getRepository(PartidasMov::class)->getLastNroMov($form['codDesvio'], $form['nroPartida']);
+        $nroMov             = $nroMovArray[1] + 1;
+        $fechaActual        = $this->baseService->getFechActual();
         $tipoMov            = $this->getTipoMovimiento($form['tipo']);
         $username           = $this->getUser()->getUsername(); 
 
-        $valvula->setId($form['nroRegistro']);
+        //$valvula->setNroRegistro($form['nroRegistro']);
         $valvula->setFecha(new \DateTime($form['fecha']));
-        $valvula->setFechaM($this->baseService->getFechActual());
+        $valvula->setFechaM($fechaActual);
         $valvula->setCodDesvio($form['codDesvio']);
         $valvula->setNroPartida($form['nroPartida']);
         $valvula->setTipoMovimiento($tipoMov);
@@ -93,7 +95,8 @@ class HomeService extends BaseService
         if($tipoMov == 1 || $tipoMov == 2){
             $partidasMov        = new PartidasMov();
             $tipoMovPartida     = $this->getTipoMovPartida($tipoMov, $entityManager);
-            $nroMov             = $entityManager->getRepository(PartidasMov::class)->getLastNroMov($form['codDesvio'], $form['nroPartida']);
+            $nroMovArray        = $entityManager->getRepository(PartidasMov::class)->getLastNroMov($form['codDesvio'], $form['nroPartida']);
+            $nroMov             = $nroMovArray[1] + 1;
             $codArticuloDesvio  = $entityManager->getRepository(DesvioPartidas::class)->findOneBy(array("codDesvio"=>$form['codDesvio'], "nroPartida"=>$form['nroPartida']));
             $codArticulo        = $entityManager->getRepository(Articulo::class)->findOneBy(array("id"=>$codArticuloDesvio->getCodArticulo()));
             

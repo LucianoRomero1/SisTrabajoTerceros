@@ -33,4 +33,4 @@ security:
     access_control:
         - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/register, roles: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/, roles: [ROLE_ADMIN, ROLE_USER, ROLE_ADMIN_SIS, ROLE_ENVIO, ROLE_REINGRESO, ROLE_RECEPCION, ROLE_DEVOLUCION] }
+        # - { path: ^/, roles: [ROLE_ADMIN, ROLE_USER, ROLE_ADMIN_SIS, ROLE_ENVIO, ROLE_REINGRESO, ROLE_RECEPCION, ROLE_DEVOLUCION] }

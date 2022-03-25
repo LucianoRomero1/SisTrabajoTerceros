@@ -25,7 +25,7 @@ class PartidasMov
     /**
      * @var string
      *
-     * @ORM\Column(name="cod_desvio", type="string", length=255)
+     * @ORM\Column(name="cod_desvio", type="string", length=1)
      * @ORM\Id
      */
     private $codDesvio;
@@ -50,8 +50,8 @@ class PartidasMov
     /**
      * @var int
      *
-     * @ORM\Column(name="nro_mov", type="integer")
      * @ORM\Id
+     * @ORM\Column(name="nro_mov", type="integer")
      */
     private $nroMov;
 
@@ -75,14 +75,14 @@ class PartidasMov
     /**
      * @var string
      *
-     * @ORM\Column(name="valv_desv", type="string", length=255)
+     * @ORM\Column(name="valv_desv", type="string", length=255, nullable=true)
      */
     private $valvDesvio;
 
     /**
      * @var int
      *
-     * @ORM\Column(name="depo_origen", type="integer")
+     * @ORM\Column(name="depo_origen", type="integer", nullable=true)
      */
     private $depoOrigen;
 
@@ -96,7 +96,7 @@ class PartidasMov
     /**
      * @var int
      *
-     * @ORM\Column(name="cod_cpte", type="integer")
+     * @ORM\Column(name="cod_cpte", type="integer", nullable=true)
      */
     private $codCpte;
 

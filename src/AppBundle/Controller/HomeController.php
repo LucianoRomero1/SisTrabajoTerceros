@@ -10,7 +10,7 @@ use AppBundle\Base\BaseController;
 use AppBundle\Base\BaseService;
 use AppBundle\Service\HomeService;
 use AppBundle\Entity\Valvula;
-use AppBundle\Entity\Deposito;
+use AppBundle\Entity\PartidasMov;
 
 
 class HomeController extends BaseController
@@ -50,9 +50,15 @@ class HomeController extends BaseController
         if($form != null){
             $this->homeService->setValvula($form, $entityManager);
             $this->homeService->setPartidasMov($form, $entityManager);
+
+            $this->addFlash(
+                'notice',
+                'Envío realizado'
+            );
+
+            return $this->redirectToRoute('homepage');
         }
-        dump("envioTercero");
-        die;
+
     }
 
 
@@ -61,9 +67,19 @@ class HomeController extends BaseController
      */
     public function recepcionEnTercero(Request $request){
         $entityManager      = $this->getEm();
-        $formArea = $request->get("Valvula");
-        dump("recepcionEnTercero");
-        die;
+        $form = $request->get("Valvula");
+        if($form != null){
+            $this->homeService->setValvula($form, $entityManager);
+            $this->homeService->setPartidasMov($form, $entityManager);
+
+            $this->addFlash(
+                'notice',
+                'Recepción realizada'
+            );
+
+            return $this->redirectToRoute('homepage');
+        }
+
     }
 
       /**
@@ -71,9 +87,18 @@ class HomeController extends BaseController
      */
     public function recepcionDeTercero(Request $request){
         $entityManager      = $this->getEm();
-        $formArea = $request->get("Valvula");
-        dump("recepcionDeTercero");
-        die;
+        $form = $request->get("Valvula");
+        if($form != null){
+            $this->homeService->setValvula($form, $entityManager);
+            $this->homeService->setPartidasMov($form, $entityManager);
+
+            $this->addFlash(
+                'notice',
+                'Reingreso realizado'
+            );
+
+            return $this->redirectToRoute('homepage');
+        }
     }
 
  
@@ -82,16 +107,25 @@ class HomeController extends BaseController
      */
     public function devolucionTercero(Request $request){
         $entityManager      = $this->getEm();
-        $formArea = $request->get("Valvula");
-        dump("devolucionTercero");
-        die;
+        $form = $request->get("Valvula");
+        if($form != null){
+            $this->homeService->setValvula($form, $entityManager);
+            $this->homeService->setPartidasMov($form, $entityManager);
+
+            $this->addFlash(
+                'notice',
+                'Devolución realizada'
+            );
+
+            return $this->redirectToRoute('homepage');
+        }
     }
 
-         /**
+    /**
      * @Route("/produccionTercero", name="produccionTercero")
      */
     public function produccionTercero(Request $request){
-        $formArea = $request->get("Valvula");
+
         dump("produccionTercero");
         die;
     }

@@ -3,3 +3,24 @@ $('#modalClose').modal({
     keyboard: false,
     backdrop: 'static'
 });
+
+$('.modal-reset').on('hidden.bs.modal', function(){
+    $(this).find('form')[0].reset();
+    var fecha = new Date(); //Fecha actual
+    var mes = fecha.getMonth()+1; //obteniendo mes
+    var dia = fecha.getDate(); //obteniendo dia
+    var anio = fecha.getFullYear(); //obteniendo año
+    if(dia<10)
+      dia='0'+dia; //agrega cero si el menor de 10
+    if(mes<10)
+      mes='0'+mes //agrega cero si el menor de 10
+    
+    let fechas = document.getElementsByClassName('fechaActual');
+    setDate(fechas, anio, mes, dia);
+});
+
+function setDate(fechas, anio, mes, dia){
+    for (let index = 0; index < fechas.length; index++) {
+        fechas[index].value = anio+"-"+mes+"-"+dia;
+    }
+}

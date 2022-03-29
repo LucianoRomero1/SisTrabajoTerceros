@@ -25,9 +25,11 @@ class ValvulaFilterType extends AbstractType
             ->add('caracteristica', Filters\ChoiceFilterType::class, array(
                 'label' => 'Para',
                 'choices'  => [
-                    'A Nitrurar'    => 1,
-                    'A PVD'         => 2,
-                    'A Mecanizado'  => 3,
+                    'A Nitrurar'                    => 1,
+                    'A PVD'                         => 2,
+                    'A Mecanizado'                  => 3,
+                    'Forja - Tratamiento térmico'   => 4,
+                    'Huecas a perforar'             => 5,
                 ],
             ))
             ->add('aRetrabajar', Filters\ChoiceFilterType::class, array(

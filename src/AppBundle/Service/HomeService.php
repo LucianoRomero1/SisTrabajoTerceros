@@ -26,17 +26,27 @@ class HomeService extends BaseService
         return $caracteristicas;
     }
 
-    // public function getArrayCaracteristicas(){
-    //     $arrayCaracteristicas = array(
-    //         0 => "Nitrurar",
-    //         1 => "PVD - Nitruro de Cromo",
-    //         2 => "Mecanizado Final",
-    //         3 => "Forja - Tratamiento térmico",
-    //         4 => "Huecas a perforar"
-    //     );
+    public function getArrayCaracteristicas($tipoMovimiento){
+        switch($tipoMovimiento){
+            case "1":
+                $tipoMovimiento = "Nitrurar";
+                break;
+            case "2":
+                $tipoMovimiento = "PVD - Nitruro de Cromo";
+                break;
+            case "3":
+                $tipoMovimiento = "Mecanizado final";
+                break;
+            case "4":
+                $tipoMovimiento = "Forja - Tratamiento térmico";
+                break;
+            case "5":
+                $tipoMovimiento = "Huecas a perforar";
+                break;
+        }
 
-    //     return $arrayCaracteristicas;
-    // }
+        return $tipoMovimiento;
+    }
 
     public function getAmountByTipoMovimiento($valvulas){
         foreach($valvulas as $valvula){
@@ -58,17 +68,23 @@ class HomeService extends BaseService
         return $resultados;
     }
 
-    public function setValvula($form, $entityManager){
-        $valvula            = new Valvula();
+    public function setValvula($form, $entityManager, $valvula = null){
+        if($valvula == null){
+            $valvula            = new Valvula();
+        }   
         $codArticuloDesvio  = $entityManager->getRepository(DesvioPartidas::class)->findOneBy(array("codDesvio"=>$form['codDesvio'], "nroPartida"=>$form['nroPartida']));
         $codArticulo        = $entityManager->getRepository(Articulo::class)->findOneBy(array("id"=>$codArticuloDesvio->getCodArticulo()));
         $codDeposito        = $entityManager->getRepository(Deposito::class)->findOneBy(array("id"=>$form['codDeposito']));
         $codProveedor       = $entityManager->getRepository(Proveedor::class)->findOneBy(array("id"=>$form['codProveedor']));
+        // dump($codArticulo, $codDeposito, $codProveedor);
+        // die;
         $nroMovArray        = $entityManager->getRepository(PartidasMov::class)->getLastNroMov($form['codDesvio'], $form['nroPartida']);
         $nroMov             = $nroMovArray[1] + 1;
-        $fechaActual        = $this->baseService->getFechActual();
+        $caracteristica     = $this->getCaracteristica($form['para']);
         $tipoMov            = $this->getTipoMovimiento($form['tipo']);
         $username           = $this->getUser()->getUsername(); 
+        $fechaActual        = $this->baseService->getFechActual();
+           
 
         //$valvula->setNroRegistro($form['nroRegistro']);
         $valvula->setFecha(new \DateTime($form['fecha']));
@@ -83,6 +99,7 @@ class HomeService extends BaseService
         $valvula->setObservaciones($form['observaciones']);
         $valvula->setUsuarioM($username); 
         $valvula->setNroMovPartida($nroMov);
+        $valvula->setCaracteristica($caracteristica);
         $valvula = $this->setCheckBox($valvula, $form);
         
         $entityManager->persist($valvula);
@@ -90,10 +107,12 @@ class HomeService extends BaseService
 
     }
 
-    public function setPartidasMov($form, $entityManager){
+    public function setPartidasMov($form, $entityManager, $partidasMov = null){
         $tipoMov            = $this->getTipoMovimiento($form['tipo']);
         if($tipoMov == 1 || $tipoMov == 2){
-            $partidasMov        = new PartidasMov();
+            if($partidasMov == null){
+                $partidasMov            = new PartidasMov();
+            }
             $tipoMovPartida     = $this->getTipoMovPartida($tipoMov, $entityManager);
             $nroMovArray        = $entityManager->getRepository(PartidasMov::class)->getLastNroMov($form['codDesvio'], $form['nroPartida']);
             $nroMov             = $nroMovArray[1] + 1;
@@ -165,6 +184,28 @@ class HomeService extends BaseService
         }
 
         return $valvula;
+    }
+
+    public function getCaracteristica($caracteristica){
+        switch($caracteristica){
+            case "Nitrurar":
+                $caracteristica = 1;
+                break;
+            case "PVD - Nitruro de Cromo":
+                $caracteristica = 2;
+                break;
+            case "Mecanizado final":
+                $caracteristica = 3;
+                break;
+            case "Forja - Tratamiento térmico":
+                $caracteristica = 4;
+                break;
+            case "Huecas a perforar":
+                $caracteristica = 5;
+                break;
+        }
+
+        return $caracteristica;
     }
 
 

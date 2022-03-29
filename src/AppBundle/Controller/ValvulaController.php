@@ -4,23 +4,27 @@ namespace AppBundle\Controller;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
-use AppBundle\Service\ValvulaService;
+use AppBundle\Service\HomeService;
 use AppBundle\Base\BaseController;
 use AppBundle\Base\BaseService;
+use AppBundle\Entity\PartidasMov;
 use AppBundle\Entity\Valvula;
-
+use AppBundle\Entity\Articulo;
+use AppBundle\Service\ValvulaService;
 
 /**
  * @Route("/valvula")
  */
 class ValvulaController extends BaseController
 {
-    private $valvulaService;
+    private $homeService;
     private $baseService;
+    private $valvulaService;
 
-    public function __construct(ValvulaService $valvulaService, BaseService $baseService){
-        $this->valvulaService = $valvulaService;
+    public function __construct(HomeService $homeService, BaseService $baseService, ValvulaService $valvulaService){
+        $this->homeService = $homeService;
         $this->baseService = $baseService;
+        $this->valvulaService = $valvulaService;
     }
     
     /**
@@ -59,19 +63,30 @@ class ValvulaController extends BaseController
     */
     public function edit(Request $request, $id){
         $entityManager      = $this->getEm();
-        $valvula            = $entityManager->getRepository(Valvula::class)->find($id); 
-        $nroRegistro        = $entityManager->getRepository(Valvula::class)->getCountValvulas($entityManager);
+
+        $array              = $this->valvulaService->getData($entityManager, $id);
+        
 
         $form = $request->get("Valvula");
         if($form != null){
-            //Hacer la logica del edit en el service
-        }
+            $this->homeService->setValvula($form, $entityManager, $array[0]); //array 0 es lo que retorno de la funcion getData y la pos 0 es la valvula
+            $this->homeService->setPartidasMov($form, $entityManager, $array[1]); //array 1 es lo que retorno de la funcion getData y la pos 1 es la partidaMov
 
-        return $this->render('valvula/create.html.twig', array(
-            'nroRegistro'   => $nroRegistro,
-            'valvula'       => $valvula
+            $this->addFlash(
+                'notice',
+                'Se editó correctamente el registro' 
+            );
+            
+            return $this->redirectToRoute('viewValvulas', array('id'=>$array[0]->getCaracteristica()));
+        }
+    
+        return $this->render('valvula/edit.html.twig', array(
+            'valvula'       => $array[0],
+            'nroRegistro'   => $array[2]
         ));
     }
+
+
 
     /**
     * @Route("/delete/{id}", name="deleteValvula")

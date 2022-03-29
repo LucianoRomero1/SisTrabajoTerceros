@@ -149,6 +149,7 @@ class PartidasMov
         return $this->codDesvio;
     }
 
+
        /**
      * Set tipoMovPartida
      *

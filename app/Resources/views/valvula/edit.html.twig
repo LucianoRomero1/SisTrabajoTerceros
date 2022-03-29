@@ -83,14 +83,14 @@
         <div class="row">
             <div class="col-md-12">
                 <h6> Observaciones: </h6>
-                <input class="form-control mt-1" type="text" name="Valvula[observaciones]"  value="{{valvula.observaciones}}" required>
+                <input class="form-control mt-1" type="text" name="Valvula[observaciones]" {% if valvula.observaciones != "null" %} value="{{valvula.observaciones}}"{% endif %} required>
             </div>
         </div>
         <br>
         <div class="row">
             <div class="col-md-12">
                 <h6> Tipo: </h6>
-                <input class="form-control mt-1" type="text" value=""  value="{{valvula.tipoMovimiento}}" name="Valvula[tipo]" readonly>
+                {% include 'valvula/_inputTipoMov.html.twig' with {'tipoMovimiento': valvula.tipoMovimiento } %}
             </div>
         </div>
         <br>
@@ -107,7 +107,7 @@
         <div class="row">
             <div class="col-md-12">
                 <h6> Para: </h6>
-                <input class="form-control mt-1 para" type="text"  name="Valvula[para]" value="{{valvula.caracteristica}}" readonly>
+                <input class="form-control mt-1" type="text"  name="Valvula[para]" id="caracteristicaEditar" value="{{valvula.caracteristica}}" readonly>
             </div>
         </div>
         <div class="float-right mb-3">
@@ -121,5 +121,9 @@
     </div>
     </form>
 </div>
+{% endblock %}
+{% block javascript %}
+{{parent()}}
 <script src="{{asset('js/ajaxModals.js')}}"></script>
+<script src="{{asset('js/editValvula.js')}}"></script>
 {% endblock %}

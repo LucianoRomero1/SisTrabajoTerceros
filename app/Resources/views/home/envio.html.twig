@@ -1,5 +1,5 @@
 <!-- Modal -->
-<div class="modal fade bd-example-modal-lg-envio" tabindex="-1" role="dialog" id="modalClose" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+<div class="modal fade bd-example-modal-lg-envio modal-reset" tabindex="-1" role="dialog" id="modalClose" aria-labelledby="myLargeModalLabel" aria-hidden="true">
     <form action="{{path('envioTercero')}}" method="POST">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
@@ -58,7 +58,7 @@
                 <div class="row">
                     <div class="col-md-4">
                         <h6> Cantidad: </h6>
-                        <input class="form-control mt-1" type="text" name="Valvula[cantidad]" required>
+                        <input class="form-control mt-1" type="number" name="Valvula[cantidad]" required>
                     </div>
                     
                     <div class="col-md-4 text-center">

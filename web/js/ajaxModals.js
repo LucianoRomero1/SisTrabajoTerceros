@@ -1,10 +1,18 @@
 function getDeposito(from) {
     let array_depo  = switchModalDepo(from);
+    let url         = "";
     let fd          = new FormData();
     fd.append('codDeposito' , array_depo[1]);
 
+    if(from != "edit"){
+        url = "ajaxDeposito";
+    }
+    else{
+        url = "../../ajaxDeposito"
+    }
+
     $.ajax({
-        url     :   "ajaxDeposito",
+        url     :   url,
         type    :   'POST',
         data    :   fd,
         processData: false,
@@ -29,11 +37,19 @@ function getDeposito(from) {
 
 function getProveedor(from) {
     let array_prov  = switchModalProv(from);
+    let url         = "";
     let fd              = new FormData();
     fd.append('codProveedor' , array_prov[1]);
 
+    if(from != "edit"){
+        url = "ajaxProveedor";
+    }
+    else{
+        url = "../../ajaxProveedor"
+    }
+
     $.ajax({
-        url     :   "ajaxProveedor",
+        url     :   url,
         type    :   'POST',
         data    :   fd,
         processData: false,
@@ -58,12 +74,21 @@ function getProveedor(from) {
 
 function getValvula(from) {
     let array_valvula  = switchModalValvula(from);
+    let url         = "";
     let fd             = new FormData();
     fd.append('codDesvio' , array_valvula[0]);
     fd.append('nroPartida' , array_valvula[1]);
 
+    if(from != "edit"){
+        url = "ajaxValvula";
+    }
+    else{
+        url = "../../ajaxValvula"
+    }
+
+
     $.ajax({
-        url     :   "ajaxValvula",
+        url     :   url,
         type    :   'POST',
         data    :   fd,
         processData: false,
@@ -106,6 +131,11 @@ function switchModalDepo(from){
             inputDepo   = document.getElementById("descripcionDepo_4");  
             codDeposito = document.getElementById("codDeposito_4").value;
             break;
+        case "edit":
+            inputDepo   = document.getElementById("descripcionDepo");  
+            codDeposito = document.getElementById("codDeposito").value;
+            break;
+
     }
 
     array = [];
@@ -135,6 +165,11 @@ function switchModalProv(from){
             inputProv   = document.getElementById("descripcionProv_4");  
             codProveedor = document.getElementById("codProveedor_4").value;
             break;
+        case "edit":
+            inputDepo   = document.getElementById("descripcionDepo");  
+            codDeposito = document.getElementById("codDeposito").value;
+            break;
+
     }
 
     array = [];
@@ -169,6 +204,11 @@ function switchModalValvula(from){
             nroPartida     = document.getElementById("nroPartida_4").value;
             inputValvula   = document.getElementById("valvula_4");
             break;
+        case "edit":
+            codDesvio      = document.getElementById("codDesvio").value;
+            nroPartida     = document.getElementById("nroPartida").value;
+            inputValvula   = document.getElementById("valvula");
+            break;
     }
 
     array = [];
@@ -176,3 +216,5 @@ function switchModalValvula(from){
 
     return array;
 }
+
+

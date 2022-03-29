@@ -15,12 +15,13 @@ use AppBundle\Entity\Articulo;
  */
 class Valvula
 {
+
     /**
      * @var int
      *
      * @ORM\Column(name="nro_registro", type="integer")
      * @ORM\Id
-     * @ORM\GeneratedValue(strategy="NONE")
+     * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
 
@@ -187,17 +188,7 @@ class Valvula
      */
     private $pttTerminada;
 
-    /**
-     * Set id
-     * @param integer $id
-     * @return Valvula
-     */
-    public function setId($id)
-    {
-        $this->id = $id;
 
-        return $this;
-    }
 
     /**
      * Get id

@@ -1,0 +1,9 @@
+{% if (tipoMovimiento == 1) %}
+    <input class="form-control mt-1" type="text" value="Envío a 3°" name="Valvula[tipo]" readonly>
+{% elseif ( tipoMovimiento == 2 ) %}
+    <input class="form-control mt-1" type="text" value="Reingreso de 3°" name="Valvula[tipo]" readonly>
+{% elseif ( tipoMovimiento == 3 ) %}
+    <input class="form-control mt-1" type="text" value="Recepción en 3°" name="Valvula[tipo]" readonly>
+{% elseif ( tipoMovimiento == 4 ) %}
+    <input class="form-control mt-1" type="text" value="Devolución de 3°" name="Valvula[tipo]" readonly>
+{% endif %}

@@ -3,13 +3,12 @@
 namespace AppBundle\Controller;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use AppBundle\Service\HomeService;
 use AppBundle\Base\BaseController;
 use AppBundle\Base\BaseService;
-use AppBundle\Entity\PartidasMov;
 use AppBundle\Entity\Valvula;
-use AppBundle\Entity\Articulo;
 use AppBundle\Service\ValvulaService;
 
 /**
@@ -63,26 +62,24 @@ class ValvulaController extends BaseController
     */
     public function edit(Request $request, $id){
         $entityManager      = $this->getEm();
-
-        $array              = $this->valvulaService->getData($entityManager, $id);
-        
-
+        $arrayData              = $this->valvulaService->getData($entityManager, $id);
+    
         $form = $request->get("Valvula");
         if($form != null){
-            $this->homeService->setValvula($form, $entityManager, $array[0]); //array 0 es lo que retorno de la funcion getData y la pos 0 es la valvula
-            $this->homeService->setPartidasMov($form, $entityManager, $array[1]); //array 1 es lo que retorno de la funcion getData y la pos 1 es la partidaMov
+            $this->homeService->setValvula($form, $entityManager, $arrayData[0]); //array 0 es lo que retorno de la funcion getData y la pos 0 es la valvula
+            $this->homeService->setPartidasMov($form, $entityManager, $arrayData[1]); //array 1 es lo que retorno de la funcion getData y la pos 1 es la partidaMov
 
             $this->addFlash(
                 'notice',
                 'Se editó correctamente el registro' 
             );
             
-            return $this->redirectToRoute('viewValvulas', array('id'=>$array[0]->getCaracteristica()));
+            return $this->redirectToRoute('viewValvulas', array('id'=>$arrayData[0]->getCaracteristica()));
         }
     
         return $this->render('valvula/edit.html.twig', array(
-            'valvula'       => $array[0],
-            'nroRegistro'   => $array[2]
+            'valvula'       => $arrayData[0],
+            'nroRegistro'   => $arrayData[2]
         ));
     }
 
@@ -91,7 +88,20 @@ class ValvulaController extends BaseController
     /**
     * @Route("/delete/{id}", name="deleteValvula")
     */
-    public function delete(){
+    public function delete($id){
+        $entityManager  = $this->getEm();
+        $arrayData      = $this->valvulaService->getData($entityManager, $id);
+        
+        try{
+            $entityManager->remove($arrayData[0]);
+            $entityManager->remove($arrayData[1]);
+            $entityManager->flush();
+            // $entityManager->getConnection()->commit();
 
+            return new JsonResponse(['success' => true]);
+
+        }catch(\Exception $e){
+            return new JsonResponse(['success' => false]);
+        }
     }
 }

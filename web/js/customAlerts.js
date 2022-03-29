@@ -35,11 +35,12 @@ function sweetAlertDelete(id) {
             
             let fd = new FormData();
             fd.append('id' , id);
-            let url = id;
+            var path = $("#deleteOpcion").attr("data-path");
+            let url =  id;
             $.ajax
             ({
                 method: 'POST',
-                url: url,
+                url: path,
                 data: fd,
                 processData: false,
                 contentType: false,

@@ -11,8 +11,6 @@ use AppBundle\Base\BaseService;
 use AppBundle\Service\UserService;
 use AppBundle\Entity\Usuario;
 
-
-
 class UserController extends BaseController
 {   
     private $baseService;
@@ -29,18 +27,13 @@ class UserController extends BaseController
     public function roles()
     {
         $this->setBreadCrumbs();
-        $entityManager      = $this->getEm();
+        $entityManager  = $this->getEm();
+        $arrayResponse  = [];
+        $arrayResponse  = $this->userService->getUsersArray($entityManager);
 
-        $usuarios = $entityManager->getRepository(Usuario::class)->findAll();
-
-        // foreach($usuarios as $user){
-        //     dump($user->getRoles());
-        // }
-        
-        // die;
-
-        return $this->render('usuarios/roles.html.twig', array(
-            'usuarios'  => $usuarios
+        return $this->render('usuarios/index.html.twig', array(
+            'usuariosRol'       => $arrayResponse[0], //Users con algun rol en el sistema
+            'usuariosSinRol'    => $arrayResponse[1], //Users SIN rol
         ));
 
     }
@@ -54,9 +47,38 @@ class UserController extends BaseController
         $entityManager  = $this->getEm();
         $usuario        = $entityManager->getRepository(Usuario::class)->find($username);
 
-        $usuario = $this->userService->switchRol($rol, $usuario, $entityManager);
-
+        if(!$this->userService->switchRol($rol, $usuario, $entityManager)){
+            $this->addFlash(
+                'error',
+                'El usuario: ' . $usuario->getUsername() . ' ya tiene asignado ese rol'
+            );
+        }
+        else{
+            $this->addFlash(
+                'notice',
+                'Se asignó correctamente el rol al usuario: ' . $usuario->getUsername()
+            );
+        }
         return $this->redirectToRoute('roles');
     }
+
+     /**
+     * @Route("/deleteRoles/{username}", name="deleteRoles")
+     */
+    public function deleteRoles(Request $request, $username){
+        $entityManager  = $this->getEm();
+        $usuario        = $entityManager->getRepository(Usuario::class)->find($username);
+        
+        $this->userService->deleteRoles($entityManager, $usuario);
+        $this->addFlash(
+            'notice',
+            'Roles revocados correctamente'
+        );
+
+        return $this->redirectToRoute('roles');
+        
+    }
+   
+
 
 }

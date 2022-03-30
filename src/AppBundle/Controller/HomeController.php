@@ -34,10 +34,12 @@ class HomeController extends BaseController
         $entityManager      = $this->getEm();
         $caracteristicas    = $this->homeService->getCaracteristicas($entityManager);
         $nroRegistro        = $entityManager->getRepository(Valvula::class)->getCountValvulas($entityManager);
+        $rolesUser          = $this->getUser()->getRoles();
 
         return $this->render('home/index.html.twig', array(
             'caracteristicas'       => $caracteristicas,
-            'nroRegistro'           => $nroRegistro
+            'nroRegistro'           => $nroRegistro,
+            'rolesUser'                  => $rolesUser
         ));
     }
 

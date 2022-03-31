@@ -36,10 +36,31 @@ class HomeController extends BaseController
         $nroRegistro        = $entityManager->getRepository(Valvula::class)->getCountValvulas($entityManager);
         $rolesUser          = $this->getUser()->getRoles();
 
+        $arrayRoles = array(
+            "Envio"         => 0,
+            "Recepcion"     => 0,
+            "Devolucion"    => 0,
+            "Reingreso"     => 0,
+        );
+        foreach($rolesUser as $rol){
+            if($rol->getRole() == "ROLE_ENVIO_3°"){
+                $arrayRoles["Envio"] = 1;
+            }
+            if($rol->getRole() == "ROLE_RECEPCION_3°"){
+                $arrayRoles["Recepcion"] = 1;
+            }
+            if($rol->getRole() == "ROLE_DEVOLUCION_3°"){
+                $arrayRoles["Devolucion"] = 1;
+            }
+            if($rol->getRole() == "ROLE_REINGRESO_3°"){
+                $arrayRoles["Reingreso"] = 1;
+            }
+        }
+
         return $this->render('home/index.html.twig', array(
             'caracteristicas'       => $caracteristicas,
             'nroRegistro'           => $nroRegistro,
-            'rolesUser'                  => $rolesUser
+            'rolesUser'             => $arrayRoles
         ));
     }
 

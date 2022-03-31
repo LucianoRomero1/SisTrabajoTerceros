@@ -208,7 +208,23 @@ class HomeService extends BaseService
         return $caracteristica;
     }
 
+    public function envioEmail($entityManager){
+        //Ver que se escribe en el mensaje
+        //Ver que datos se necesitan
 
+        $message = \Swift_Message::newInstance()
+            ->setSubject("Asunto del mensaje")
+            ->setFrom("emailBasso@basso")
+            ->setTo("emailHaciaDonde@donde")
+            ->setBody(
+                $this->renderView(
+                    'home/mensaje.html.twig'
+                ),
+                'text/html'
+            );
+            
+        return $this->get('mailer')->send($message);
+    }
 
  
 }

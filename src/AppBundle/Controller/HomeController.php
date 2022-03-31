@@ -77,7 +77,8 @@ class HomeController extends BaseController
         if($form != null){
             $this->homeService->setValvula($form, $entityManager);
             $this->homeService->setPartidasMov($form, $entityManager);
-
+            //$this->homeService->envioEmail($entityManager);
+            
             $this->addFlash(
                 'notice',
                 'Envío realizado'
@@ -138,6 +139,7 @@ class HomeController extends BaseController
         if($form != null){
             $this->homeService->setValvula($form, $entityManager);
             $this->homeService->setPartidasMov($form, $entityManager);
+            //$this->homeService->envioEmail($entityManager);
 
             $this->addFlash(
                 'notice',
@@ -233,6 +235,5 @@ class HomeController extends BaseController
             return $this->createResultResponse("OK", $descripcion);
         }       
     }
-
 
 }

@@ -10,7 +10,7 @@ use AppBundle\Base\BaseController;
 use AppBundle\Base\BaseService;
 use AppBundle\Service\HomeService;
 use AppBundle\Entity\Valvula;
-use AppBundle\Entity\PartidasMov;
+use AppBundle\Entity\Usuario;
 
 
 class HomeController extends BaseController
@@ -35,6 +35,8 @@ class HomeController extends BaseController
         $caracteristicas    = $this->homeService->getCaracteristicas($entityManager);
         $nroRegistro        = $entityManager->getRepository(Valvula::class)->getCountValvulas($entityManager);
         $rolesUser          = $this->getUser()->getRoles();
+        $userSesion = $this->getUser();
+
 
         $arrayRoles = array(
             "Envio"         => 0,
@@ -42,6 +44,7 @@ class HomeController extends BaseController
             "Devolucion"    => 0,
             "Reingreso"     => 0,
         );
+
         foreach($rolesUser as $rol){
             if($rol->getRole() == "ROLE_ENVIO_3°"){
                 $arrayRoles["Envio"] = 1;
@@ -60,7 +63,8 @@ class HomeController extends BaseController
         return $this->render('home/index.html.twig', array(
             'caracteristicas'       => $caracteristicas,
             'nroRegistro'           => $nroRegistro,
-            'rolesUser'             => $arrayRoles
+            'rolesUser'             => $arrayRoles,
+            'user'                  => $userSesion
         ));
     }
 
@@ -181,7 +185,7 @@ class HomeController extends BaseController
     public function ajaxDeposito(){
         $entityManager      = $this->getEm();
         $codDeposito        = $_REQUEST['codDeposito'];
-        $depo               =  $entityManager->getRepository(Valvula::class)->findOneBy(array("codDeposito"=>$codDeposito));
+        $depo               = $entityManager->getRepository(Valvula::class)->findOneBy(array("codDeposito"=>$codDeposito));
     
         if(is_null($depo)){
             return $this->createErrorResponse("El depósito solicitado no existe", "");

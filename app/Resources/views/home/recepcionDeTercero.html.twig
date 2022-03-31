@@ -5,7 +5,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title">{{tipo}}</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"  onclick="getValueDepo()">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
@@ -27,10 +27,11 @@
                 <h6> De: </h6>
                 <div class="row">
                     <div class="col-md-2">
-                        <input class="form-control mt-1" type="text" id="codDeposito_4" name="Valvula[codDeposito]" onfocusout="getDeposito('reingreso')" required>
+                        <input class="form-control mt-1 codDeposito" type="text" name="Valvula[codDeposito]" value="{{user.codDeposito}}" readonly>
+                        {# <input class="form-control mt-1" type="text" id="codDeposito_4" name="Valvula[codDeposito]" onfocusout="getDeposito('reingreso')" required> #}
                     </div>
                     <div class="col-md-6">
-                        <input class="form-control mt-1" type="text" id="descripcionDepo_4"  readonly>
+                        <input class="form-control mt-1 inputDepo" type="text" id="descripcionDepo_4"  readonly>
                     </div>
                 </div>
                 <br>
@@ -42,10 +43,6 @@
                     <div class="col-md-4">
                         <input class="form-control mt-1" type="text" name="Valvula[nroPartida]" id="nroPartida_4" onfocusout="getValvula('reingreso')" required>
                     </div>
-                    {# Este se muestra cuando se edita
-                    <div class="col-md-2">
-                        <input class="form-control mt-1" type="text" name="Valvula[]" readonly>
-                    </div> #}
                 </div>
                 <br>
                 <div class="row">
@@ -95,10 +92,12 @@
                 <h6> A: </h6>
                 <div class="row">
                     <div class="col-md-2">
-                        <input class="form-control mt-1" type="text" name="Valvula[codProveedor]" id="codProveedor_4" onfocusout="getProveedor('reingreso')" value="" required>
+                        {# <input class="form-control mt-1" type="text" name="Valvula[codProveedor]" id="codProveedor_4" onfocusout="getProveedor('reingreso')" value="" required> #}
+                        <input class="form-control mt-1" type="text" name="Valvula[codProveedor]" value="674" readonly>
                     </div>
                     <div class="col-md-6">
-                        <input class="form-control mt-1" id="descripcionProv_4" type="text" readonly>
+                        {# <input class="form-control mt-1" id="descripcionProv_4" type="text" readonly> #}
+                        <input class="form-control mt-1" type="text" value="MOTOR PARTS S.A." readonly>
                     </div>
                 </div>
                 <br>
@@ -111,7 +110,6 @@
             </div>
             <div class="modal-footer">
                 <button type="submit" class="btn btn-primary">Guardar</button>
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
             </div>
         </div>
         
@@ -119,4 +117,3 @@
     
     </form>
 </div>
-<script src="{{asset('js/ajaxModals.js')}}"></script>

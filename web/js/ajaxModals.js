@@ -1,3 +1,30 @@
+
+
+function getValueDepo(){
+    let codDepo     = document.getElementsByClassName("codDeposito");   
+    let inputDepo  = document.getElementsByClassName("inputDepo");   
+    let url         = "ajaxDeposito";
+    let fd          = new FormData();
+    fd.append('codDeposito' , codDepo[0].value);
+
+    $.ajax({
+        url     :   url,
+        type    :   'POST',
+        data    :   fd,
+        processData: false,
+        contentType: false,
+
+        success: function(res){
+            if(res.result == "OK"){
+                for(var i = 0; i < inputDepo.length; i++){
+                    inputDepo[i].value = res.info
+                }
+            }        
+        }
+    })
+}
+
+
 function getDeposito(from) {
     let array_depo  = switchModalDepo(from);
     let url         = "";

@@ -59,6 +59,28 @@ window.onload = function(){
     
     let fechas = document.getElementsByClassName('fechaActual');
     setDate(fechas, anio, mes, dia);
+
+    let codDepo     = document.getElementsByClassName("codDeposito");   
+    let inputDepo  = document.getElementsByClassName("inputDepo");   
+    let url         = "ajaxDeposito";
+    let fd          = new FormData();
+    fd.append('codDeposito' , codDepo[0].value);
+
+    $.ajax({
+        url     :   url,
+        type    :   'POST',
+        data    :   fd,
+        processData: false,
+        contentType: false,
+
+        success: function(res){
+            if(res.result == "OK"){
+                for(var i = 0; i < inputDepo.length; i++){
+                    inputDepo[i].value = res.info
+                }
+            }        
+        }
+    })
 }
 
 function setDate(fechas, anio, mes, dia){

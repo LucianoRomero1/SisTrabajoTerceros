@@ -50,6 +50,13 @@ abstract class Usuario implements UserInterface
      * @ORM\Column(name="apellido", type="string", length=50)
      */
     private $apellido;
+
+     /**
+     * @var int
+     *
+     * @ORM\Column(name="cod_deposito", type="integer")
+     */
+    private $codDeposito;
     
     /**
      * @ORM\ManyToMany(targetEntity="Role", inversedBy="usuarios")
@@ -170,6 +177,30 @@ abstract class Usuario implements UserInterface
     public function getApellido()
     {
         return $this->apellido;
+    }
+
+      /**
+     * Set codDeposito
+     *
+     * @param integer $codDeposito
+     *
+     * @return Usuario
+     */
+    public function setCodDeposito($codDeposito)
+    {
+        $this->codDeposito = $codDeposito;
+
+        return $this;
+    }
+
+    /**
+     * Get codDeposito
+     *
+     * @return int
+     */
+    public function getCodDeposito()
+    {
+        return $this->codDeposito;
     }
     
     public function getNombreCompleto()

@@ -18,8 +18,6 @@
     </div>
     <br>
     <div id="actions" style="display: none;">
-        {% for rol in rolesUser %}
-        {% if loop.last %}
         <div class="row">
             <div class="col-md-2"></div>
             <div class="col-md-2">
@@ -27,7 +25,7 @@
                     <div class="card-header">
                         <b>Envío a 3°</b>
                     </div>
-                    {% if rol == "ROLE_ENVIO_3°" %}
+                    {% if rolesUser["Envio"] == 1 or is_granted("ROLE_ADMIN") or is_granted("ROLE_ADMIN_SIS") %}
                     <div class="card-body imgHome">
                         <a data-toggle="modal" data-target=".bd-example-modal-lg-envio" onclick="getValueSelect()"><img src="{{asset('images/devolucion.png')}}" alt="Envío" height="100"></a>
                     </div>
@@ -35,7 +33,7 @@
                         <a href="{{path('viewValvulas', {'id': '1'})}}" class="btn btn-secondary text-white">Ver detalle</a>
                     </div>
                     {% else %}
-                    <div class="card-body imgHome">
+                     <div class="card-body imgHome">
                         <a href="#" onclick="return false"><img src="{{asset('images/devolucion.png')}}" alt="Envío" height="100"></a>
                     </div>
                     <div class="card-footer">
@@ -65,7 +63,7 @@
                     <div class="card-header">
                         <b>Recepción de 3°</b>
                     </div>
-                    {% if rol == "ROLE_REINGRESO_3°" %}
+                    {% if rolesUser["Reingreso"] == 1 or is_granted("ROLE_ADMIN") or is_granted("ROLE_ADMIN_SIS") %}
                     <div class="card-body imgHome">
                         <a data-toggle="modal" data-target=".bd-example-modal-lg-recepcion-de" onclick="getValueSelect()"><img src="{{asset('images/entrega.jpg')}}" alt="Recepción de 3°" height="100">
                     </div>
@@ -94,7 +92,7 @@
                     <div class="card-header">
                         <b>Recepción en 3°</b>
                     </div>
-                    {% if rol == "ROLE_RECEPCION_3°" %}
+                    {% if rolesUser["Recepcion"] == 1 or is_granted("ROLE_ADMIN") or is_granted("ROLE_ADMIN_SIS") %}
                     <div class="card-body imgHome">
                         <a data-toggle="modal" data-target=".bd-example-modal-lg-recepcion-en"  onclick="getValueSelect()"><img src="{{asset('images/recepcion.jpg')}}" alt="Recepción en 3°" height="100"></a>
                     </div>
@@ -106,7 +104,7 @@
                         <a href="#" onclick="return false"><img src="{{asset('images/recepcion.jpg')}}" alt="Recepción en 3°" height="100"></a>
                     </div>
                     <div class="card-footer">
-                        <a href="#"  onclick="return false" class="btn btn-secondary text-white">Ver detalle</a>
+                        <a href="#" onclick="return false" class="btn btn-secondary text-white">Ver detalle</a>
                     </div>
                     {% endif %}
                 </div>
@@ -138,7 +136,7 @@
                     <div class="card-header">
                         <b>Devolución de 3°</b>
                     </div>
-                    {% if rol == "ROLE_DEVOLUCION_3°" %}
+                    {% if rolesUser["Devolucion"] == 1 or is_granted("ROLE_ADMIN") or is_granted("ROLE_ADMIN_SIS") %}
                     <div class="card-body imgHome">
                         <a data-toggle="modal" data-target=".bd-example-modal-lg-devolucion"  onclick="getValueSelect()"><img src="{{asset('images/envio.png')}}" alt="Devolución de 3°" height="100"></a>
                     </div>
@@ -156,8 +154,6 @@
                 </div>
             </div>
         </div>
-        {% endif %}
-        {% endfor %}
     </div>
     </form>
 </div>

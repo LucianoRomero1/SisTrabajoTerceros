@@ -1,9 +1,12 @@
 <body> 
     <div> 
-        <h2 style="color:#0F9FA8;text-align:center;">BASSO MENSAJE</h2> 
+        <h2 style="color:#0F9FA8;text-align:center;">{{titulo}}</h2> 
         <hr> 
         <div>
-            <p>Que enviar acá</p>
+            <b>-</b><span>VALVULA: {{valvula}}.</span>
+            <b>-</b><span>PTT: {{ptt}}.</span>
+            <b>-</b><span>CANTIDAD: {{cantidad}} pzs.</span>
+            <b>-</b><span>FECHA: {{fecha|date("d/m/Y H:i:s")}}</span>
         </div>
     </div> 
 </body> 

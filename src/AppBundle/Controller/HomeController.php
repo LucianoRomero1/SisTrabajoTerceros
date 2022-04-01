@@ -24,7 +24,6 @@ class HomeController extends BaseController
         $this->baseService = $baseService;
     }
 
-
     /**
      * @Route("/", name="homepage")
      */
@@ -34,31 +33,9 @@ class HomeController extends BaseController
         $entityManager      = $this->getEm();
         $caracteristicas    = $this->homeService->getCaracteristicas($entityManager);
         $nroRegistro        = $entityManager->getRepository(Valvula::class)->getCountValvulas($entityManager);
-        $rolesUser          = $this->getUser()->getRoles();
-        $userSesion = $this->getUser();
-
-
-        $arrayRoles = array(
-            "Envio"         => 0,
-            "Recepcion"     => 0,
-            "Devolucion"    => 0,
-            "Reingreso"     => 0,
-        );
-
-        foreach($rolesUser as $rol){
-            if($rol->getRole() == "ROLE_ENVIO_3°"){
-                $arrayRoles["Envio"] = 1;
-            }
-            if($rol->getRole() == "ROLE_RECEPCION_3°"){
-                $arrayRoles["Recepcion"] = 1;
-            }
-            if($rol->getRole() == "ROLE_DEVOLUCION_3°"){
-                $arrayRoles["Devolucion"] = 1;
-            }
-            if($rol->getRole() == "ROLE_REINGRESO_3°"){
-                $arrayRoles["Reingreso"] = 1;
-            }
-        }
+        $userSesion         = $this->getUser();
+        $rolesUser          = $userSesion->getRoles();
+        $arrayRoles = $this->homeService->getArrayRoles($rolesUser);
 
         return $this->render('home/index.html.twig', array(
             'caracteristicas'       => $caracteristicas,
@@ -75,9 +52,10 @@ class HomeController extends BaseController
         $entityManager      = $this->getEm();
         $form = $request->get("Valvula");
         if($form != null){
+            
             $this->homeService->setValvula($form, $entityManager);
             $this->homeService->setPartidasMov($form, $entityManager);
-            //$this->homeService->envioEmail($entityManager);
+            $this->homeService->envioEmail($entityManager, $form);
             
             $this->addFlash(
                 'notice',
@@ -139,7 +117,7 @@ class HomeController extends BaseController
         if($form != null){
             $this->homeService->setValvula($form, $entityManager);
             $this->homeService->setPartidasMov($form, $entityManager);
-            //$this->homeService->envioEmail($entityManager);
+            $this->homeService->envioEmail($entityManager, $form);
 
             $this->addFlash(
                 'notice',
@@ -235,5 +213,7 @@ class HomeController extends BaseController
             return $this->createResultResponse("OK", $descripcion);
         }       
     }
+
+  
 
 }

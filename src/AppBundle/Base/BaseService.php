@@ -22,16 +22,12 @@ class BaseService extends AbstractController
         $queryBuilder                       = $entityManager->getRepository("AppBundle:$className")->createQueryBuilder('e');
 
         if($tipoAccion != null){
-            // dump($queryBuilder->where('e.tipo = '. $tipoAccion));
-            // die;
             $queryBuilder->where('e.tipoMovimiento = '. $tipoAccion);
         }
     
         list($filterForm, $queryBuilder)    = $this->filter($queryBuilder, $request, $formName, $filterController);
         list($data, $pagerHtml)             = $this->paginator($queryBuilder, $request, $routeName);
 
-        // dump($data);
-        // die;
 
         $totalOfRecordsString               = $this->getTotalOfRecordsString($queryBuilder, $request);
 
@@ -136,7 +132,7 @@ class BaseService extends AbstractController
     }
 
     public function getFechActual(){
-        $fechaActual=  new \DateTime();
+        $fechaActual=  new \DateTime(null, new \DateTimeZone('America/Argentina/Buenos_Aires'));
                 
         return $fechaActual;
     }

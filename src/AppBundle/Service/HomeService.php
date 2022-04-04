@@ -105,6 +105,7 @@ class HomeService extends BaseService
         $entityManager->persist($valvula);
         $entityManager->flush();
 
+
     }
 
     public function setPartidasMov($form, $entityManager, $partidasMov = null){
@@ -168,17 +169,17 @@ class HomeService extends BaseService
     
     public function setCheckBox($valvula, $form){
         if(array_key_exists("ppt", $form)){
-            $valvula->setPttTerminada($form['ppt']);
+            $valvula->setPttTerminada(1);
         }else{
             $valvula->setPttTerminada(0);
         }
         if(array_key_exists("sinPunta", $form)){
-            $valvula->setSinTerminadoPunta($form['sinPunta']);
+            $valvula->setSinTerminadoPunta(1);
         }else{
             $valvula->setSinTerminadoPunta(0);
         }
         if(array_key_exists("retrabajar", $form)){
-            $valvula->setARetrabajar($form['retrabajar']);
+            $valvula->setARetrabajar(1);
         }else{
             $valvula->setARetrabajar(0);
         }
@@ -234,25 +235,25 @@ class HomeService extends BaseService
         return $arrayRoles;
     }
 
-    public function envioEmail($entityManager, $form){
+    public function envioEmail($form){
         $tipo       = $form['tipo'];
         $para       = $form['para'];
         $valvula    = $form['valvula'];
         $fecha      = $form['fecha'];
         $cantidad   = $form['cantidad'];
         $ptt        = $form['codDesvio'] . $form['nroPartida'];
-       
-        $destinatarios  = $this->getReceptores(); //esta variable la voy a usar cuando compruebe que el email se envia correctamente
+
+        $destinatarios  = $this->getReceptores($para); //esta variable la voy a usar cuando compruebe que el email se envia correctamente
         $arrayTxt       = $this->getTituloEmail($para, $tipo);
 
         $message = \Swift_Message::newInstance()
             ->setSubject($arrayTxt[1])
-            ->setFrom("lromero@basso.com.ar")
-            ->setTo("lucianooromero1@gmail.com")
+            ->setFrom("SisTrabajoTerceros@basso.com.ar")
+            ->setTo("lromero@basso.com.ar")
             ->setBody(
                 $this->renderView(
                     'home/mensaje.html.twig', array(
-                        'titulo'    => $$arrayTxt[0],
+                        'titulo'    => $arrayTxt[0],
                         'valvula'   => $valvula,
                         'fecha'     => $fecha,
                         'cantidad'  => $cantidad,
@@ -260,15 +261,21 @@ class HomeService extends BaseService
                     )
                 ),
                 'text/html'
-            );
+        );
+
+       
             
         return $this->mailer->send($message);
     }
 
-    public function getReceptores(){
+    public function getReceptores($para){
         $destinatarios = [];
+        //Cuando es Válvula a Nitrurar cambian los email, aplicarlo cuando se reciba la información concreta
         array_push($destinatarios, "atassone@basso.com.ar", "cap@basso.com.ar", "cclementz@basso.com.ar", "fbarberis@basso.com.ar", "insumos@basso.com.ar", "mcerda@basso.com.ar");
         array_push($destinatarios, "mthailinger@basso.com.ar", "mecanizado@basso.com.ar", "pmautino@basso.com.ar", "sspila@basso.com.ar");
+        if($para == "Nitrurar"){
+            array_push($destinatarios, "nitrurado@mparts.com.ar");
+        }
 
         return $destinatarios;
     }
@@ -277,7 +284,7 @@ class HomeService extends BaseService
         $titulo                 = "";
         $accionTituloEnvio      = "";
         $accionTituloDevolucion = "";
-        $motivo                 = "";
+        $asunto                 = "";
 
         switch($para){
             case "Nitrurar":
@@ -325,8 +332,9 @@ class HomeService extends BaseService
         }
 
         $arrayTxt = [];
+        array_push($arrayTxt, $titulo, $asunto);
         
-        return array_push($arrayTxt, $titulo, $asunto);
+        return $arrayTxt;
     }
 
    

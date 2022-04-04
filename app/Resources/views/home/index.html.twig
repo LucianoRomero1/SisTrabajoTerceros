@@ -158,14 +158,15 @@
     </form>
 </div>
 <br>
-{% include 'home/envio.html.twig' with {'tipo': 'Envío a 3°'} %}
-{% include 'home/recepcionEnTercero.html.twig' with {'tipo': 'Recepción en 3°'} %}
-{% include 'home/recepcionDeTercero.html.twig' with {'tipo': 'Recepción de 3°'} %}
-{% include 'home/devolucionTercero.html.twig' with {'tipo': 'Devolución de 3°'} %}
-{% include 'home/produccionTercero.html.twig' with {'tipo': 'Producción en 3°'} %}
+{% include 'home/envio.html.twig' with {'tipo': 'Envío a 3°', 'user': user} %}
+{% include 'home/recepcionEnTercero.html.twig' with {'tipo': 'Recepción en 3°', 'user': user} %}
+{% include 'home/recepcionDeTercero.html.twig' with {'tipo': 'Recepción de 3°', 'user': user} %}
+{% include 'home/devolucionTercero.html.twig' with {'tipo': 'Devolución de 3°', 'user': user} %}
+{% include 'home/produccionTercero.html.twig' with {'tipo': 'Producción en 3°', 'user': user} %}
 
 {% endblock %}
 {% block javascript %}
 {{parent()}}
 <script src="{{asset('js/selectHome.js')}}"></script>
+<script src="{{asset('js/ajaxModals.js')}}"></script>
 {% endblock %}

@@ -10,7 +10,7 @@ use AppBundle\Base\BaseController;
 use AppBundle\Base\BaseService;
 use AppBundle\Service\HomeService;
 use AppBundle\Entity\Valvula;
-use AppBundle\Entity\PartidasMov;
+use AppBundle\Entity\Usuario;
 
 
 class HomeController extends BaseController
@@ -24,7 +24,6 @@ class HomeController extends BaseController
         $this->baseService = $baseService;
     }
 
-
     /**
      * @Route("/", name="homepage")
      */
@@ -34,33 +33,15 @@ class HomeController extends BaseController
         $entityManager      = $this->getEm();
         $caracteristicas    = $this->homeService->getCaracteristicas($entityManager);
         $nroRegistro        = $entityManager->getRepository(Valvula::class)->getCountValvulas($entityManager);
-        $rolesUser          = $this->getUser()->getRoles();
-
-        $arrayRoles = array(
-            "Envio"         => 0,
-            "Recepcion"     => 0,
-            "Devolucion"    => 0,
-            "Reingreso"     => 0,
-        );
-        foreach($rolesUser as $rol){
-            if($rol->getRole() == "ROLE_ENVIO_3°"){
-                $arrayRoles["Envio"] = 1;
-            }
-            if($rol->getRole() == "ROLE_RECEPCION_3°"){
-                $arrayRoles["Recepcion"] = 1;
-            }
-            if($rol->getRole() == "ROLE_DEVOLUCION_3°"){
-                $arrayRoles["Devolucion"] = 1;
-            }
-            if($rol->getRole() == "ROLE_REINGRESO_3°"){
-                $arrayRoles["Reingreso"] = 1;
-            }
-        }
+        $userSesion         = $this->getUser();
+        $rolesUser          = $userSesion->getRoles();
+        $arrayRoles = $this->homeService->getArrayRoles($rolesUser);
 
         return $this->render('home/index.html.twig', array(
             'caracteristicas'       => $caracteristicas,
             'nroRegistro'           => $nroRegistro,
-            'rolesUser'             => $arrayRoles
+            'rolesUser'             => $arrayRoles,
+            'user'                  => $userSesion
         ));
     }
 
@@ -71,9 +52,11 @@ class HomeController extends BaseController
         $entityManager      = $this->getEm();
         $form = $request->get("Valvula");
         if($form != null){
+            
             $this->homeService->setValvula($form, $entityManager);
             $this->homeService->setPartidasMov($form, $entityManager);
-
+            $this->homeService->envioEmail($form);
+            
             $this->addFlash(
                 'notice',
                 'Envío realizado'
@@ -134,6 +117,7 @@ class HomeController extends BaseController
         if($form != null){
             $this->homeService->setValvula($form, $entityManager);
             $this->homeService->setPartidasMov($form, $entityManager);
+            $this->homeService->envioEmail($form);
 
             $this->addFlash(
                 'notice',
@@ -181,7 +165,7 @@ class HomeController extends BaseController
     public function ajaxDeposito(){
         $entityManager      = $this->getEm();
         $codDeposito        = $_REQUEST['codDeposito'];
-        $depo               =  $entityManager->getRepository(Valvula::class)->findOneBy(array("codDeposito"=>$codDeposito));
+        $depo               = $entityManager->getRepository(Valvula::class)->findOneBy(array("codDeposito"=>$codDeposito));
     
         if(is_null($depo)){
             return $this->createErrorResponse("El depósito solicitado no existe", "");
@@ -230,5 +214,6 @@ class HomeController extends BaseController
         }       
     }
 
+  
 
 }

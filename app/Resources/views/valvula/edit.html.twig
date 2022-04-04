@@ -24,8 +24,18 @@
         <div class="row">
             <div class="col-md-4 ">
                 <h6> Fecha: </h6>
-                <input class="form-control mt-1 fechaActual" type="date" value="{{valvula.fecha|date('Y-m-d')}}" name="Valvula[fecha]" required>
+                <input class="form-control mt-1" type="date" value="{{valvula.fecha|date('Y-m-d')}}" name="Valvula[fecha]" required>
             </div>
+            {% if is_granted("ROLE_ADMIN") %}
+            <div class="col-md-4 ">
+                <h6> Usuario M: </h6>
+                <input class="form-control mt-1" type="text" value="{{valvula.usuarioM}}" name="Valvula[]" readonly>
+            </div>
+            <div class="col-md-4 ">
+                <h6> Fecha M: </h6>
+                <input class="form-control mt-1" type="date" value="{{valvula.fechaM|date('Y-m-d')}}" name="Valvula[]" readonly>
+            </div>
+            {% endif %}
         </div>
         <br>  
         <h6> De: </h6>
@@ -46,9 +56,11 @@
             <div class="col-md-4">
                 <input class="form-control mt-1" type="text" name="Valvula[nroPartida]" value="{{valvula.nroPartida}}" id="nroPartida" onfocusout="getValvula('edit')" required>
             </div>
+            {% if is_granted("ROLE_ADMIN") %}
             <div class="col-md-2">
                 <input class="form-control mt-1" type="text" value="{{valvula.nroMovPartida}}"  name="Valvula[]" readonly>
             </div>
+            {% endif %}
         </div>
         <br>
         <div class="row">
@@ -97,7 +109,7 @@
         <h6> A: </h6>
         <div class="row">
             <div class="col-md-2">
-                <input class="form-control mt-1" type="text" name="Valvula[codProveedor]"  value="{{valvula.codProveedor.id}}" id="codProveedor" onfocusout="getProveedor('edit')" value="" required>
+                <input class="form-control mt-1" type="text" name="Valvula[codProveedor]"  value="{{valvula.codProveedor.id}}" id="codProveedor" onfocusout="getProveedor('edit')" value="" readonly>
             </div>
             <div class="col-md-6">
                 <input class="form-control mt-1" id="descripcionProv" value="{{valvula.codProveedor.descripcion}}" type="text" readonly>

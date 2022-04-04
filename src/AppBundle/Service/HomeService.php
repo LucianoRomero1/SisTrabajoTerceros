@@ -215,6 +215,7 @@ class HomeService extends BaseService
             "Recepcion"     => 0,
             "Devolucion"    => 0,
             "Reingreso"     => 0,
+            'Consulta'      => 0
         );
 
         foreach($rolesUser as $rol){
@@ -229,6 +230,9 @@ class HomeService extends BaseService
             }
             if($rol->getRole() == "ROLE_REINGRESO_3°"){
                 $arrayRoles["Reingreso"] = 1;
+            }
+            if($rol->getRole() == "ROLE_CONSULTA"){
+                $arrayRoles["Consulta"] = 1;
             }
         }
 

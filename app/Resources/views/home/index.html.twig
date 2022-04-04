@@ -5,7 +5,7 @@
     <form action="controlStock">
     <br>
     <div class="text-center">
-        <b class="mt-2"> Traslado/a de proceso </b>
+        <b class="mt-2"> Traslado de procesos </b>
         <div class="mt-2 d-flex justify-content-center">
             <input class="ml-2 col-md-1 form-control" type="number" id="idProceso" value="" readonly />
             <select class="ml-2 col-md-4 form-control" name="caracteristica" id="caracteristica" onchange="myFunction(event)">
@@ -52,9 +52,15 @@
                     <div class="card-header">
                         <b>Control Stock en 3°</b>
                     </div>
+                    {% if rolesUser["Consulta"] == 1 or is_granted("ROLE_ADMIN") or is_granted("ROLE_ADMIN_SIS") %}
                     <div class="card-body imgHome">
                         <button type="submit" class="buttonInicio"><img src="{{asset('images/control_stock.png')}}" alt="Control de stock" height="100"></button>
                     </div>
+                    {% else %}
+                    <div class="card-body imgHome">
+                        <a href="#"><img src="{{asset('images/control_stock.png')}}" alt="Control de stock" height="100"></a>
+                    </div>
+                    {% endif %}
                 </div>
             </div>
             <div class="col-md-1"></div>

@@ -88,7 +88,7 @@ class UserService extends BaseService
             }
             foreach($user->getRoles() as $rol){
                 //Asigno al array solo los roles de mi sistema, los demas no me interesan
-                if($rol->getRole() == "ROLE_ADMIN" || $rol->getRole() == "ROLE_ADMIN_SIS" || $rol->getRole() == "ROLE_USER" || $rol->getRole() == "ROLE_ENVIO_3°" || $rol->getRole() == "ROLE_REINGRESO_3°" || $rol->getRole() == "ROLE_RECEPCION_3°" ||  $rol->getRole() == "ROLE_DEVOLUCION_3°"){  
+                if($rol->getRole() == "ROLE_ADMIN" || $rol->getRole() == "ROLE_ADMIN_SIS" || $rol->getRole() == "ROLE_USER" || $rol->getRole() == "ROLE_ENVIO_3°" || $rol->getRole() == "ROLE_REINGRESO_3°" || $rol->getRole() == "ROLE_RECEPCION_3°" ||  $rol->getRole() == "ROLE_DEVOLUCION_3°" ||  $rol->getRole() == "ROLE_CONSULTA"){  
                     array_push($arrayUserRol, $user);
                 }
                 else{          

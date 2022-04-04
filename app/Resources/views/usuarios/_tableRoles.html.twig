@@ -20,6 +20,7 @@
                 <a href="{{path('setRole', {'username': user.username, 'rol': "ROLE_RECEPCION_3°" })}}"  class="m-1 btn btn-sm btn-secondary text-white">Recepción</a>
                 <a href="{{path('setRole', {'username': user.username, 'rol': "ROLE_DEVOLUCION_3°" })}}" class="m-1 btn btn-sm btn-secondary text-white">Devolución</a>
                 <a href="{{path('setRole', {'username': user.username, 'rol': "ROLE_REINGRESO_3°" })}}"  class="m-1 btn btn-sm btn-secondary text-white">Reingreso</a>
+                <a href="{{path('setRole', {'username': user.username, 'rol': "ROLE_CONSULTA" })}}"  class="m-1 btn btn-sm btn-secondary text-white">Consulta</a>
                 {% if is_granted("ROLE_ADMIN") or is_granted("ROLE_ADMIN_SIS") %}
                     <a href="{{path('setRole', {'username': user.username, 'rol': "ROLE_ADMIN_SIS" })}}"  class="m-1 btn btn-sm btn-primary text-white">Admin Sis</a>
                     <a href="{{path('deleteRoles', {'username': user.username})}}"  class="m-1 btn btn-sm btn-danger text-white">Revocar roles</a>
@@ -36,6 +37,7 @@
                 <a href="{{path('setRole', {'username': user.username, 'rol': "ROLE_RECEPCION_3°" })}}"  class="m-1 btn btn-sm btn-secondary text-white">Recepción</a>
                 <a href="{{path('setRole', {'username': user.username, 'rol': "ROLE_DEVOLUCION_3°" })}}" class="m-1 btn btn-sm btn-secondary text-white">Devolución</a>
                 <a href="{{path('setRole', {'username': user.username, 'rol': "ROLE_REINGRESO_3°" })}}"  class="m-1 btn btn-sm btn-secondary text-white">Reingreso</a>
+                <a href="{{path('setRole', {'username': user.username, 'rol': "ROLE_CONSULTA" })}}"  class="m-1 btn btn-sm btn-secondary text-white">Consulta</a>
                 {% if is_granted("ROLE_ADMIN_SIS") or is_granted("ROLE_ADMIN") %}
                     <a href="{{path('setRole', {'username': user.username, 'rol': "ROLE_ADMIN_SIS" })}}"  class="m-1 btn btn-sm btn-primary text-white">Admin Sis</a>
                 {% endif %}

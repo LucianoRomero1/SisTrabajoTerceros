@@ -16,7 +16,7 @@
     {% for valvula in valvulas %}
     <tr>
       <td>{{ valvula.DESCRIP_ABREV }}</td>
-      <td>{{ valvula.COD_DESVIO }} | {{ valvula.NRO_PARTIDA }}</td>
+      <td>{{ valvula.COD_DESVIO }}{{ valvula.NRO_PARTIDA }}</td>
       <td>{{ valvula.ENVIOS }}</td>
       <td>{{ valvula.RECIBIDAS }}</td> 
       <td>{{ valvula.DEVUELTAS }}</td>

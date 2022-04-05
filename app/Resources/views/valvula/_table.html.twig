@@ -47,7 +47,7 @@
               <div class="dropdown-menu">
                 <a class="dropdown-item" title='Editar'  href="{{ path('editValvula', { 'id': valvula.id }) }}">Editar registro<i class="ml-1 text-success far fa-edit"></i></a>
                 <div class="dropdown-divider"></div>
-                <a class="dropdown-item" title="Eliminar" onclick="sweetAlertDelete({{valvula.id}})" id="deleteOpcion" data-path="{{ path('deleteValvula', { 'id': valvula.id }) }}">Eliminar registro<i class="ml-1 text-danger far fa-trash-alt"></i></a>
+                <a class="dropdown-item" title="Eliminar" style="cursor:pointer;" onclick="sweetAlertDelete({{valvula.id}})" id="deleteOpcion" data-path="{{ path('deleteValvula', { 'id': valvula.id }) }}">Eliminar registro<i class="ml-1 text-danger far fa-trash-alt"></i></a>
               </div>
             </div>
           </td>

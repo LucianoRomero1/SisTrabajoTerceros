@@ -341,7 +341,50 @@ class HomeService extends BaseService
         return $arrayTxt;
     }
 
-   
+    public function getMesActual(){
+        $fechaActual    = $this->baseService->getFechActual();
+        $result         = $fechaActual->format('Y-m-d');
+        $fechaActual    = date_parse_from_format("Y-m-d", $result);
+
+        $mes            = $this->mesToString($fechaActual["month"]);
+
+        return $mes;
+    }
+
+    public function mesToString($mes){
+        $months = [
+            'Enero', 
+            'Febrero', 
+            'Marzo',
+            'Abril', 
+            'Mayo', 
+            'Junio',
+            'Julio', 
+            'Agosto', 
+            'Septiembre',
+            'Octubre', 
+            'Noviembre', 
+            'Diciembre'
+        ];
+
+        $mes = $months[$mes - 1];
+
+        return $mes;
+    }
+
+    public function getStockPara($entityManager){
+        
+        $connection = $entityManager->getConnection();
+        for($i = 1; $i <= 5; $i++){
+            $statement = $connection->prepare(
+                'SELECT sum(decode(tipo_movimiento,1,cantidad,0)) as enviadas, sum(decode(tipo_movimiento,2,cantidad,0)) as reingresadas from valvulas_trabajos_3 where extract(month from fecha) = extract(month from sysdate) and extract(year from fecha) = extract(year from sysdate) and caracteristica =' . $i
+            );
+            $statement->execute();
+            $resultados[] = $statement->fetchAll();
+        }
+        
+        return $resultados;
+    }
 
  
 }

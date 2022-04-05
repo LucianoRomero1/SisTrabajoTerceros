@@ -1,0 +1,140 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">
+                    <b>Nitrurar</b>
+                    <div class="d-inline float-right">
+                        <span class="badge badge-pill badge-primary">{{mes}}</span>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h1>{{stock[0][0]["ENVIADAS"]}}</h1>
+                            <p class="text-secondary">Total enviadas</p>
+                        </div> 
+                        <div class="col-md-6">
+                            <h1>{{stock[0][0]["REINGRESADAS"]}}</h1>
+                            <p class="text-secondary">Total reingresadas</p>
+                        </div> 
+                    </div>
+                    <div class="text-right">
+                        <a href="{{path('afterHomePage')}}">-></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">
+                    <b>Huecas a perforar</b>
+                    <div class="d-inline float-right">
+                        <span class="badge badge-pill badge-primary">{{mes}}</span>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h1>{{stock[0][0]["ENVIADAS"]}}</h1>
+                            <p class="text-secondary">Total enviadas</p>
+                        </div> 
+                        <div class="col-md-6">
+                            <h1>{{stock[0][0]["REINGRESADAS"]}}</h1>
+                            <p class="text-secondary">Total reingresadas</p>
+                        </div> 
+                    </div>
+                    <div class="text-right">
+                        <a href="{{path('afterHomePage')}}">-></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br>
+    <div class="row">
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-header">
+                    <b>Mecanizado final</b>
+                    <div class="d-inline float-right">
+                        <span class="badge badge-pill badge-primary">{{mes}}</span>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h1>{{stock[0][0]["ENVIADAS"]}}</h1>
+                            <p class="text-secondary">Total enviadas</p>
+                        </div> 
+                        <div class="col-md-6">
+                            <h1>{{stock[0][0]["REINGRESADAS"]}}</h1>
+                            <p class="text-secondary">Total reingresadas</p>
+                        </div> 
+                    </div>
+                    <div class="text-right">
+                        <a href="{{path('afterHomePage')}}">-></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-header">
+                    <b>PVD - Nitruro de Cromo</b>
+                    <div class="d-inline float-right">
+                        <span class="badge badge-pill badge-primary">{{mes}}</span>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h1>{{stock[0][0]["ENVIADAS"]}}</h1>
+                            <p class="text-secondary">Total enviadas</p>
+                        </div> 
+                        <div class="col-md-6">
+                            <h1>{{stock[0][0]["REINGRESADAS"]}}</h1>
+                            <p class="text-secondary">Total reingresadas</p>
+                        </div> 
+                    </div>
+                    <div class="text-right">
+                        <a href="{{path('afterHomePage')}}">-></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-header">
+                    <b>Forja - Tratamiento térmico</b>
+                    <div class="d-inline float-right">
+                        <span class="badge badge-pill badge-primary">{{mes}}</span>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h1>{{stock[0][0]["ENVIADAS"]}}</h1>
+                            <p class="text-secondary">Total enviadas</p>
+                        </div> 
+                        <div class="col-md-6">
+                            <h1>{{stock[0][0]["REINGRESADAS"]}}</h1>
+                            <p class="text-secondary">Total reingresadas</p>
+                        </div> 
+                    </div>
+                    <div class="text-right">
+                        <a href="{{path('afterHomePage')}}">-></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+{% block javascript %}
+{{parent()}}
+{% endblock %}

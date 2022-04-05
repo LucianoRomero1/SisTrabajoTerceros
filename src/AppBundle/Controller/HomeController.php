@@ -27,9 +27,23 @@ class HomeController extends BaseController
     /**
      * @Route("/", name="homepage")
      */
-    public function indexAction()
-    {
+    public function indexAction(){
         $this->setBreadCrumbs();
+        $entityManager      = $this->getEm();
+        $stock = $this->homeService->getStockPara($entityManager);
+        $mes = $this->homeService->getMesActual();
+        return $this->render('home/homePage.html.twig', array(
+            "mes"   => $mes,
+            "stock" => $stock
+        ));
+    }
+
+    /**
+     * @Route("/afterHomePage", name="afterHomePage")
+     */
+    public function afterHomePage()
+    {
+        $this->setBreadCrumbs("Acciones", "afterHomePage");
         $entityManager      = $this->getEm();
         $caracteristicas    = $this->homeService->getCaracteristicas($entityManager);
         $nroRegistro        = $entityManager->getRepository(Valvula::class)->getCountValvulas($entityManager);

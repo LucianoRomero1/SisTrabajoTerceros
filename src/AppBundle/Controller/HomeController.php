@@ -35,7 +35,7 @@ class HomeController extends BaseController
         $nroRegistro        = $entityManager->getRepository(Valvula::class)->getCountValvulas($entityManager);
         $userSesion         = $this->getUser();
         $rolesUser          = $userSesion->getRoles();
-        $arrayRoles = $this->homeService->getArrayRoles($rolesUser);
+        $arrayRoles         = $this->homeService->getArrayRoles($rolesUser);
 
         return $this->render('home/index.html.twig', array(
             'caracteristicas'       => $caracteristicas,

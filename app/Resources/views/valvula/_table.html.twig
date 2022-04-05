@@ -11,8 +11,13 @@
           <th class="text-center" style="border:0px;">{{macros.th_sortable('id',app.request.get('pcg_sort_col'), app.request.get('pcg_sort_order') , 'viewValvulas','Válvula')}}</th>
           <th style="border:0px;">{{macros.th_sortable('id',app.request.get('pcg_sort_col'), app.request.get('pcg_sort_order') , 'viewValvulas','Tipo')}}</th>
           <th style="border:0px;">{{macros.th_sortable('id',app.request.get('pcg_sort_col'), app.request.get('pcg_sort_order') , 'viewValvulas','Cantidad')}}</th>
+          {% if tipoAccion == 1 or tipoAccion == 3 %}
           <th class="text-center" style="border:0px;">{{macros.th_sortable('id',app.request.get('pcg_sort_col'), app.request.get('pcg_sort_order') , 'viewValvulas','De')}}</th>
           <th class="text-center" style="border:0px;">{{macros.th_sortable('id',app.request.get('pcg_sort_col'), app.request.get('pcg_sort_order') , 'viewValvulas','A')}}</th>
+          {% else %}
+          <th class="text-center" style="border:0px;">{{macros.th_sortable('id',app.request.get('pcg_sort_col'), app.request.get('pcg_sort_order') , 'viewValvulas','A')}}</th>
+          <th class="text-center" style="border:0px;">{{macros.th_sortable('id',app.request.get('pcg_sort_col'), app.request.get('pcg_sort_order') , 'viewValvulas','De')}}</th>
+          {% endif %}
           <th style="border:0px;">{{macros.th_sortable('id',app.request.get('pcg_sort_col'), app.request.get('pcg_sort_order') , 'viewValvulas','Para')}}</th>
           <th style="border:0px;">{{macros.th_sortable('id',app.request.get('pcg_sort_col'), app.request.get('pcg_sort_order') , 'viewValvulas','A retrabajar')}}</th>
           <th style="border:0px;" width = "100px" class="noExl">Acciones</th>

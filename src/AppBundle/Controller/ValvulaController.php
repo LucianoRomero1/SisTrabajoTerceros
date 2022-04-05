@@ -40,11 +40,10 @@ class ValvulaController extends BaseController
         $entityManager = $this->getEm();
         $this->setBreadCrumbs("Válvulas a terceros", "viewValvulas");
 
-        $tipoAccion     = $request->get('id');
-        $arrayTable     = $this->baseService->renderTable($entityManager, $request, "Valvula", "ValvulaFilterType", "ValvulaFilterController", "viewValvulas", $tipoAccion);
-        $articulos      = $this->valvulaService->getValuesAnotherTable();
-        $amountValvulas = $this->valvulaService->getAmountValvula($arrayTable[0]);
-        
+        $tipoAccion         = $request->get('id');
+        $arrayTable         = $this->baseService->renderTable($entityManager, $request, "Valvula", "ValvulaFilterType", "ValvulaFilterController", "viewValvulas", $tipoAccion);
+        $articulos          = $this->valvulaService->getValuesAnotherTable();
+        $arrayResult        = $this->valvulaService->getAmountValvula($arrayTable[0]);
 
         return $this->render('valvula/view.html.twig', array(
             'valvulas'                  => $arrayTable[0],
@@ -52,7 +51,8 @@ class ValvulaController extends BaseController
             'filterForm'                => $arrayTable[2]->createView(),
             'totalOfRecordsString'      => $arrayTable[3],
             'articulos'                 => $articulos,
-            'amountValvulas'            => $amountValvulas,
+            'recordsValvulas'           => $arrayResult[0], //Nro de registros de valvulas
+            'amountValvulas'            => $arrayResult[1], //Cantidad de válvulas
             'tipoAccion'                => $tipoAccion
         ));
     }

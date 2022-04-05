@@ -155,6 +155,7 @@ class HomeController extends BaseController
             'pagerHtml'                 => $arrayTable[1],
             'filterForm'                => $arrayTable[2]->createView(),
             'totalOfRecordsString'      => $arrayTable[3],
+            'caracteristica'            => $caracteristica
         ));
     }
 

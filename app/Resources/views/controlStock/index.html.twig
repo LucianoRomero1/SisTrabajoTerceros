@@ -3,10 +3,12 @@
 {% block body %}
 
 <div class="page">
+
+  {% include 'controlStock/_titleTable.html.twig' with {'caracteristica': caracteristica } %}
  
   <!-- TABLE  -->
 
-  {% include 'controlStock/_table.html.twig' with {'valvulas': valvulas } %}
+  {% include 'controlStock/_table.html.twig' with {'valvulas': valvulas, 'caracteristica': caracteristica } %}
 
   <!-- END TABLE -->
 
@@ -18,7 +20,6 @@
 
 </div>
 <div id="loading"></div>
-
 
 {% endblock %}
 

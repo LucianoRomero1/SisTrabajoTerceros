@@ -6,26 +6,31 @@
     <thead>
       <tr>
         <th>De</th>
+        <th class="text-center">Registros</th>
         <th class="text-center">Cantidad</th>
       </tr>
     </thead>
     <tbody>
       <tr>
         <td><h5><span class="badge bassoColor">Basso S.A</span></h5></td>
+        <td class="text-center">{{recordsValvulas['Basso']}}</td>
         <td class="text-center">{{amountValvulas['Basso']}}</td>
       </tr>
       <tr>
         <td><h5><span class="badge piColor">MotorParts P.I</span></h5></td>
+        <td class="text-center">{{recordsValvulas['P.I']}}</td>
         <td class="text-center">{{amountValvulas['P.I']}}</td>
       </tr>
       <tr>
         <td><h5><span class="badge lehColor">MotorParts LEH</span></h5></td>
+        <td class="text-center">{{recordsValvulas['LEH']}}</td>
         <td class="text-center">{{amountValvulas['LEH']}}</td>
       </tr>
     </tbody>
     <tfooter>
       <tr>
         <th class="">Total:</th>
+        <th class="text-center">{{recordsValvulas['Total']}}</th>
         <th class="text-center">{{amountValvulas['Total']}}</th>
       </tr>
     </tfooter>

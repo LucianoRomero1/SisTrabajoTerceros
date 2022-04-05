@@ -26,8 +26,8 @@ class UserController extends BaseController
      */
     public function roles()
     {
-        $this->setBreadCrumbs();
         $entityManager  = $this->getEm();
+        $this->setBreadCrumbs("Roles de usuarios", "roles");
         $arrayResponse  = [];
         $arrayResponse  = $this->userService->getUsersArray($entityManager);
 

@@ -5,6 +5,7 @@ namespace AppBundle\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\FormInterface;
 
 use Lexik\Bundle\FormFilterBundle\Filter\Form\Type as Filters;
 
@@ -37,6 +38,12 @@ class ValvulaFilterType extends AbstractType
                     'A retrabajar'    => 1,
                 ],
             ))
+            ->add('tipoMovimiento', Filters\TextFilterType::class, array(
+                'attr'=>array(
+                    'readonly' => true
+                ),
+                'data' => $options['data'][0],
+            ))
             ->add('codDeposito', Filters\EntityFilterType::class, array(
                 'class' => 'AppBundle\Entity\Deposito',
                 'choice_label' => 'id',
@@ -52,9 +59,6 @@ class ValvulaFilterType extends AbstractType
                         ->orderBy('c.id', 'ASC');
                     }
             ))
-            // ->add('codDeposito', Filters\TextFilterType::class, array(
-            //     'label' => 'Código depósito'
-            // ))
             ->add('fecha', Filters\DateRangeFilterType::class,  array(
                 'label' => 'Fecha',
                 'left_date_options' => array(

@@ -13,13 +13,13 @@
             <div class="row">
                 <div class="col-md-6">
                 <div class="form-group">
-                    <label class="control-label" for="fecha_left_date">Armado desde</label>
+                    <label class="control-label" for="fecha_left_date">Desde</label>
                     <input type="date" id="fecha_left_date" name="fecha[left_date]" class="form-control" value="{{ filterForm.fecha.children.left_date.vars.value}}" />
                 </div>
                 </div>
                 <div class="col-md-6">
                 <div class="form-group">
-                    <label class="control-label" for="fecha_right_date">Armado hasta</label>
+                    <label class="control-label" for="fecha_right_date">Hasta</label>
                     <input type="date" id="fecha_right_date" name="fecha[right_date]" class="form-control" value="{{ filterForm.fecha.children.right_date.vars.value}}"/>
                 </div>
                 </div>
@@ -27,13 +27,14 @@
             </div> 
             {% do filterForm.fecha.setRendered %}
             {# FIN Render manual date range#}
+            <div class="col-md-2 ocultarTipoMovimiento">{{ form_row(filterForm.tipoMovimiento) }}</div>
             <div class="col-md-6">
             {{ form_rest(filterForm) }}
             </div>
             <div class="col-md-12">
                 <div class="form-group">
                     <button type="submit" class="btn btn-warning" name="filter_action" value="filter"><i class="fas fa-filter"></i> Filtrar</button>
-                    <button type="submit" class="btn btn-light" name="filter_action" value="reset"><i class="fas fa-minus"></i> Reset</button>
+                    {# <button type="submit" class="btn btn-light" name="filter_action" value="reset"><i class="fas fa-minus"></i> Reset</button> #}
                 </div>
             </div>
         </div>

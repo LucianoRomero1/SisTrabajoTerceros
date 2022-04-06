@@ -18,14 +18,13 @@ class BaseService extends AbstractController
         $this->filter = $filter;
     }
 
-    public function renderTable($entityManager, $request, $className, $formName, $filterController, $routeName, $tipoAccion = null){
+    public function renderTable($entityManager, $request, $className, $formName, $filterController, $routeName, $tipoAccion = null, $arrayOptions){
         $queryBuilder                       = $entityManager->getRepository("AppBundle:$className")->createQueryBuilder('e');
-
         if($tipoAccion != null){
             $queryBuilder->where('e.tipoMovimiento = '. $tipoAccion);
         }
     
-        list($filterForm, $queryBuilder)    = $this->filter($queryBuilder, $request, $formName, $filterController);
+        list($filterForm, $queryBuilder)    = $this->filter($queryBuilder, $request, $formName, $filterController, $arrayOptions);
         list($data, $pagerHtml)             = $this->paginator($queryBuilder, $request, $routeName);
 
 
@@ -38,9 +37,9 @@ class BaseService extends AbstractController
     * Create filter form and process filter request.
     *
     */
-    public function filter($queryBuilder, $request, $formName, $filterController){
+    public function filter($queryBuilder, $request, $formName, $filterController, $arrayOptions){
         $session = $request->getSession();
-        $filterForm = $this->createForm("AppBundle\Form\\$formName");
+        $filterForm = $this->createForm("AppBundle\Form\\$formName", $arrayOptions);
 
         //Reset filter
         if($request->get('filter_action') == 'reset'){
@@ -53,14 +52,14 @@ class BaseService extends AbstractController
         //Filter action
         if($request->get('filter_action') == 'filter'){
             $filterForm->handleRequest($request);
-            
+
             // Bind values from the request
             if($filterForm->isValid()){
                 // Build the query from the given form object
                 $this->filter->addFilterConditions($filterForm, $queryBuilder);
-
                 //Save filter to session
                 $filterData = $filterForm->getData();
+
                 $session->set($filterController, $filterData);
             }
         }

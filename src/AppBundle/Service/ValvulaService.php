@@ -98,5 +98,13 @@ class ValvulaService extends BaseController
         
     }
 
+    public function getTipoMovimiento($entityManager, $tipoAccion){
+        $arrayOptions = [];
+        array_push($arrayOptions, $tipoAccion);
+
+        return $arrayOptions;
+
+    }
+
 
 }

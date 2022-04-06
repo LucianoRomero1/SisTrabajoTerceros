@@ -22,14 +22,11 @@ class BaseController extends AbstractController
         return $this->getDoctrine()->getManager();
     }
 
-    public function setBreadCrumbs($title = null, $routeName = null, $detalle = null){
+    public function setBreadCrumbs($title = null, $routeName = null){
         $breadcrumbs = $this->get("white_october_breadcrumbs");
 
         if($title != null && $routeName != null){
             $breadcrumbs->addRouteItem($title, $routeName);
-        }
-        if($detalle != null){
-            $breadcrumbs->prependRouteItem("Acciones", "afterHomePage");
         }
          
         $breadcrumbs->prependRouteItem("Inicio", "homepage");

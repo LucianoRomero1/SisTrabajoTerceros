@@ -38,7 +38,7 @@ class ValvulaController extends BaseController
     */
     public function view(Request $request){
         $entityManager = $this->getEm();
-        $this->setBreadCrumbs("Válvulas a terceros", "viewValvulas", "true");
+        $this->setBreadCrumbs("Válvulas a terceros", "viewValvulas");
 
         $tipoAccion         = $request->get('id');
         $arrayOptions       = $this->valvulaService->getTipoMovimiento($entityManager, $tipoAccion);

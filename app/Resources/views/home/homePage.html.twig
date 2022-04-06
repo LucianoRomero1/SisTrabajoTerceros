@@ -1,29 +1,29 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-<div class="container">
+<div class="container"> 
     <div class="row">
         <div class="col-md-6">
             <div class="card">
                 <div class="card-header">
-                    <b>Nitrurar</b>
+                    <b class="h6">Nitrurar</b>
                     <div class="d-inline float-right">
-                        <span class="badge badge-pill badge-primary">{{mes}}</span>
+                        <h6><span class="badge badge-pill badge-primary">{{mes}} - {{anio}}</span></h6>
                     </div>
                 </div>
                 <div class="card-body">
                     <div class="row">
-                        <div class="col-md-6">
-                            <h1>{{stock[0][0]["ENVIADAS"]}}</h1>
-                            <p class="text-secondary">Total enviadas</p>
+                        <div class="col-md-6 text-center">
+                            <h1 class="text-secondary ">{{stock[0][0]["ENVIADAS"]}}</h1>
+                            <p class="text-primary">Total enviadas</p>
                         </div> 
-                        <div class="col-md-6">
-                            <h1>{{stock[0][0]["REINGRESADAS"]}}</h1>
-                            <p class="text-secondary">Total reingresadas</p>
+                        <div class="col-md-6 text-center">
+                            <h1 class="text-secondary">{{stock[0][0]["REINGRESADAS"]}}</h1>
+                            <p class="text-primary">Total reingresadas</p>
                         </div> 
                     </div>
-                    <div class="text-right">
-                        <a href="{{path('afterHomePage')}}">-></a>
+                    <div class="text-right mt-4">
+                        <a href="{{path('afterHomePage', {'id': '1'})}}" class="button"><span>Detalle</span></a>
                     </div>
                 </div>
             </div>
@@ -31,52 +31,52 @@
         <div class="col-md-6">
             <div class="card">
                 <div class="card-header">
-                    <b>Huecas a perforar</b>
+                    <b class="h6">Huecas a perforar</b>
                     <div class="d-inline float-right">
-                        <span class="badge badge-pill badge-primary">{{mes}}</span>
+                        <h6><span class="badge badge-pill badge-primary">{{mes}} - {{anio}}</span></h6>
                     </div>
                 </div>
                 <div class="card-body">
                     <div class="row">
-                        <div class="col-md-6">
-                            <h1>{{stock[0][0]["ENVIADAS"]}}</h1>
-                            <p class="text-secondary">Total enviadas</p>
+                        <div class="col-md-6 text-center">
+                            <h1 class="text-secondary">{{stock[1][0]["ENVIADAS"]}}</h1>
+                            <p class="text-primary">Total enviadas</p>
                         </div> 
-                        <div class="col-md-6">
-                            <h1>{{stock[0][0]["REINGRESADAS"]}}</h1>
-                            <p class="text-secondary">Total reingresadas</p>
+                        <div class="col-md-6 text-center">
+                            <h1 class="text-secondary">{{stock[1][0]["REINGRESADAS"]}}</h1>
+                            <p class="text-primary">Total reingresadas</p>
                         </div> 
                     </div>
-                    <div class="text-right">
-                        <a href="{{path('afterHomePage')}}">-></a>
+                    <div class="text-right mt-4">
+                        <a href="{{path('afterHomePage', {'id': '5'})}}" class="button"><span>Detalle</span></a>
                     </div>
                 </div>
             </div>
         </div>
     </div>
     <br>
-    <div class="row">
+    <div class="row mt-2">
         <div class="col-md-4">
             <div class="card">
                 <div class="card-header">
-                    <b>Mecanizado final</b>
+                    <b class="h6">Mecanizado final</b>
                     <div class="d-inline float-right">
-                        <span class="badge badge-pill badge-primary">{{mes}}</span>
+                        <h6><span class="badge badge-pill badge-primary">{{mes}} - {{anio}}</span></h6>
                     </div>
                 </div>
                 <div class="card-body">
                     <div class="row">
-                        <div class="col-md-6">
-                            <h1>{{stock[0][0]["ENVIADAS"]}}</h1>
-                            <p class="text-secondary">Total enviadas</p>
+                        <div class="col-md-6 text-center">
+                            <h1 class="text-secondary">{{stock[2][0]["ENVIADAS"]}}</h1>
+                            <p class="text-primary">Total enviadas</p>
                         </div> 
-                        <div class="col-md-6">
-                            <h1>{{stock[0][0]["REINGRESADAS"]}}</h1>
-                            <p class="text-secondary">Total reingresadas</p>
+                        <div class="col-md-6 text-center">
+                            <h1 class="text-secondary">{{stock[2][0]["REINGRESADAS"]}}</h1>
+                            <p class="text-primary">Total reingresadas</p>
                         </div> 
                     </div>
-                    <div class="text-right">
-                        <a href="{{path('afterHomePage')}}">-></a>
+                    <div class="text-right mt-4">
+                        <a href="{{path('afterHomePage', {'id': '3'})}}" class="button"><span>Detalle</span></a>
                     </div>
                 </div>
             </div>
@@ -84,24 +84,24 @@
         <div class="col-md-4">
             <div class="card">
                 <div class="card-header">
-                    <b>PVD - Nitruro de Cromo</b>
+                    <b class="h6">PVD - Nitruro de Cromo</b>
                     <div class="d-inline float-right">
-                        <span class="badge badge-pill badge-primary">{{mes}}</span>
+                        <h6><span class="badge badge-pill badge-primary">{{mes}} - {{anio}}</span></h6>
                     </div>
                 </div>
                 <div class="card-body">
                     <div class="row">
-                        <div class="col-md-6">
-                            <h1>{{stock[0][0]["ENVIADAS"]}}</h1>
-                            <p class="text-secondary">Total enviadas</p>
+                        <div class="col-md-6 text-center">
+                            <h1 class="text-secondary">{{stock[3][0]["ENVIADAS"]}}</h1>
+                            <p class="text-primary">Total enviadas</p>
                         </div> 
-                        <div class="col-md-6">
-                            <h1>{{stock[0][0]["REINGRESADAS"]}}</h1>
-                            <p class="text-secondary">Total reingresadas</p>
+                        <div class="col-md-6 text-center">
+                            <h1 class="text-secondary">{{stock[3][0]["REINGRESADAS"]}}</h1>
+                            <p class="text-primary">Total reingresadas</p>
                         </div> 
                     </div>
-                    <div class="text-right">
-                        <a href="{{path('afterHomePage')}}">-></a>
+                    <div class="text-right mt-4">
+                        <a href="{{path('afterHomePage', {'id': '2'})}}" class="button"><span>Detalle</span></a>
                     </div>
                 </div>
             </div>
@@ -109,24 +109,24 @@
         <div class="col-md-4">
             <div class="card">
                 <div class="card-header">
-                    <b>Forja - Tratamiento térmico</b>
+                    <b class="h6">Forja - Tratamiento térmico</b>
                     <div class="d-inline float-right">
-                        <span class="badge badge-pill badge-primary">{{mes}}</span>
+                        <h6><span class="badge badge-pill badge-primary">{{mes}} - {{anio}}</span></h6>
                     </div>
                 </div>
                 <div class="card-body">
                     <div class="row">
-                        <div class="col-md-6">
-                            <h1>{{stock[0][0]["ENVIADAS"]}}</h1>
-                            <p class="text-secondary">Total enviadas</p>
+                        <div class="col-md-6 text-center">
+                            <h1 class="text-secondary">{{stock[4][0]["ENVIADAS"]}}</h1>
+                            <p class="text-primary">Total enviadas</p>
                         </div> 
-                        <div class="col-md-6">
-                            <h1>{{stock[0][0]["REINGRESADAS"]}}</h1>
-                            <p class="text-secondary">Total reingresadas</p>
+                        <div class="col-md-6 text-center">
+                            <h1 class="text-secondary">{{stock[4][0]["REINGRESADAS"]}}</h1>
+                            <p class="text-primary">Total reingresadas</p>
                         </div> 
                     </div>
-                    <div class="text-right">
-                        <a href="{{path('afterHomePage')}}">-></a>
+                    <div class="text-right mt-4">
+                        <a href="{{path('afterHomePage', {'id': '4'})}}" class="button"><span>Detalle</span></a>
                     </div>
                 </div>
             </div>

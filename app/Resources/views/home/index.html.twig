@@ -7,17 +7,17 @@
     <div class="text-center">
         <b class="mt-2"> Traslado de procesos </b>
         <div class="mt-2 d-flex justify-content-center">
-            <input class="ml-2 col-md-1 form-control" type="number" id="idProceso" value="" readonly />
+            <input class="ml-2 col-md-1 form-control" type="number" id="idProceso" value="{{idFromHomePage}}" readonly />
             <select class="ml-2 col-md-4 form-control" name="caracteristica" id="caracteristica" onchange="myFunction(event)">
                 <option value="0"> Seleccione una opción </option>
                 {% for caracteristica in caracteristicas %}
-                    <option value="{{caracteristica.id}}"> {{caracteristica.descripcion}}</option>
+                    <option value="{{caracteristica.id}}" {% if caracteristica.id == idFromHomePage %} selected {% endif %}> {{caracteristica.descripcion}}</option>
                 {% endfor %}
             </select>
         </div>
     </div>
     <br>
-    <div id="actions" style="display: none;">
+    <div id="actions">
         <div class="row">
             <div class="col-md-2"></div>
             <div class="col-md-2">

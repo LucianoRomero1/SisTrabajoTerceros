@@ -274,6 +274,50 @@ h6 {
   background-color: #bdacac;
 }
 
+.button {
+  border-radius: 4px;
+  background-color: #D3D3D3;
+  border: none;
+  color: #0A0A0A;
+  text-align: center;
+  font-size: 16px;
+  padding: 8px;
+  width: 200px;
+  transition: all 0.5s;
+  cursor: pointer;
+  margin: 5px;
+}
+
+.button:hover {
+  color: #0A0A0A;
+}
+
+.button span {
+  cursor: pointer;
+  display: inline-block;
+  position: relative;
+  transition: 0.5s;
+}
+
+.button span:after {
+  content: '\00bb';
+  position: absolute;
+  opacity: 0;
+  top: 0;
+  right: -10px;
+  transition: 0.5s;
+}
+
+.button:hover span {
+  padding-right: 20px;
+}
+
+.button:hover span:after {
+  opacity: 1;
+  right: 0;
+}
+
+
 @media (min-width: 1200px) {
   .container{
       max-width: 1200px;

@@ -30,10 +30,11 @@ class HomeController extends BaseController
     public function indexAction(){
         $this->setBreadCrumbs();
         $entityManager      = $this->getEm();
-        $stock = $this->homeService->getStockPara($entityManager);
-        $mes = $this->homeService->getMesActual();
+        $stock              = $this->homeService->getStockPara($entityManager);
+        $periodo            = $this->homeService->getPeriodoActual();
         return $this->render('home/homePage.html.twig', array(
-            "mes"   => $mes,
+            "mes"   => $periodo[0], //Mes
+            "anio"  => $periodo[1], //Año
             "stock" => $stock
         ));
     }
@@ -41,7 +42,7 @@ class HomeController extends BaseController
     /**
      * @Route("/afterHomePage", name="afterHomePage")
      */
-    public function afterHomePage()
+    public function afterHomePage(Request $request)
     {
         $this->setBreadCrumbs("Acciones", "afterHomePage");
         $entityManager      = $this->getEm();
@@ -50,12 +51,14 @@ class HomeController extends BaseController
         $userSesion         = $this->getUser();
         $rolesUser          = $userSesion->getRoles();
         $arrayRoles         = $this->homeService->getArrayRoles($rolesUser);
+        $idFromHomepage     = $request->query->get("id");
 
         return $this->render('home/index.html.twig', array(
             'caracteristicas'       => $caracteristicas,
             'nroRegistro'           => $nroRegistro,
             'rolesUser'             => $arrayRoles,
-            'user'                  => $userSesion
+            'user'                  => $userSesion,
+            'idFromHomePage'        => $idFromHomepage
         ));
     }
 

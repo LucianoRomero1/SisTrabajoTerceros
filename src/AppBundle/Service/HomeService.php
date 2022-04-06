@@ -341,14 +341,18 @@ class HomeService extends BaseService
         return $arrayTxt;
     }
 
-    public function getMesActual(){
+    public function getPeriodoActual(){
         $fechaActual    = $this->baseService->getFechActual();
         $result         = $fechaActual->format('Y-m-d');
         $fechaActual    = date_parse_from_format("Y-m-d", $result);
 
         $mes            = $this->mesToString($fechaActual["month"]);
+        $anio           = $fechaActual["year"];
 
-        return $mes;
+        $periodo = [];
+        array_push($periodo, $mes, $anio);
+
+        return $periodo;
     }
 
     public function mesToString($mes){

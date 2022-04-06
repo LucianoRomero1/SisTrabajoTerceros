@@ -381,7 +381,7 @@ class HomeService extends BaseService
         $connection = $entityManager->getConnection();
         for($i = 1; $i <= 5; $i++){
             $statement = $connection->prepare(
-                'SELECT sum(decode(tipo_movimiento,1,cantidad,0)) as enviadas, sum(decode(tipo_movimiento,2,cantidad,0)) as reingresadas from valvulas_trabajos_3 where extract(month from fecha) = extract(month from sysdate) and extract(year from fecha) = extract(year from sysdate) and caracteristica =' . $i
+                'SELECT nvl(sum(decode(tipo_movimiento,1,cantidad,0)), 0) as enviadas, nvl(sum(decode(tipo_movimiento,2,cantidad,0)), 0) as reingresadas from valvulas_trabajos_3 where extract(month from fecha) = extract(month from sysdate) and extract(year from fecha) = extract(year from sysdate) and caracteristica =' . $i
             );
             $statement->execute();
             $resultados[] = $statement->fetchAll();

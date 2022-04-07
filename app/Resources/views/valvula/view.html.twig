@@ -9,7 +9,7 @@
 
   {% include 'valvula/_filteringTable.html.twig' with {'filterForm': filterForm } %}
 
-  {% include 'valvula/_actionsHeader.html.twig' with {'filterForm': filterForm } %}
+  {% include 'valvula/_actionsHeader.html.twig' with {'filterForm': filterForm, 'tipoCaracteristica': tipoCaracteristica } %}
  
 </div>
 <!-- END HEADER -->
@@ -33,4 +33,5 @@
 
 {% block javascript %}
   {{ parent()}}
+  <script src="{{asset('js/backPage.js')}}"></script>
 {% endblock %} 

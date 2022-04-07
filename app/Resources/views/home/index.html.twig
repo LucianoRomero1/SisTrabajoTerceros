@@ -30,7 +30,7 @@
                         <a data-toggle="modal" data-target=".bd-example-modal-lg-envio" onclick="getValueSelect()"><img src="{{asset('images/devolucion.png')}}" alt="Envío" height="100"></a>
                     </div>
                     <div class="card-footer">
-                        <a href="{{path('viewValvulas', {'id': '1'})}}" class="btn btn-secondary text-white">Ver detalle</a>
+                        <a href="{{path('viewValvulas', {'id': '1', 'idPara': idFromHomePage })}}" class="btn btn-secondary text-white">Ver detalle</a>
                     </div>
                     {% else %}
                      <div class="card-body imgHome">
@@ -74,7 +74,7 @@
                         <a data-toggle="modal" data-target=".bd-example-modal-lg-recepcion-de" onclick="getValueSelect()"><img src="{{asset('images/entrega.jpg')}}" alt="Recepción de 3°" height="100">
                     </div>
                     <div class="card-footer">
-                        <a href="{{path('viewValvulas', {'id': '2'})}}" class="btn btn-secondary text-white">Ver detalle</a>
+                        <a href="{{path('viewValvulas', {'id': '2', 'idPara': idFromHomePage})}}" class="btn btn-secondary text-white">Ver detalle</a>
                     </div>
                     {% else %}
                     <div class="card-body imgHome">
@@ -103,7 +103,7 @@
                         <a data-toggle="modal" data-target=".bd-example-modal-lg-recepcion-en"  onclick="getValueSelect()"><img src="{{asset('images/recepcion.jpg')}}" alt="Recepción en 3°" height="100"></a>
                     </div>
                     <div class="card-footer">
-                        <a href="{{path('viewValvulas', {'id': '3'})}}" class="btn btn-secondary text-white">Ver detalle</a>
+                        <a href="{{path('viewValvulas', {'id': '3', 'idPara': idFromHomePage})}}" class="btn btn-secondary text-white">Ver detalle</a>
                     </div>
                     {% else %}
                     <div class="card-body imgHome">
@@ -130,7 +130,7 @@
                         <a data-toggle="modal" data-target=".bd-example-modal-lg-produccion"  onclick="getValueSelect()"><img src="{{asset('images/produccion.jpg')}}" alt="Producción en 3°" height="100"></a>
                     </div>
                     <div class="card-footer">
-                        <a href="{{path('viewValvulas', {'id': '3'})}}" class="btn btn-secondary text-white">Ver detalle</a>
+                        <a href="{{path('viewValvulas', {'id': '3', 'idPara': idFromHomePage})}}" class="btn btn-secondary text-white">Ver detalle</a>
                     </div>
                 </div>
             </div>
@@ -147,7 +147,7 @@
                         <a data-toggle="modal" data-target=".bd-example-modal-lg-devolucion"  onclick="getValueSelect()"><img src="{{asset('images/envio.png')}}" alt="Devolución de 3°" height="100"></a>
                     </div>
                     <div class="card-footer">
-                        <a href="{{path('viewValvulas', {'id': '4'})}}" class="btn btn-secondary text-white">Ver detalle</a>
+                        <a href="{{path('viewValvulas', {'id': '4', 'idPara': idFromHomePage})}}" class="btn btn-secondary text-white">Ver detalle</a>
                     </div>
                     {% else %}
                     <div class="card-body imgHome">

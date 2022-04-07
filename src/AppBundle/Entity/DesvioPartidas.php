@@ -37,6 +37,13 @@ class DesvioPartidas
     private $codArticulo;
 
     /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="fecha", type="datetime")
+     */
+    private $fecha;
+
+    /**
      * Set nroPartida
      *
      * @param integer $nroPartida
@@ -106,6 +113,30 @@ class DesvioPartidas
     public function getCodArticulo()
     {
         return $this->codArticulo;
+    }
+
+    /**
+     * Set fecha
+     *
+     * @param \DateTime $fecha
+     *
+     * @return Valvula
+     */
+    public function setFecha($fecha)
+    {
+        $this->fecha = $fecha;
+
+        return $this;
+    }
+
+    /**
+     * Get fecha
+     *
+     * @return \DateTime
+     */
+    public function getFecha()
+    {
+        return $this->fecha;
     }
 }
 

@@ -74,7 +74,7 @@ class HomeService extends BaseService
         if($valvula == null){
             $valvula            = new Valvula();
         }   
-        $codArticuloDesvio  = $entityManager->getRepository(DesvioPartidas::class)->findOneBy(array("codDesvio"=>$form['codDesvio'], "nroPartida"=>$form['nroPartida']));
+        $codArticuloDesvio  = $entityManager->getRepository(DesvioPartidas::class)->findOneBy(array("codDesvio"=>$form['codDesvio'], "nroPartida"=>$form['nroPartida'], "fecha"=>new \DateTime($form['fecha'])));
         $codArticulo        = $entityManager->getRepository(Articulo::class)->findOneBy(array("id"=>$codArticuloDesvio->getCodArticulo()));
         $codDeposito        = $entityManager->getRepository(Deposito::class)->findOneBy(array("id"=>$form['codDeposito']));
         $codProveedor       = $entityManager->getRepository(Proveedor::class)->findOneBy(array("id"=>$form['codProveedor']));
@@ -84,7 +84,6 @@ class HomeService extends BaseService
         $tipoMov            = $this->getTipoMovimiento($form['tipo']);
         $username           = $this->getUser()->getUsername(); 
         $fechaActual        = $this->baseService->getFechActual();
-           
 
         //$valvula->setNroRegistro($form['nroRegistro']);
         $valvula->setFecha(new \DateTime($form['fecha']));
@@ -92,6 +91,7 @@ class HomeService extends BaseService
         $valvula->setCodDesvio($form['codDesvio']);
         $valvula->setNroPartida($form['nroPartida']);
         $valvula->setTipoMovimiento($tipoMov);
+        $valvula->setCaracteristica($caracteristica);
         $valvula->setCodArticulo($codArticulo); 
         $valvula->setCantidad($form['cantidad']);
         $valvula->setCodDeposito($codDeposito); 
@@ -99,7 +99,6 @@ class HomeService extends BaseService
         $valvula->setObservaciones($form['observaciones']);
         $valvula->setUsuarioM($username); 
         $valvula->setNroMovPartida($nroMov);
-        $valvula->setCaracteristica($caracteristica);
         $valvula = $this->setCheckBox($valvula, $form);
         
         $entityManager->persist($valvula);

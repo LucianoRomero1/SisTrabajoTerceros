@@ -1,5 +1,6 @@
 
-function sweetAlert(route) {
+function sweetAlert(route, tipoAccion) {
+    console.log(tipoAccion);
     Swal.fire({
         title: '¿Está seguro/a que desea volver?',
         icon: 'warning',
@@ -11,9 +12,9 @@ function sweetAlert(route) {
     }).then((result) => {
         if (result.isConfirmed) {
             if(route == "create"){
-                window.location.href = 'view'
+                window.location.href = 'view';
             }else{
-                window.location.href = '../view'
+                window.history.go(-1);
             }
             
         }

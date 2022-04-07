@@ -40,6 +40,7 @@ class ValvulaController extends BaseController
         $entityManager = $this->getEm();
         $this->setBreadCrumbs("Válvulas a terceros", "viewValvulas");
 
+        $tipoCaracteristica = $request->get('idPara');
         $tipoAccion         = $request->get('id');
         $arrayOptions       = $this->valvulaService->getTipoMovimiento($entityManager, $tipoAccion);
         $arrayTable         = $this->baseService->renderTable($entityManager, $request, "Valvula", "ValvulaFilterType", "ValvulaFilterController", "viewValvulas", $tipoAccion, $arrayOptions);
@@ -54,7 +55,8 @@ class ValvulaController extends BaseController
             'articulos'                 => $articulos,
             'recordsValvulas'           => $arrayResult[0], //Nro de registros de valvulas
             'amountValvulas'            => $arrayResult[1], //Cantidad de válvulas
-            'tipoAccion'                => $tipoAccion
+            'tipoAccion'                => $tipoAccion,
+            'tipoCaracteristica'        => $tipoCaracteristica
         ));
     }
 
@@ -64,8 +66,10 @@ class ValvulaController extends BaseController
     public function edit(Request $request, $id){
         $entityManager      = $this->getEm();
         $arrayData              = $this->valvulaService->getData($entityManager, $id);
-    
+        $tipoAccion         = $request->get('idMovimiento');
+
         $form = $request->get("Valvula");
+
         if($form != null){
             $this->homeService->setValvula($form, $entityManager, $arrayData[0]); //array 0 es lo que retorno de la funcion getData y la pos 0 es la valvula
             $this->homeService->setPartidasMov($form, $entityManager, $arrayData[1]); //array 1 es lo que retorno de la funcion getData y la pos 1 es la partidaMov
@@ -74,13 +78,16 @@ class ValvulaController extends BaseController
                 'notice',
                 'Se editó correctamente el registro' 
             );
+
             
-            return $this->redirectToRoute('viewValvulas', array('id'=>$arrayData[0]->getCaracteristica()));
+            
+            return $this->redirectToRoute('viewValvulas', array('id'=>$arrayData[0]->getTipoMovimiento()));
         }
     
         return $this->render('valvula/edit.html.twig', array(
             'valvula'       => $arrayData[0],
-            'nroRegistro'   => $arrayData[2]
+            'nroRegistro'   => $arrayData[2],
+            'tipoAccion'    => $tipoAccion
         ));
     }
 

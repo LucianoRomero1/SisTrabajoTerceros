@@ -6,20 +6,20 @@
         <tr>
           {% import "@generator_bundle/th_sortable.html.twig" as macros %} 
           <th style="border:0px;">{{macros.th_sortable('id',app.request.get('pcg_sort_col'), app.request.get('pcg_sort_order') , 'viewValvulas','Envío')}}</th>
-          <th style="border:0px;">{{macros.th_sortable('id',app.request.get('pcg_sort_col'), app.request.get('pcg_sort_order') , 'viewValvulas','Fecha')}}</th>
-          <th colspan="2" style="border:0px;">{{macros.th_sortable('id',app.request.get('pcg_sort_col'), app.request.get('pcg_sort_order') , 'viewValvulas','N° partida')}}</th>
-          <th class="text-center" style="border:0px;">{{macros.th_sortable('id',app.request.get('pcg_sort_col'), app.request.get('pcg_sort_order') , 'viewValvulas','Válvula')}}</th>
-          <th style="border:0px;">{{macros.th_sortable('id',app.request.get('pcg_sort_col'), app.request.get('pcg_sort_order') , 'viewValvulas','Tipo')}}</th>
-          <th style="border:0px;">{{macros.th_sortable('id',app.request.get('pcg_sort_col'), app.request.get('pcg_sort_order') , 'viewValvulas','Cantidad')}}</th>
+          <th style="border:0px;">{{macros.th_sortable('fecha',app.request.get('pcg_sort_col'), app.request.get('pcg_sort_order') , 'viewValvulas','Fecha')}}</th>
+          <th colspan="2" style="border:0px;">{{macros.th_sortable('nroPartida',app.request.get('pcg_sort_col'), app.request.get('pcg_sort_order') , 'viewValvulas','N° partida')}}</th>
+          <th class="text-center" style="border:0px;">{{macros.th_sortable('codArticulo',app.request.get('pcg_sort_col'), app.request.get('pcg_sort_order') , 'viewValvulas','Válvula')}}</th>
+          <th style="border:0px;">{{macros.th_sortable('tipoMovimiento',app.request.get('pcg_sort_col'), app.request.get('pcg_sort_order') , 'viewValvulas','Tipo')}}</th>
+          <th style="border:0px;">{{macros.th_sortable('cantidad',app.request.get('pcg_sort_col'), app.request.get('pcg_sort_order') , 'viewValvulas','Cantidad')}}</th>
           {% if tipoAccion == 1 or tipoAccion == 3 %}
-          <th class="text-center" style="border:0px;">{{macros.th_sortable('id',app.request.get('pcg_sort_col'), app.request.get('pcg_sort_order') , 'viewValvulas','De')}}</th>
-          <th class="text-center" style="border:0px;">{{macros.th_sortable('id',app.request.get('pcg_sort_col'), app.request.get('pcg_sort_order') , 'viewValvulas','A')}}</th>
+          <th class="text-center" style="border:0px;">{{macros.th_sortable('codDeposito',app.request.get('pcg_sort_col'), app.request.get('pcg_sort_order') , 'viewValvulas','De')}}</th>
+          <th class="text-center" style="border:0px;">{{macros.th_sortable('codProveedor',app.request.get('pcg_sort_col'), app.request.get('pcg_sort_order') , 'viewValvulas','A')}}</th>
           {% else %}
-          <th class="text-center" style="border:0px;">{{macros.th_sortable('id',app.request.get('pcg_sort_col'), app.request.get('pcg_sort_order') , 'viewValvulas','A')}}</th>
-          <th class="text-center" style="border:0px;">{{macros.th_sortable('id',app.request.get('pcg_sort_col'), app.request.get('pcg_sort_order') , 'viewValvulas','De')}}</th>
+          <th class="text-center" style="border:0px;">{{macros.th_sortable('codProveedor',app.request.get('pcg_sort_col'), app.request.get('pcg_sort_order') , 'viewValvulas','A')}}</th>
+          <th class="text-center" style="border:0px;">{{macros.th_sortable('codDeposito',app.request.get('pcg_sort_col'), app.request.get('pcg_sort_order') , 'viewValvulas','De')}}</th>
           {% endif %}
-          <th style="border:0px;">{{macros.th_sortable('id',app.request.get('pcg_sort_col'), app.request.get('pcg_sort_order') , 'viewValvulas','Para')}}</th>
-          <th style="border:0px;">{{macros.th_sortable('id',app.request.get('pcg_sort_col'), app.request.get('pcg_sort_order') , 'viewValvulas','A retrabajar')}}</th>
+          <th style="border:0px;">{{macros.th_sortable('caracteristica',app.request.get('pcg_sort_col'), app.request.get('pcg_sort_order') , 'viewValvulas','Para')}}</th>
+          <th style="border:0px;">{{macros.th_sortable('aRetrabajar',app.request.get('pcg_sort_col'), app.request.get('pcg_sort_order') , 'viewValvulas','A retrabajar')}}</th>
           <th style="border:0px;" width = "100px" class="noExl">Acciones</th>
         </tr>
       </thead>

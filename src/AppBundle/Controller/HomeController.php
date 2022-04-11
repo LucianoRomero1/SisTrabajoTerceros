@@ -8,9 +8,11 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use AppBundle\Base\BaseController;
 use AppBundle\Base\BaseService;
+use AppBundle\Entity\Articulo;
+use AppBundle\Entity\DesvioPartidas;
 use AppBundle\Service\HomeService;
 use AppBundle\Entity\Valvula;
-use AppBundle\Entity\Usuario;
+use AppBundle\Entity\PartidasCobol;
 
 
 class HomeController extends BaseController
@@ -224,13 +226,16 @@ class HomeController extends BaseController
         $cantidadLimite     = $entityManager->getRepository(PartidasCobol::class)->findOneBy(array('nroPartida'=>$nroPartida, 'codDesvio'=>$codDesvio));
         $arrayInfo          = [];
 
-        $valvula            = $entityManager->getRepository(Valvula::class)->findOneBy(array("codDesvio"=>$codDesvio, "nroPartida"=>$nroPartida));
-        if(is_null($valvula)){
+        //Creo que esta busqueda esta mal, porque estoy buscando de esa tabla? Creo que deberia buscarlo de partidas cobol
+        $codArticulo        = $entityManager->getRepository(DesvioPartidas::class)->findOneBy(array("codDesvio"=>$codDesvio, "nroPartida"=>$nroPartida))->getCodArticulo();
+        $descripcionValvula = $entityManager->getRepository(Articulo::class)->findOneBy(array("id"=>$codArticulo))->getDescripcion();
+
+        if(is_null($descripcionValvula)){
             return $this->createErrorResponse("La válvula solicitada no existe", "");
         }
         else{
-            $descripcion        = $valvula->getCodArticulo()->getDescripcion();
-            array_push($arrayInfo, $descripcion, $cantidadLimite);  
+            $descripcion        = $descripcionValvula;
+            array_push($arrayInfo, $descripcion, $cantidadLimite->getCantidad());  
             return $this->createResultResponse("OK", $arrayInfo);
         }       
     }

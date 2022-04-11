@@ -7,31 +7,25 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * PartidasCobol
  *
- * @ORM\Table(name="partidas_cobol")
+ * @ORM\Table(name="neosys.partidas_cobol")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\PartidasCobolRepository")
  */
 class PartidasCobol
 {
-    /**
-     * @var int
-     *
-     * @ORM\Column(name="id", type="integer")
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="AUTO")
-     */
-    private $id;
 
     /**
      * @var int
      *
-     * @ORM\Column(name="nroPartida", type="integer")
+     * @ORM\Column(name="nro_partida", type="integer")
+     * @ORM\Id
      */
     private $nroPartida;
 
     /**
      * @var int
      *
-     * @ORM\Column(name="codDesvio", type="integer")
+     * @ORM\Column(name="cod_desvio", type="integer")
+     * @ORM\Id
      */
     private $codDesvio;
 
@@ -43,15 +37,6 @@ class PartidasCobol
     private $cantidad;
 
 
-    /**
-     * Get id
-     *
-     * @return int
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
 
     /**
      * Set nroPartida

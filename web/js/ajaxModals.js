@@ -65,6 +65,7 @@ function getDeposito(from) {
 function getProveedor(from) {
     let array_prov  = switchModalProv(from);
     let url         = "";
+    let cantidadLimite = document.getElementsByClassName("cantidad");
     let fd              = new FormData();
     fd.append('codProveedor' , array_prov[1]);
 
@@ -84,7 +85,10 @@ function getProveedor(from) {
 
         success: function(res){
             if(res.result == "OK"){
-                array_prov[0].value = res.info;
+                array_prov[0].value = res.info[0];
+                for(let i = 0; i <= cantidadLimite.length; i++){
+                    cantidadLimite.setAttribute("max", res.info[1]);
+                }
             }
             else{
                 array_prov[0].value = res.info;

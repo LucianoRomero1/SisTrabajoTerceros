@@ -221,6 +221,8 @@ class HomeController extends BaseController
         $entityManager      = $this->getEm();
         $codDesvio          = $_REQUEST["codDesvio"];
         $nroPartida         = $_REQUEST["nroPartida"];
+        $cantidadLimite     = $entityManager->getRepository(PartidasCobol::class)->findOneBy(array('nroPartida'=>$nroPartida, 'codDesvio'=>$codDesvio));
+        $arrayInfo          = [];
 
         $valvula            = $entityManager->getRepository(Valvula::class)->findOneBy(array("codDesvio"=>$codDesvio, "nroPartida"=>$nroPartida));
         if(is_null($valvula)){
@@ -228,7 +230,8 @@ class HomeController extends BaseController
         }
         else{
             $descripcion        = $valvula->getCodArticulo()->getDescripcion();
-            return $this->createResultResponse("OK", $descripcion);
+            array_push($arrayInfo, $descripcion, $cantidadLimite);  
+            return $this->createResultResponse("OK", $arrayInfo);
         }       
     }
 

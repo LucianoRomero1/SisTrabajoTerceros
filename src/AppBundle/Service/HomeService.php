@@ -245,8 +245,12 @@ class HomeService extends BaseService
         $fecha      = $form['fecha'];
         $cantidad   = $form['cantidad'];
         $ptt        = $form['codDesvio'] . $form['nroPartida'];
-
-        $destinatarios  = $this->getReceptores($para); //esta variable la voy a usar cuando compruebe que el email se envia correctamente
+        $pttCheck   = null;
+        if(array_key_exists("ppt", $form)){
+            $pttCheck   = $form['ppt'];
+        }
+        
+        $destinatarios  = $this->getReceptores($para); 
         $arrayTxt       = $this->getTituloEmail($para, $tipo);
 
         $message = \Swift_Message::newInstance()
@@ -261,6 +265,7 @@ class HomeService extends BaseService
                         'fecha'     => $fecha,
                         'cantidad'  => $cantidad,
                         'ptt'       => $ptt,
+                        'pttCheck'  => $pttCheck  
                     )
                 ),
                 'text/html'

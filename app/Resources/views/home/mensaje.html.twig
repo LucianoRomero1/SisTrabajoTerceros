@@ -7,6 +7,9 @@
             <b>- PTT:</b><span>&nbsp;{{ptt}}.</span><br>
             <b>- CANTIDAD:</b><span>&nbsp;{{cantidad}} pzs.</span><br>
             <b>- FECHA:</b><span>&nbsp;{{fecha|date("d/m/Y H:i")}}</span><br>
+            {% if pttCheck != null %}
+            <b>- PTT TERMINADA. <br>
+            {% endif %}
         </div>
     </div> 
     <br>

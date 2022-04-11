@@ -48,18 +48,12 @@ class UserController extends BaseController
         $usuario        = $entityManager->getRepository(Usuario::class)->find($username);
 
         if(!$this->userService->switchRol($rol, $usuario, $entityManager)){
-            $this->addFlash(
-                'error',
-                'El usuario: ' . $usuario->getUsername() . ' ya tiene asignado ese rol'
-            );
+            return $this->createErrorResponse('El usuario: ' . $usuario->getUsername() . ' ya tiene asignado ese rol', "");
         }
         else{
-            $this->addFlash(
-                'notice',
-                'Se asignó correctamente el rol al usuario: ' . $usuario->getUsername()
-            );
+            return $this->createResultResponse("OK", "Rol asignado correctamente");
         }
-        return $this->redirectToRoute('roles');
+        
     }
 
      /**

@@ -18,7 +18,7 @@ class BaseService extends AbstractController
         $this->filter = $filter;
     }
 
-    public function renderTable($entityManager, $request, $className, $formName, $filterController, $routeName, $tipoAccion = null, $arrayOptions){
+    public function renderTable($entityManager, $request, $className, $formName, $filterController, $routeName, $tipoAccion = null, $arrayOptions = null){
         $queryBuilder                       = $entityManager->getRepository("AppBundle:$className")->createQueryBuilder('e');
         if($tipoAccion != null){
             $queryBuilder->where('e.tipoMovimiento = '. $tipoAccion);

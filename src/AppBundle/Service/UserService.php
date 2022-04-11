@@ -62,11 +62,13 @@ class UserService extends BaseService
         $role_r = $entityManager->getRepository(Role::class)->findOneBy(array("role"=>"ROLE_RECEPCION_3°"));
         $role_d = $entityManager->getRepository(Role::class)->findOneBy(array("role"=>"ROLE_DEVOLUCION_3°"));
         $role_o = $entityManager->getRepository(Role::class)->findOneBy(array("role"=>"ROLE_REINGRESO_3°"));
+        $role_a = $entityManager->getRepository(Role::class)->findOneBy(array("role"=>"ROLE_ADMIN_SIS"));
 
         $usuario->removeRole($role_e);
         $usuario->removeRole($role_r);
         $usuario->removeRole($role_d);
         $usuario->removeRole($role_o);
+        $usuario->removeRole($role_a);
 
         $entityManager->persist($usuario);
         $entityManager->flush();

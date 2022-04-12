@@ -8,6 +8,7 @@
     </thead>
     <tbody> 
         {% for user in usuariosRol %}
+        {% set username = user.username %}
         <tr>
             <td>{{user.username}}</td>
             <td class="text-center">
@@ -18,30 +19,31 @@
             {% endfor %}
             </td>
             <td class="text-center">
-                <a href="{{path('setRole', {'username': user.username, 'rol': "ROLE_ENVIO_3°" })}}"      class="m-1 btn btn-sm btn-secondary text-white">Envío</a>
-                <a href="{{path('setRole', {'username': user.username, 'rol': "ROLE_RECEPCION_3°" })}}"  class="m-1 btn btn-sm btn-secondary text-white">Recepción</a>
-                <a href="{{path('setRole', {'username': user.username, 'rol': "ROLE_DEVOLUCION_3°" })}}" class="m-1 btn btn-sm btn-secondary text-white">Devolución</a>
-                <a href="{{path('setRole', {'username': user.username, 'rol': "ROLE_REINGRESO_3°" })}}"  class="m-1 btn btn-sm btn-secondary text-white">Reingreso</a>
-                <a href="{{path('setRole', {'username': user.username, 'rol': "ROLE_CONSULTA" })}}"  class="m-1 btn btn-sm btn-secondary text-white">Consulta</a>
+                <a onclick="setRole('{{username}}', 'ROLE_ENVIO_3°')" class="m-1 btn btn-sm btn-secondary text-white">Envío</a>
+                <a onclick="setRole('{{username}}', 'ROLE_RECEPCION_3°')" class="m-1 btn btn-sm btn-secondary text-white">Recepción</a>
+                <a onclick="setRole('{{username}}', 'ROLE_DEVOLUCION_3°')" class="m-1 btn btn-sm btn-secondary text-white">Devolución</a>
+                <a onclick="setRole('{{username}}', 'ROLE_REINGRESO_3°')" class="m-1 btn btn-sm btn-secondary text-white">Reingreso</a>
+                <a onclick="setRole('{{username}}', 'ROLE_CONSULTA')" class="m-1 btn btn-sm btn-secondary text-white">Consulta</a>
                 {% if is_granted("ROLE_ADMIN") or is_granted("ROLE_ADMIN_SIS") %}
-                    <a href="{{path('setRole', {'username': user.username, 'rol': "ROLE_ADMIN_SIS" })}}"  class="m-1 btn btn-sm btn-primary text-white">Admin Sis</a>
+                    <a onclick="setRole('{{username}}', 'ROLE_ADMIN_SIS')"  class="m-1 btn btn-sm btn-primary text-white">Admin Sis</a>
                     <a href="{{path('deleteRoles', {'username': user.username})}}"  class="m-1 btn btn-sm btn-danger text-white">Revocar roles</a>
                 {% endif %}
             </td>
         </tr>
         {% endfor %}
         {% for user in usuariosSinRol %}
+        {% set username = user.username %}
         <tr>
             <td>{{user.username}}</td>
             <td class="text-center"><p style="font-size: 14px;">No tiene ningún rol asignado</p></td>
             <td class="text-center">
-                <a href="{{path('setRole', {'username': user.username, 'rol': "ROLE_ENVIO_3°" })}}"      class="m-1 btn btn-sm btn-secondary text-white">Envío</a>
-                <a href="{{path('setRole', {'username': user.username, 'rol': "ROLE_RECEPCION_3°" })}}"  class="m-1 btn btn-sm btn-secondary text-white">Recepción</a>
-                <a href="{{path('setRole', {'username': user.username, 'rol': "ROLE_DEVOLUCION_3°" })}}" class="m-1 btn btn-sm btn-secondary text-white">Devolución</a>
-                <a href="{{path('setRole', {'username': user.username, 'rol': "ROLE_REINGRESO_3°" })}}"  class="m-1 btn btn-sm btn-secondary text-white">Reingreso</a>
-                <a href="{{path('setRole', {'username': user.username, 'rol': "ROLE_CONSULTA" })}}"  class="m-1 btn btn-sm btn-secondary text-white">Consulta</a>
+                <a onclick="setRole('{{username}}', 'ROLE_ENVIO_3°')" class="m-1 btn btn-sm btn-secondary text-white">Envío</a>
+                <a onclick="setRole('{{username}}', 'ROLE_RECEPCION_3°')" class="m-1 btn btn-sm btn-secondary text-white">Recepción</a>
+                <a onclick="setRole('{{username}}', 'ROLE_DEVOLUCION_3°')" class="m-1 btn btn-sm btn-secondary text-white">Devolución</a>
+                <a onclick="setRole('{{username}}', 'ROLE_REINGRESO_3°')" class="m-1 btn btn-sm btn-secondary text-white">Reingreso</a>
+                <a onclick="setRole('{{username}}', 'ROLE_CONSULTA')" class="m-1 btn btn-sm btn-secondary text-white">Consulta</a>
                 {% if is_granted("ROLE_ADMIN_SIS") or is_granted("ROLE_ADMIN") %}
-                    <a href="{{path('setRole', {'username': user.username, 'rol': "ROLE_ADMIN_SIS" })}}"  class="m-1 btn btn-sm btn-primary text-white">Admin Sis</a>
+                    <a onclick="setRole('{{username}}', 'ROLE_ADMIN_SIS')"  class="m-1 btn btn-sm btn-primary text-white">Admin Sis</a>
                 {% endif %}
             </td>
         </tr>

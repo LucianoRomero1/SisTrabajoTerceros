@@ -74,7 +74,7 @@ class HomeService extends BaseService
         if($valvula == null){
             $valvula            = new Valvula();
         }   
-        $codArticuloDesvio  = $entityManager->getRepository(DesvioPartidas::class)->findOneBy(array("codDesvio"=>$form['codDesvio'], "nroPartida"=>$form['nroPartida'], "fecha"=>new \DateTime($form['fecha'])));
+        $codArticuloDesvio  = $entityManager->getRepository(DesvioPartidas::class)->findOneBy(array("codDesvio"=>$form['codDesvio'], "nroPartida"=>$form['nroPartida']));
         $codArticulo        = $entityManager->getRepository(Articulo::class)->findOneBy(array("id"=>$codArticuloDesvio->getCodArticulo()));
         $codDeposito        = $entityManager->getRepository(Deposito::class)->findOneBy(array("id"=>$form['codDeposito']));
         $codProveedor       = $entityManager->getRepository(Proveedor::class)->findOneBy(array("id"=>$form['codProveedor']));
@@ -245,8 +245,12 @@ class HomeService extends BaseService
         $fecha      = $form['fecha'];
         $cantidad   = $form['cantidad'];
         $ptt        = $form['codDesvio'] . $form['nroPartida'];
-
-        $destinatarios  = $this->getReceptores($para); //esta variable la voy a usar cuando compruebe que el email se envia correctamente
+        $pttCheck   = null;
+        if(array_key_exists("ppt", $form)){
+            $pttCheck   = $form['ppt'];
+        }
+        
+        $destinatarios  = $this->getReceptores($para); 
         $arrayTxt       = $this->getTituloEmail($para, $tipo);
 
         $message = \Swift_Message::newInstance()
@@ -261,6 +265,7 @@ class HomeService extends BaseService
                         'fecha'     => $fecha,
                         'cantidad'  => $cantidad,
                         'ptt'       => $ptt,
+                        'pttCheck'  => $pttCheck  
                     )
                 ),
                 'text/html'

@@ -102,6 +102,7 @@ function getProveedor(from) {
 function getValvula(from) {
     let array_valvula  = switchModalValvula(from);
     let url         = "";
+    let cantidadLimite = document.getElementsByClassName("cantidad");
     let fd             = new FormData();
     fd.append('codDesvio' , array_valvula[0]);
     fd.append('nroPartida' , array_valvula[1]);
@@ -123,7 +124,10 @@ function getValvula(from) {
 
         success: function(res){
             if(res.result == "OK"){
-                array_valvula[2].value = res.info;
+                array_valvula[2].value = res.info[0];
+                for(let i = 0; i <= cantidadLimite.length; i++){
+                    cantidadLimite[i].setAttribute("max", res.info[1]);
+                }
             }
             else{
                 array_valvula[2].value = res.info;

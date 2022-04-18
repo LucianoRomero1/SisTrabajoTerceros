@@ -13,7 +13,7 @@
             <td>{{user.username}}</td>
             <td class="text-center">
             {% for rol in user.roles %}
-                {% if rol.role == "ROLE_ADMIN" or rol.role == "ROLE_ADMIN_SIS" or rol.role == "ROLE_ENVIO_3°" or rol.role == "ROLE_REINGRESO_3°" or rol.role == "ROLE_RECEPCION_3°" or rol.role == "ROLE_DEVOLUCION_3°" or rol.role == "ROLE_CONSULTA" %}
+                {% if rol.role == "ROLE_ADMIN_SIS" or rol.role == "ROLE_ENVIO_3°" or rol.role == "ROLE_REINGRESO_3°" or rol.role == "ROLE_RECEPCION_3°" or rol.role == "ROLE_DEVOLUCION_3°" or rol.role == "ROLE_CONSULTA" %}
                     {{rol.role}} <span class="text-danger">|</span>
                 {% endif %}
             {% endfor %}

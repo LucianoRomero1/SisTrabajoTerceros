@@ -83,6 +83,11 @@ class UserService extends BaseService
         $arrayReturn        = [];
 
         $usuarios = $entityManager->getRepository(Usuario::class)->findAll();
+        for($i = 0; $i < count($usuarios); $i++){
+            if($usuarios[$i]->getUsername() == "lromero" || $usuarios[$i]->getUsername() == "pmautino" || $usuarios[$i]->getUsername() == "ftessio" || $usuarios[$i]->getUsername() == "shidalgo" || $usuarios[$i]->getUsername() == "lprato"){
+                unset($usuarios[$i]); 
+            }
+        }
 
         foreach($usuarios as $user){
             if($user->getRoles() == []){

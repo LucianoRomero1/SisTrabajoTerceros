@@ -106,6 +106,13 @@ class UserService extends BaseService
         $arraySinRol    = array_values($arraySinRol);
         $arrayUserRol   = array_values($arrayUserRol);
 
+        for($i = 0; $i < count($arraySinRol); $i++){
+            if(in_array($arraySinRol[$i]->getUsername(), $arrayUserRol)){
+                unset($arraySinRol[$i]);
+                
+            }
+        }
+
         array_push($arrayReturn, $arrayUserRol, $arraySinRol);
 
         return $arrayReturn;

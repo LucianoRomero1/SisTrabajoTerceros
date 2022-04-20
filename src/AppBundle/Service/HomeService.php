@@ -280,7 +280,7 @@ class HomeService extends BaseService
         $destinatarios = [];
         //Cuando es Válvula a Nitrurar cambian los email, aplicarlo cuando se reciba la información concreta
         array_push($destinatarios, "atassone@basso.com.ar", "cap@basso.com.ar", "cclementz@basso.com.ar", "fbarberis@basso.com.ar", "insumos@basso.com.ar", "mcerda@basso.com.ar");
-        array_push($destinatarios, "mthailinger@basso.com.ar", "mecanizado@basso.com.ar", "pmautino@basso.com.ar", "sspila@basso.com.ar");
+        array_push($destinatarios, "mthailinger@basso.com.ar", "mecanizado@basso.com.ar", "pmautino@basso.com.ar", "sspila@basso.com.ar", "lromero@basso.com.ar");
         if($para == "Nitrurar"){
             array_push($destinatarios, "nitrurado@mparts.com.ar");
         }

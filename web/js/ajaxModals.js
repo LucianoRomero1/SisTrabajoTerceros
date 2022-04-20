@@ -102,10 +102,13 @@ function getProveedor(from) {
 function getValvula(from) {
     let array_valvula  = switchModalValvula(from);
     let url         = "";
+    let caracteristica = document.getElementsByClassName("para");
     let cantidadLimite = document.getElementsByClassName("cantidad");
     let fd             = new FormData();
     fd.append('codDesvio' , array_valvula[0]);
     fd.append('nroPartida' , array_valvula[1]);
+    fd.append('tipo' , from);
+    fd.append('caracteristica' , caracteristica[0].value);
 
     if(from != "edit"){
         url = "ajaxValvula";

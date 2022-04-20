@@ -394,5 +394,55 @@ class HomeService extends BaseService
         return $resultados;
     }
 
+    public function getCantidad($tipo, $caracteristica, $nroPartida, $codDesvio, $entityManager){
+        //Tengo que buscar la valvula en la tabla de valvulas_terceros
+        //Si esa valvula existe, traer la cantidad, quiere decir que esa valvula con esa partida y
+        //ese cod desvio, ya se realizó, caso contrario traer 0
+        switch($tipo){
+            case 1:
+                //Envio
+                $valvula = $this->getValvulaTercero($entityManager, $nroPartida, $codDesvio, $caracteristica);
+                break;
+            case 2:
+                //Recepcion de 3°
+                $valvula = $this->getValvulaTercero($entityManager, $nroPartida, $codDesvio, $caracteristica);
+                break;
+            case 3:
+                //Recepcion en 3°
+                $valvula = $this->getValvulaTercero($entityManager, $nroPartida, $codDesvio, $caracteristica);
+                break;
+            case 4:
+                //Devolucion de 3°
+                $valvula = $this->getValvulaTercero($entityManager, $nroPartida, $codDesvio, $caracteristica);
+                break;
+        }
+        // Si trae el string usar esto
+        // switch($tipoMov){
+        //     case "Envío a 3°":
+        //         $tipoMov = 1;
+        //         break;
+        //     case "Recepción de 3°":
+        //         $tipoMov = 2;
+        //         break;
+        //     case "Recepción en 3°":
+        //         $tipoMov = 3;
+        //         break;
+        //     case "Devolución de 3°":
+        //         $tipoMov = 4;
+        //         break;
+        // }
+        return $valvula;
+    }
+
+    public function getValvulaTercero($entityManager, $nroPartida, $codDesvio, $caracteristica){
+        //HARDCODEO CARACTERISTICA PARA PROBAR EN LA NOTEBOOK
+        $valvula = $entityManager->getRepository(Valvula::class)->findOneBy(array("nroPartida"=>$nroPartida, "codDesvio"=>$codDesvio, 'caracteristica'=>$caracteristica));
+        if(is_null($caracteristica)){
+            $valvula = 0;
+        }
+
+        return $valvula;
+    }
+
  
 }

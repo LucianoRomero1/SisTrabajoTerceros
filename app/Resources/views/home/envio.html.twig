@@ -1,6 +1,6 @@
 <!-- Modal -->
 <div class="modal fade bd-example-modal-lg-envio modal-reset" tabindex="-1" role="dialog" id="modalClose" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-    <form action="{{path('envioTercero')}}" method="POST">
+    <form action="{{path('envioTercero', {'idFromHomePage': idFromHomePage}) }}" method="POST">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
@@ -38,7 +38,7 @@
                 <h6> N° Partida: </h6>
                 <div class="row">
                     <div class="col-md-2">
-                        <input class="form-control mt-1" type="text" value="0" name="Valvula[codDesvio]" id="codDesvio_1" required>
+                        <input class="form-control mt-1" type="text" value="0" name="Valvula[codDesvio]" id="codDesvio_1" maxlength="1" required>
                     </div>
                     <div class="col-md-4">
                         <input class="form-control mt-1" type="text" name="Valvula[nroPartida]" id="nroPartida_1" onfocusout="getValvula('envio')" required>

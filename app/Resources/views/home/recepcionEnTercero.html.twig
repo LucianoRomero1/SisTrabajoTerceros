@@ -1,6 +1,6 @@
 <!-- Modal -->
 <div class="modal fade bd-example-modal-lg-recepcion-en modal-reset" tabindex="-1" role="dialog" id="modalClose" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-    <form  action="{{path('recepcionEnTercero')}}" method="POST">
+    <form  action="{{path('recepcionEnTercero', {'idFromHomePage': idFromHomePage}) }}" method="POST">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">

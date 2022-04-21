@@ -54,13 +54,15 @@ class HomeController extends BaseController
         $rolesUser          = $userSesion->getRoles();
         $arrayRoles         = $this->homeService->getArrayRoles($rolesUser);
         $idFromHomepage     = $request->query->get("id");
+        $idHomePage         = $request->query->get("idHome");
 
         return $this->render('home/index.html.twig', array(
             'caracteristicas'       => $caracteristicas,
             'nroRegistro'           => $nroRegistro,
             'rolesUser'             => $arrayRoles,
             'user'                  => $userSesion,
-            'idFromHomePage'        => $idFromHomepage
+            'idFromHomePage'        => $idFromHomepage,
+            'idHomePage'        => $idHomePage
         ));
     }
 
@@ -69,7 +71,9 @@ class HomeController extends BaseController
      */
     public function envioTercero(Request $request){
         $entityManager      = $this->getEm();
-        $form = $request->get("Valvula");
+        $form               = $request->get("Valvula");
+        $idFromHomepage     = $request->query->get("idFromHomePage");
+
         if($form != null){
             
             $this->homeService->setValvula($form, $entityManager);
@@ -81,7 +85,7 @@ class HomeController extends BaseController
                 'Envío realizado'
             );
 
-            return $this->redirectToRoute('homepage');
+            return $this->redirectToRoute("afterHomePage", array("idHome"=>$idFromHomepage));
         }
 
     }
@@ -102,7 +106,7 @@ class HomeController extends BaseController
                 'Recepción realizada'
             );
 
-            return $this->redirectToRoute('homepage');
+            return $this->redirectToRoute('afterHomePage');
         }
 
     }
@@ -122,7 +126,7 @@ class HomeController extends BaseController
                 'Reingreso realizado'
             );
 
-            return $this->redirectToRoute('homepage');
+            return $this->redirectToRoute('afterHomePage');
         }
     }
 
@@ -143,7 +147,7 @@ class HomeController extends BaseController
                 'Devolución realizada'
             );
 
-            return $this->redirectToRoute('homepage');
+            return $this->redirectToRoute('afterHomePage');
         }
     }
 
@@ -223,19 +227,32 @@ class HomeController extends BaseController
         $entityManager      = $this->getEm();
         $codDesvio          = $_REQUEST["codDesvio"];
         $nroPartida         = $_REQUEST["nroPartida"];
-        $cantidadLimite     = $entityManager->getRepository(PartidasCobol::class)->findOneBy(array('nroPartida'=>$nroPartida, 'codDesvio'=>$codDesvio));
+        $tipo               = $_REQUEST["tipo"];
+        $caracteristica     = $_REQUEST["caracteristica"];
         $arrayInfo          = [];
 
-        //Creo que esta busqueda esta mal, porque estoy buscando de esa tabla? Creo que deberia buscarlo de partidas cobol
-        $codArticulo        = $entityManager->getRepository(DesvioPartidas::class)->findOneBy(array("codDesvio"=>$codDesvio, "nroPartida"=>$nroPartida))->getCodArticulo();
-        $descripcionValvula = $entityManager->getRepository(Articulo::class)->findOneBy(array("id"=>$codArticulo))->getDescripcion();
+        //Esto es para la cantidad a mostrar de la valvula, lo tengo que hacer primero porque va de la mano con el result response correcto
+        $cantidadAMostrar   = $this->homeService->getCantidad($tipo, $caracteristica, $nroPartida, $codDesvio, $entityManager);
+        if($cantidadAMostrar <= 0){
+            return $this->createErrorResponse("No hay piezas disponibles para realizar el movimiento", "");
+        }
+
+
+        //Esto es para traer la descripcion de la valvula
+        $codArticulo        = $entityManager->getRepository(DesvioPartidas::class)->findOneBy(array('codDesvio'=>$codDesvio, 'nroPartida'=>$nroPartida));
+        if(is_null($codArticulo)){
+            return $this->createErrorResponse("La válvula solicitada no existe", "");
+        }
+
+        $descripcionValvula = $entityManager->getRepository(Articulo::class)->findOneBy(array("id"=>$codArticulo->getCodArticulo()))->getDescripcion();
+        
 
         if(is_null($descripcionValvula)){
             return $this->createErrorResponse("La válvula solicitada no existe", "");
         }
         else{
             $descripcion        = $descripcionValvula;
-            array_push($arrayInfo, $descripcion, $cantidadLimite->getCantidad());  
+            array_push($arrayInfo, $descripcion, $cantidadAMostrar);  
             return $this->createResultResponse("OK", $arrayInfo);
         }       
     }

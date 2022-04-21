@@ -11,6 +11,7 @@ use AppBundle\Entity\Deposito;
 use AppBundle\Entity\Proveedor;
 use AppBundle\Entity\Articulo;
 use AppBundle\Entity\TipoMovPartida;
+use AppBundle\Entity\PartidasCobol;
 
 class HomeService extends BaseService
 {   
@@ -257,6 +258,7 @@ class HomeService extends BaseService
             ->setSubject($arrayTxt[1])
             ->setFrom("SisTrabajoTerceros@basso.com.ar")
             ->setTo($destinatarios)
+            //->setTo("lromero@basso.com.ar")
             ->setBody(
                 $this->renderView(
                     'home/mensaje.html.twig', array(
@@ -391,6 +393,108 @@ class HomeService extends BaseService
             $resultados[] = $statement->fetchAll();
         }
         
+        return $resultados;
+    }
+
+    public function getCantidad($tipo, $caracteristica, $nroPartida, $codDesvio, $entityManager){
+        $tipoMov = 0;
+        $caracteristica = $this->getCaracteristica($caracteristica);
+        switch($tipo){
+            case 'envio':
+                //Envio
+                $tipoMov = 1;
+                //$valvula = $this->getValvulaTercero($entityManager, $nroPartida, $codDesvio, $caracteristica, $tipoMov);
+                break;
+            case 'recepcion':
+                //Recepcion de 3°
+                $tipoMov = 3;
+                //$valvula = $this->getValvulaTercero($entityManager, $nroPartida, $codDesvio, $caracteristica, $tipoMov);
+                break;
+            case 'reingreso':
+                //Recepcion en 3°
+                $tipoMov = 2;
+                //$valvula = $this->getValvulaTercero($entityManager, $nroPartida, $codDesvio, $caracteristica, $tipoMov);
+                break;
+            case 'devolucion':
+                //Devolucion de 3°
+                $tipoMov = 4;
+                //$valvula = $this->getValvulaTercero($entityManager, $nroPartida, $codDesvio, $caracteristica, $tipoMov);
+                break;
+        }
+
+        $cantidadAMostrar = $this->getCantidadAMostrar($tipoMov, $nroPartida, $codDesvio, $caracteristica, $entityManager);
+        
+        return $cantidadAMostrar;
+    }
+
+    public function getValvulaTercero($entityManager, $nroPartida, $codDesvio, $caracteristica, $tipoMov){
+        
+        $valvula = $entityManager->getRepository(Valvula::class)->findBy(array("nroPartida"=>$nroPartida, "codDesvio"=>$codDesvio, 'caracteristica'=>$caracteristica, 'tipoMovimiento'=>$tipoMov));
+        if(is_null($valvula)){
+            $valvula = 0;
+        }
+
+        return $valvula;
+    }
+
+    
+
+    public function getCantidadAMostrar($tipoMov, $nroPartida, $codDesvio, $caracteristica, $entityManager){
+        $cantidadAMostrar = 0;
+
+        if($tipoMov == 1){
+            //Envio
+            $cantidadInicial    = $entityManager->getRepository(PartidasCobol::class)->findOneBy(array('nroPartida'=>$nroPartida, 'codDesvio'=>$codDesvio))->getCantidad();
+            $cantidadValvula    = $this->getCantidadConsulta($entityManager, $codDesvio, $nroPartida, $tipoMov, $caracteristica);
+
+            $cantidadAMostrar   = $cantidadInicial - $cantidadValvula[0]["CANTIDAD"];
+
+        }
+
+        if($tipoMov == 3){
+            //Recepcion en 3°
+            $cantidadInicial = 0;
+            $cantidadValvula = 0;
+            $valvulaAnterior = $this->getCantidadConsulta($entityManager, $codDesvio, $nroPartida, 1 , $caracteristica);
+            $valvulaActual   = $this->getCantidadConsulta($entityManager, $codDesvio, $nroPartida, $tipoMov , $caracteristica);
+
+
+            $cantidadAMostrar = $valvulaAnterior[0]["CANTIDAD"] - $valvulaActual[0]["CANTIDAD"];
+        }
+
+        if($tipoMov == 4){
+            //Devolucion
+            $cantidadInicial = 0;
+            $cantidadValvula = 0;
+            $valvulaAnterior = $this->getCantidadConsulta($entityManager, $codDesvio, $nroPartida, 3 , $caracteristica);
+            $valvulaActual   = $this->getCantidadConsulta($entityManager, $codDesvio, $nroPartida, $tipoMov , $caracteristica);
+
+            $cantidadAMostrar = $valvulaAnterior[0]["CANTIDAD"] - $valvulaActual[0]["CANTIDAD"];
+        }
+
+        if($tipoMov == 2){
+            //Reingreso
+            $cantidadInicial = 0;
+            $cantidadValvula = 0;
+            $valvulaAnterior = $this->getCantidadConsulta($entityManager, $codDesvio, $nroPartida, 4 , $caracteristica);
+            $valvulaActual   = $this->getCantidadConsulta($entityManager, $codDesvio, $nroPartida, $tipoMov , $caracteristica);
+
+            $cantidadAMostrar = $valvulaAnterior[0]["CANTIDAD"] - $valvulaActual[0]["CANTIDAD"];
+
+        }
+
+        return $cantidadAMostrar;
+    }
+
+    public function getCantidadConsulta($entityManager, $codDesvio, $nroPartida, $tipoMov, $caracteristica){
+        $connection = $entityManager->getConnection();
+        $statement = $connection->prepare(
+            "SELECT sum(cantidad) as cantidad from valvulas_trabajos_3 where cod_desvio = $codDesvio and nro_partida = $nroPartida and tipo_movimiento = $tipoMov and caracteristica = $caracteristica"
+        );
+
+        $statement->execute();
+        $resultados = $statement->fetchAll();
+
         return $resultados;
     }
 

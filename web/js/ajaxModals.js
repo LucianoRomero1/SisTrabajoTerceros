@@ -130,6 +130,7 @@ function getValvula(from) {
                 array_valvula[2].value = res.info[0];
                 for(let i = 0; i <= cantidadLimite.length; i++){
                     cantidadLimite[i].setAttribute("max", res.info[1]);
+                    cantidadLimite[i].value = res.info[1];
                 }
             }
             else{
@@ -137,7 +138,7 @@ function getValvula(from) {
                 Swal.fire({
                     icon: 'error',
                     title: 'Error',
-                    text: 'La válvula que busca no existe',
+                    text: res.error,
                 })
             }
             

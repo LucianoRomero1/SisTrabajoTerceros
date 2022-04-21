@@ -7,12 +7,18 @@
     <div class="text-center">
         <b class="mt-2"> Traslado de procesos </b>
         <div class="mt-2 d-flex justify-content-center">
-            <input class="ml-2 col-md-1 form-control" type="number" id="idProceso" value="{{idFromHomePage}}" readonly />
+            <input class="ml-2 col-md-1 form-control" type="number" id="idProceso" {% if idFromHomePage != null %} value="{{idFromHomePage}}" {% else %} value="{{idHomePage}}" {% endif %} readonly />
             <select class="ml-2 col-md-4 form-control" name="caracteristica" id="caracteristica" onchange="myFunction(event)">
                 <option value="0"> Seleccione una opción </option>
-                {% for caracteristica in caracteristicas %}
-                    <option value="{{caracteristica.id}}" {% if caracteristica.id == idFromHomePage %} selected {% endif %}> {{caracteristica.descripcion}}</option>
-                {% endfor %}
+                {% if idFromHomePage != null %}
+                    {% for caracteristica in caracteristicas %}
+                        <option value="{{caracteristica.id}}" {% if caracteristica.id == idFromHomePage %} selected {% endif %}> {{caracteristica.descripcion}}</option>
+                    {% endfor %}
+                {% else %}
+                    {% for caracteristica in caracteristicas %}
+                        <option value="{{caracteristica.id}}" {% if caracteristica.id == idHomePage %} selected {% endif %}> {{caracteristica.descripcion}}</option>
+                    {% endfor %}
+                {% endif %}
             </select>
         </div>
     </div>
@@ -165,10 +171,10 @@
 </div>
 <br>
 {% include 'home/envio.html.twig' with {'tipo': 'Envío a 3°', 'user': user} %}
-{% include 'home/recepcionEnTercero.html.twig' with {'tipo': 'Recepción en 3°', 'user': user} %}
-{% include 'home/recepcionDeTercero.html.twig' with {'tipo': 'Recepción de 3°', 'user': user} %}
-{% include 'home/devolucionTercero.html.twig' with {'tipo': 'Devolución de 3°', 'user': user} %}
-{% include 'home/produccionTercero.html.twig' with {'tipo': 'Producción en 3°', 'user': user} %}
+{% include 'home/recepcionEnTercero.html.twig' with {'tipo': 'Recepción en 3°', 'user': user, 'idFromHomePage': idFromHomePage } %}
+{% include 'home/recepcionDeTercero.html.twig' with {'tipo': 'Recepción de 3°', 'user': user, 'idFromHomePage': idFromHomePage } %}
+{% include 'home/devolucionTercero.html.twig' with {'tipo': 'Devolución de 3°', 'user': user, 'idFromHomePage': idFromHomePage } %}
+{% include 'home/produccionTercero.html.twig' with {'tipo': 'Producción en 3°', 'user': user, 'idFromHomePage': idFromHomePage } %}
 
 {% endblock %}
 {% block javascript %}

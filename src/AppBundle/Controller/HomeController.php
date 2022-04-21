@@ -14,7 +14,6 @@ use AppBundle\Service\HomeService;
 use AppBundle\Entity\Valvula;
 use AppBundle\Entity\PartidasCobol;
 
-
 class HomeController extends BaseController
 {   
 
@@ -168,7 +167,6 @@ class HomeController extends BaseController
         $entityManager = $this->getEm();
         $this->setBreadCrumbs("Movimientos válvulas", "controlStock");
         
-        
         $caracteristica = $request->get('caracteristica');
         $arrayTable     = $this->baseService->renderTable($entityManager, $request, "Valvula", "StockFilterType", "StockFilterController", "controlStock");
         $results        = $this->homeService->getStock($entityManager, $caracteristica);
@@ -231,6 +229,11 @@ class HomeController extends BaseController
         $caracteristica     = $_REQUEST["caracteristica"];
         $arrayInfo          = [];
 
+
+        //Esto es la cantidad inicial que se solicitó 
+        $cantidadInicial    = $this->homeService->getCantidadInicial($entityManager, $codDesvio, $nroPartida, $tipo,$caracteristica);
+
+
         //Esto es para la cantidad a mostrar de la valvula, lo tengo que hacer primero porque va de la mano con el result response correcto
         $cantidadAMostrar   = $this->homeService->getCantidad($tipo, $caracteristica, $nroPartida, $codDesvio, $entityManager);
         if($cantidadAMostrar <= 0){
@@ -252,7 +255,7 @@ class HomeController extends BaseController
         }
         else{
             $descripcion        = $descripcionValvula;
-            array_push($arrayInfo, $descripcion, $cantidadAMostrar);  
+            array_push($arrayInfo, $descripcion, $cantidadAMostrar, $cantidadInicial);  
             return $this->createResultResponse("OK", $arrayInfo);
         }       
     }

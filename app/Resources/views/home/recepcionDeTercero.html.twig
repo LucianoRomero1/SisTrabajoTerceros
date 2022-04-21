@@ -35,13 +35,32 @@
                     </div>
                 </div>
                 <br>
-                <h6> N° Partida: </h6>
+                <div class="row">
+                    <div class="col-md-2">
+                        <h6> N° Partida: </h6>
+                    </div>
+                    <div class="col-md-4">
+                        
+                    </div>
+                    <div class="col-md-2">
+                        <h6> Cant. Inicial: </h6>
+                    </div>
+                    <div class="col-md-2">
+                        <h6> Saldos: </h6>
+                    </div>
+                </div>
                 <div class="row">
                     <div class="col-md-2">
                         <input class="form-control mt-1" type="text" value="0" name="Valvula[codDesvio]" id="codDesvio_4" required>
                     </div>
                     <div class="col-md-4">
                         <input class="form-control mt-1" type="text" name="Valvula[nroPartida]" id="nroPartida_4" onfocusout="getValvula('reingreso')" required>
+                    </div>
+                    <div class="col-md-2">
+                        <input class="form-control mt-1 cantidadInicial" value="" type="text" readonly>
+                    </div>
+                    <div class="col-md-2">
+                        <input class="form-control mt-1 cantidad" value="" type="text" readonly>
                     </div>
                 </div>
                 <br>
@@ -78,7 +97,8 @@
                 <div class="row">
                     <div class="col-md-12">
                         <h6> Observaciones: </h6>
-                        <input class="form-control mt-1" type="text" name="Valvula[observaciones]">
+                        <textarea class="form-control" name="Valvula[observaciones]" cols="1" rows="2"></textarea>
+                        {# <input class="form-control mt-1" type="text" name="Valvula[observaciones]"> #}
                     </div>
                 </div>
                 <br>

@@ -62,7 +62,7 @@ class HomeService extends BaseService
         
         $connection = $entityManager->getConnection();
         $statement = $connection->prepare(
-            'SELECT ARTICULOS.DESCRIP_ABREV,VALVULAS_TRABAJOS_3.COD_DESVIO,VALVULAS_TRABAJOS_3.NRO_PARTIDA, sum(decode(valvulas_trabajos_3.tipo_movimiento,1,cantidad,0)) as envios,sum(decode(valvulas_trabajos_3.tipo_movimiento,3,cantidad,0)) as recibidas,sum(decode(valvulas_trabajos_3.tipo_movimiento,4,cantidad,0)) as devueltas,sum(decode(valvulas_trabajos_3.tipo_movimiento,2,cantidad,0)) as reingresos,min(decode(valvulas_trabajos_3.tipo_movimiento,1,fecha, null)) as primer_envio,max(decode(valvulas_trabajos_3.tipo_movimiento,2,fecha, null)) as ultimo_reingreso FROM VALVULAS_TRABAJOS_3,ARTICULOS WHERE ( VALVULAS_TRABAJOS_3.COD_ARTICULO = ARTICULOS.COD_ARTICULO ) and ( ( VALVULAS_TRABAJOS_3.CARACTERISTICA = ' . $caracteristica . '  ) AND (0 = 0 OR (0 > 0 AND VALVULAS_TRABAJOS_3.COD_ARTICULO = 0)) ) GROUP BY ARTICULOS.DESCRIP_ABREV, VALVULAS_TRABAJOS_3.COD_DESVIO, VALVULAS_TRABAJOS_3.NRO_PARTIDA'
+            'SELECT ARTICULOS.DESCRIP_ABREV,VALVULAS_TRABAJOS_3.COD_DESVIO,VALVULAS_TRABAJOS_3.NRO_PARTIDA, DEPOSITOS.DESCRIPCION, sum(decode(valvulas_trabajos_3.tipo_movimiento,1,cantidad,0)) as envios,sum(decode(valvulas_trabajos_3.tipo_movimiento,3,cantidad,0)) as recibidas,sum(decode(valvulas_trabajos_3.tipo_movimiento,4,cantidad,0)) as devueltas,sum(decode(valvulas_trabajos_3.tipo_movimiento,2,cantidad,0)) as reingresos,min(decode(valvulas_trabajos_3.tipo_movimiento,1,fecha, null)) as primer_envio,max(decode(valvulas_trabajos_3.tipo_movimiento,2,fecha, null)) as ultimo_reingreso FROM VALVULAS_TRABAJOS_3,ARTICULOS, DEPOSITOS WHERE ( VALVULAS_TRABAJOS_3.COD_ARTICULO = ARTICULOS.COD_ARTICULO ) and ( ( VALVULAS_TRABAJOS_3.CARACTERISTICA = ' . $caracteristica . '  ) AND (0 = 0 OR (0 > 0 AND VALVULAS_TRABAJOS_3.COD_ARTICULO = 0)) and (VALVULAS_TRABAJOS_3.COD_DEPOSITO = DEPOSITOS.COD_DEPOSITO) ) GROUP BY ARTICULOS.DESCRIP_ABREV, VALVULAS_TRABAJOS_3.COD_DESVIO, VALVULAS_TRABAJOS_3.NRO_PARTIDA, DEPOSITOS.DESCRIPCION'
         );
 
         $statement->execute();
@@ -240,15 +240,23 @@ class HomeService extends BaseService
     }
 
     public function envioEmail($form){
-        $tipo       = $form['tipo'];
-        $para       = $form['para'];
-        $valvula    = $form['valvula'];
-        $fecha      = $form['fecha'];
-        $cantidad   = $form['cantidad'];
-        $ptt        = $form['codDesvio'] . $form['nroPartida'];
-        $pttCheck   = null;
+        $tipo           = $form['tipo'];
+        $para           = $form['para'];
+        $valvula        = $form['valvula'];
+        $fecha          = $form['fecha'];
+        $cantidad       = $form['cantidad'];
+        $ptt            = $form['codDesvio'] . $form['nroPartida'];
+        $observaciones  = null;
+        $pttCheck       = null;
+        $retrabajar     = null;
         if(array_key_exists("ppt", $form)){
             $pttCheck   = $form['ppt'];
+        }
+        if(array_key_exists("retrabajar", $form)){
+            $retrabajar   = $form['retrabajar'];
+        }
+        if(array_key_exists("observaciones", $form)){
+            $observaciones   = $form['observaciones'];
         }
         
         $destinatarios  = $this->getReceptores($para); 
@@ -262,12 +270,14 @@ class HomeService extends BaseService
             ->setBody(
                 $this->renderView(
                     'home/mensaje.html.twig', array(
-                        'titulo'    => $arrayTxt[0],
-                        'valvula'   => $valvula,
-                        'fecha'     => $fecha,
-                        'cantidad'  => $cantidad,
-                        'ptt'       => $ptt,
-                        'pttCheck'  => $pttCheck  
+                        'titulo'        => $arrayTxt[0],
+                        'valvula'       => $valvula,
+                        'fecha'         => $fecha,
+                        'cantidad'      => $cantidad,
+                        'ptt'           => $ptt,
+                        'pttCheck'      => $pttCheck  ,
+                        'retrabajar'    => $retrabajar,
+                        'observaciones' => $observaciones
                     )
                 ),
                 'text/html'
@@ -403,22 +413,18 @@ class HomeService extends BaseService
             case 'envio':
                 //Envio
                 $tipoMov = 1;
-                //$valvula = $this->getValvulaTercero($entityManager, $nroPartida, $codDesvio, $caracteristica, $tipoMov);
                 break;
             case 'recepcion':
                 //Recepcion de 3°
                 $tipoMov = 3;
-                //$valvula = $this->getValvulaTercero($entityManager, $nroPartida, $codDesvio, $caracteristica, $tipoMov);
                 break;
             case 'reingreso':
                 //Recepcion en 3°
                 $tipoMov = 2;
-                //$valvula = $this->getValvulaTercero($entityManager, $nroPartida, $codDesvio, $caracteristica, $tipoMov);
                 break;
             case 'devolucion':
                 //Devolucion de 3°
                 $tipoMov = 4;
-                //$valvula = $this->getValvulaTercero($entityManager, $nroPartida, $codDesvio, $caracteristica, $tipoMov);
                 break;
         }
 
@@ -448,6 +454,13 @@ class HomeService extends BaseService
             $cantidadValvula    = $this->getCantidadConsulta($entityManager, $codDesvio, $nroPartida, $tipoMov, $caracteristica);
 
             $cantidadAMostrar   = $cantidadInicial - $cantidadValvula[0]["CANTIDAD"];
+
+            //Si es envio y es nitrurar tengo que buscar en la tabla scrneo y descontarle las 
+            //que estan en SCRAP
+            if($caracteristica == 1){
+                $cantidadScrap = $this->getCantidadScrap($entityManager, $codDesvio, $nroPartida);
+                $cantidadAMostrar -= $cantidadScrap;
+            }
 
         }
 
@@ -498,5 +511,44 @@ class HomeService extends BaseService
         return $resultados;
     }
 
- 
+    public function getCantidadInicial($entityManager, $codDesvio, $nroPartida, $tipo, $caracteristica){
+        $tipoMov = 0;
+        $caracteristica = $this->getCaracteristica($caracteristica);
+        switch($tipo){
+            case 'envio':
+                //Envio
+                $tipoMov = 1;
+                break;
+            case 'recepcion':
+                //Recepcion de 3°
+                $tipoMov = 3;
+                break;
+            case 'reingreso':
+                //Recepcion en 3°
+                $tipoMov = 2;
+                break;
+            case 'devolucion':
+                //Devolucion de 3°
+                $tipoMov = 4;
+                break;
+        }
+        
+        $connection = $entityManager->getConnection();
+        $statement = $connection->prepare(
+            "SELECT sum(cantidad) as cantidad from partidas_cobol where cod_desvio = $codDesvio and nro_partida = $nroPartida and tipo_movimiento = $tipoMov and caracteristica = $caracteristica"
+        );
+
+        $statement->execute();
+        $resultados = $statement->fetchAll();
+
+        return $resultados;
+    }
+
+    public function getCantidadScrap($entityManager, $codDesvio, $nroPartida){
+        $odeforja       = $codDesvio . $nroPartida;
+        $scrneo         = $entityManager->getRepository(Scrneo::class)->findOneBy(array("odeforja"=>$odeforja, "lugar"=>2));
+        $cantidadScrap  = $scrneo->getCantidad();
+
+        return $cantidadScrap;
+    }
 }

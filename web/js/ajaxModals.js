@@ -104,6 +104,7 @@ function getValvula(from) {
     let url         = "";
     let caracteristica = document.getElementsByClassName("para");
     let cantidadLimite = document.getElementsByClassName("cantidad");
+    let cantidadInicial = document.getElementsByClassName("cantidadInicial");
     let fd             = new FormData();
     fd.append('codDesvio' , array_valvula[0]);
     fd.append('nroPartida' , array_valvula[1]);
@@ -131,6 +132,9 @@ function getValvula(from) {
                 for(let i = 0; i <= cantidadLimite.length; i++){
                     cantidadLimite[i].setAttribute("max", res.info[1]);
                     cantidadLimite[i].value = res.info[1];
+                }
+                for(let i = 0; i <= cantidadInicial.length; i++){
+                    cantidadInicial[i].value = res.info[2];
                 }
             }
             else{

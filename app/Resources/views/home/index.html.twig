@@ -171,10 +171,10 @@
 </div>
 <br>
 {% include 'home/envio.html.twig' with {'tipo': 'Envío a 3°', 'user': user} %}
-{% include 'home/recepcionEnTercero.html.twig' with {'tipo': 'Recepción en 3°', 'user': user, 'idFromHomePage': idFromHomePage } %}
-{% include 'home/recepcionDeTercero.html.twig' with {'tipo': 'Recepción de 3°', 'user': user, 'idFromHomePage': idFromHomePage } %}
-{% include 'home/devolucionTercero.html.twig' with {'tipo': 'Devolución de 3°', 'user': user, 'idFromHomePage': idFromHomePage } %}
-{% include 'home/produccionTercero.html.twig' with {'tipo': 'Producción en 3°', 'user': user, 'idFromHomePage': idFromHomePage } %}
+{% include 'home/recepcionEnTercero.html.twig' with {'tipo': 'Recepción en 3°', 'user': user, 'idFromHomePage': idFromHomePage, 'idHomePage': idHomePage  } %}
+{% include 'home/recepcionDeTercero.html.twig' with {'tipo': 'Recepción de 3°', 'user': user, 'idFromHomePage': idFromHomePage, 'idHomePage': idHomePage  } %}
+{% include 'home/devolucionTercero.html.twig' with {'tipo': 'Devolución de 3°', 'user': user, 'idFromHomePage': idFromHomePage, 'idHomePage': idHomePage  } %}
+{% include 'home/produccionTercero.html.twig' with {'tipo': 'Producción en 3°', 'user': user, 'idFromHomePage': idFromHomePage, 'idHomePage': idHomePage  } %}
 
 {% endblock %}
 {% block javascript %}

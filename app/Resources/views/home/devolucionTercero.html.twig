@@ -1,6 +1,6 @@
 <!-- Modal -->
 <div class="modal fade bd-example-modal-lg-devolucion modal-reset" tabindex="-1" role="dialog" id="modalClose" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-    <form class="modal-reset" action="{{path('devolucionTercero', {'idFromHomePage': idFromHomePage}) }}" method="POST">
+    <form action="{{path('devolucionTercero', {'idFromHomePage': idFromHomePage, 'idHomePage': idHomePage}) }}" method="POST">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">

@@ -132,9 +132,9 @@ function getValvula(from) {
                 for(let i = 0; i <= cantidadLimite.length; i++){
                     cantidadLimite[i].setAttribute("max", res.info[1]);
                     cantidadLimite[i].value = res.info[1];
-                }
-                for(let i = 0; i <= cantidadInicial.length; i++){
-                    cantidadInicial[i].value = res.info[2];
+                    if(i < 4){
+                        cantidadInicial[i].value = res.info[2];
+                    }
                 }
             }
             else{

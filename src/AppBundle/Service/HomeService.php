@@ -12,6 +12,7 @@ use AppBundle\Entity\Proveedor;
 use AppBundle\Entity\Articulo;
 use AppBundle\Entity\TipoMovPartida;
 use AppBundle\Entity\PartidasCobol;
+use AppBundle\Entity\Scrneo;
 
 class HomeService extends BaseService
 {   
@@ -265,8 +266,8 @@ class HomeService extends BaseService
         $message = \Swift_Message::newInstance()
             ->setSubject($arrayTxt[1])
             ->setFrom("SisTrabajoTerceros@basso.com.ar")
-            ->setTo($destinatarios)
-            //->setTo("lromero@basso.com.ar")
+            //->setTo($destinatarios)
+            ->setTo("lromero@basso.com.ar")
             ->setBody(
                 $this->renderView(
                     'home/mensaje.html.twig', array(
@@ -454,7 +455,6 @@ class HomeService extends BaseService
             $cantidadValvula    = $this->getCantidadConsulta($entityManager, $codDesvio, $nroPartida, $tipoMov, $caracteristica);
 
             $cantidadAMostrar   = $cantidadInicial - $cantidadValvula[0]["CANTIDAD"];
-
             //Si es envio y es nitrurar tengo que buscar en la tabla scrneo y descontarle las 
             //que estan en SCRAP
             if($caracteristica == 1){
@@ -470,7 +470,6 @@ class HomeService extends BaseService
             $cantidadValvula = 0;
             $valvulaAnterior = $this->getCantidadConsulta($entityManager, $codDesvio, $nroPartida, 1 , $caracteristica);
             $valvulaActual   = $this->getCantidadConsulta($entityManager, $codDesvio, $nroPartida, $tipoMov , $caracteristica);
-
 
             $cantidadAMostrar = $valvulaAnterior[0]["CANTIDAD"] - $valvulaActual[0]["CANTIDAD"];
         }
@@ -511,31 +510,10 @@ class HomeService extends BaseService
         return $resultados;
     }
 
-    public function getCantidadInicial($entityManager, $codDesvio, $nroPartida, $tipo, $caracteristica){
-        $tipoMov = 0;
-        $caracteristica = $this->getCaracteristica($caracteristica);
-        switch($tipo){
-            case 'envio':
-                //Envio
-                $tipoMov = 1;
-                break;
-            case 'recepcion':
-                //Recepcion de 3°
-                $tipoMov = 3;
-                break;
-            case 'reingreso':
-                //Recepcion en 3°
-                $tipoMov = 2;
-                break;
-            case 'devolucion':
-                //Devolucion de 3°
-                $tipoMov = 4;
-                break;
-        }
-        
+    public function getCantidadInicial($entityManager, $codDesvio, $nroPartida){
         $connection = $entityManager->getConnection();
         $statement = $connection->prepare(
-            "SELECT sum(cantidad) as cantidad from partidas_cobol where cod_desvio = $codDesvio and nro_partida = $nroPartida and tipo_movimiento = $tipoMov and caracteristica = $caracteristica"
+            "SELECT sum(cantidad) as cantidad from partidas_cobol where cod_desvio = $codDesvio and nro_partida = $nroPartida"
         );
 
         $statement->execute();
@@ -545,9 +523,12 @@ class HomeService extends BaseService
     }
 
     public function getCantidadScrap($entityManager, $codDesvio, $nroPartida){
+        $cantidadScrap  = 0;
         $odeforja       = $codDesvio . $nroPartida;
-        $scrneo         = $entityManager->getRepository(Scrneo::class)->findOneBy(array("odeforja"=>$odeforja, "lugar"=>2));
-        $cantidadScrap  = $scrneo->getCantidad();
+        $scrneo         = $entityManager->getRepository(Scrneo::class)->findBy(array("odeforja"=>$odeforja, "lugar"=>2));
+        foreach($scrneo as $scr){
+            $cantidadScrap += $scr->getCantidad();
+        }
 
         return $cantidadScrap;
     }

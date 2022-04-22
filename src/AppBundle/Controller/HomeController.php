@@ -61,7 +61,7 @@ class HomeController extends BaseController
             'rolesUser'             => $arrayRoles,
             'user'                  => $userSesion,
             'idFromHomePage'        => $idFromHomepage,
-            'idHomePage'        => $idHomePage
+            'idHomePage'            => $idHomePage
         ));
     }
 
@@ -72,6 +72,10 @@ class HomeController extends BaseController
         $entityManager      = $this->getEm();
         $form               = $request->get("Valvula");
         $idFromHomepage     = $request->query->get("idFromHomePage");
+
+        if(is_null($idFromHomepage)){
+            $idFromHomepage     = $request->query->get("idHomePage");
+        }
 
         if($form != null){
             
@@ -96,6 +100,12 @@ class HomeController extends BaseController
     public function recepcionEnTercero(Request $request){
         $entityManager      = $this->getEm();
         $form = $request->get("Valvula");
+        $idFromHomepage     = $request->query->get("idFromHomePage");
+
+        if(is_null($idFromHomepage)){
+            $idFromHomepage     = $request->query->get("idHomePage");
+        }
+
         if($form != null){
             $this->homeService->setValvula($form, $entityManager);
             $this->homeService->setPartidasMov($form, $entityManager);
@@ -105,7 +115,7 @@ class HomeController extends BaseController
                 'Recepción realizada'
             );
 
-            return $this->redirectToRoute('afterHomePage');
+            return $this->redirectToRoute("afterHomePage", array("idHome"=>$idFromHomepage));
         }
 
     }
@@ -116,6 +126,12 @@ class HomeController extends BaseController
     public function recepcionDeTercero(Request $request){
         $entityManager      = $this->getEm();
         $form = $request->get("Valvula");
+        $idFromHomepage     = $request->query->get("idFromHomePage");
+
+        if(is_null($idFromHomepage)){
+            $idFromHomepage     = $request->query->get("idHomePage");
+        }
+
         if($form != null){
             $this->homeService->setValvula($form, $entityManager);
             $this->homeService->setPartidasMov($form, $entityManager);
@@ -125,7 +141,7 @@ class HomeController extends BaseController
                 'Reingreso realizado'
             );
 
-            return $this->redirectToRoute('afterHomePage');
+            return $this->redirectToRoute("afterHomePage", array("idHome"=>$idFromHomepage));
         }
     }
 
@@ -136,6 +152,12 @@ class HomeController extends BaseController
     public function devolucionTercero(Request $request){
         $entityManager      = $this->getEm();
         $form = $request->get("Valvula");
+        $idFromHomepage     = $request->query->get("idFromHomePage");
+        
+        if(is_null($idFromHomepage)){
+            $idFromHomepage     = $request->query->get("idHomePage");
+        }
+
         if($form != null){
             $this->homeService->setValvula($form, $entityManager);
             $this->homeService->setPartidasMov($form, $entityManager);
@@ -146,7 +168,7 @@ class HomeController extends BaseController
                 'Devolución realizada'
             );
 
-            return $this->redirectToRoute('afterHomePage');
+            return $this->redirectToRoute("afterHomePage", array("idHome"=>$idFromHomepage));
         }
     }
 
@@ -231,8 +253,7 @@ class HomeController extends BaseController
 
 
         //Esto es la cantidad inicial que se solicitó 
-        $cantidadInicial    = $this->homeService->getCantidadInicial($entityManager, $codDesvio, $nroPartida, $tipo,$caracteristica);
-
+        $cantidadInicial    = $this->homeService->getCantidadInicial($entityManager, $codDesvio, $nroPartida);
 
         //Esto es para la cantidad a mostrar de la valvula, lo tengo que hacer primero porque va de la mano con el result response correcto
         $cantidadAMostrar   = $this->homeService->getCantidad($tipo, $caracteristica, $nroPartida, $codDesvio, $entityManager);
@@ -255,7 +276,7 @@ class HomeController extends BaseController
         }
         else{
             $descripcion        = $descripcionValvula;
-            array_push($arrayInfo, $descripcion, $cantidadAMostrar, $cantidadInicial);  
+            array_push($arrayInfo, $descripcion, $cantidadAMostrar, $cantidadInicial[0]["CANTIDAD"]);  
             return $this->createResultResponse("OK", $arrayInfo);
         }       
     }

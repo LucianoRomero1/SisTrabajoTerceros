@@ -10,6 +10,12 @@
             {% if pttCheck != null %}
             <b>- PTT TERMINADA. <br>
             {% endif %}
+            {% if retrabajar != null %}
+            <b>- Válvula/s para retrabajar. <br>
+            {% endif %}
+            {% if observaciones != null %}
+            <b>- {{observaciones}} <br>
+            {% endif %}
         </div>
     </div> 
     <br>

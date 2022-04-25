@@ -1,7 +1,8 @@
 $('#modalClose').modal({
     show: false,
     keyboard: false,
-    backdrop: 'static'
+    backdrop: 'static',
+    reset: true
 });
 
 $('.modal-reset').on('hidden.bs.modal', function(){

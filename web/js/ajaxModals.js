@@ -101,11 +101,11 @@ function getProveedor(from) {
 
 function getValvula(from) {
     let array_valvula  = switchModalValvula(from);
-    let url         = "";
-    let caracteristica = document.getElementsByClassName("para");
-    let cantidadLimite = document.getElementsByClassName("cantidad");
+    let url             = "";
+    let caracteristica  = document.getElementsByClassName("para");
+    let cantidadLimite  = document.getElementsByClassName("cantidad");
     let cantidadInicial = document.getElementsByClassName("cantidadInicial");
-    let fd             = new FormData();
+    let fd              = new FormData();
     fd.append('codDesvio' , array_valvula[0]);
     fd.append('nroPartida' , array_valvula[1]);
     fd.append('tipo' , from);
@@ -129,13 +129,14 @@ function getValvula(from) {
         success: function(res){
             if(res.result == "OK"){
                 array_valvula[2].value = res.info[0];
-                for(let i = 0; i <= cantidadLimite.length; i++){
-                    cantidadLimite[i].setAttribute("max", res.info[1]);
-                    cantidadLimite[i].value = res.info[1];
-                    if(i < 4){
-                        cantidadInicial[i].value = res.info[2];
-                    }
-                }
+                // for(let i = 0; i <= cantidadLimite.length; i++){
+                //     cantidadLimite[i].setAttribute("max", res.info[1]);
+                //     cantidadLimite[i].value = res.info[1];
+                //     if(i < 4){
+                //         cantidadInicial[i].value = res.info[2];
+                //     }
+                // }
+                setCantidad(from, cantidadInicial, cantidadLimite, res);
             }
             else{
                 array_valvula[2].value = res.info;
@@ -256,4 +257,86 @@ function switchModalValvula(from){
     return array;
 }
 
+function setCantidad(from, cantidadInicial, cantidadLimite, res){
+    switch(from){
+        case "envio":
+            cantidadLimite[0].value = res.info[1]; //este es el campo saldos
+            cantidadLimite[1].value = res.info[1]; //este es el campo cantidad
+            cantidadLimite[1].setAttribute("max", Math.floor(res.info[1] * 1.05));
+            cantidadInicial[0].value = res.info[2];
+            break;
+        case "recepcion":
+            cantidadLimite[2].value = res.info[1]; //este es el campo saldos
+            cantidadLimite[3].value = res.info[1]; //este es el campo cantidad
+            cantidadLimite[3].setAttribute("max", Math.floor(res.info[1] * 1.05));
+            cantidadInicial[1].value = res.info[2];
+            break;
+        case "reingreso":
+            cantidadLimite[4].value = res.info[1]; //este es el campo saldos
+            cantidadLimite[5].value = res.info[1]; //este es el campo cantidad
+            cantidadLimite[5].setAttribute("max", Math.floor(res.info[1] * 1.05));
+            cantidadInicial[2].value = res.info[2];
+            break;
+        case "devolucion":
+            cantidadLimite[6].value = res.info[1]; //este es el campo saldos
+            cantidadLimite[7].value = res.info[1]; //este es el campo cantidad
+            cantidadLimite[7].setAttribute("max", Math.floor(res.info[1] * 1.05));
+            cantidadInicial[3].value = res.info[2];
+            break;
+        
+    }
+}
+
+function checkRetrabajar(from){
+    var cantidad  = document.getElementsByClassName("cantidad");
+    //var maxValue =  cantidad[1].attr("max"); //Aca me guardo el value del max para volverlo a poner
+    console.log(Math.floor(cantidad[1].max));
+    var checkBox = "";
+    switch(from){
+        case "envio":
+            checkBox = document.getElementById("check_envio");
+            break;
+        case "recepcion":
+            checkBox = document.getElementById("check_recepcion");
+            break;
+        case "reingreso":
+            checkBox = document.getElementById("check_reingreso");
+            break;
+        case "devolucion":
+            checkBox = document.getElementById("check_devolucion");
+            break;
+    }
+    if(checkBox.checked == true){
+        switch(from){
+            case "envio":
+                cantidad[1].removeAttribute("max");
+                break;
+            case "recepcion":
+                cantidad[3].removeAttribute("max");
+                break;
+            case "reingreso":
+                cantidad[5].removeAttribute("max");
+                break;
+            case "devolucion":
+                cantidad[7].removeAttribute("max");
+                break;
+        }
+    }else{
+        console.log("unchecked");
+    }
+    // switch(from){
+    //     case "envio":
+    //         cantidadLimite[1].removeAttribute("max");
+    //         break;
+    //     case "recepcion":
+    //         cantidadLimite[3].removeAttribute("max");
+    //         break;
+    //     case "reingreso":
+    //         cantidadLimite[5].removeAttribute("max");
+    //         break;
+    //     case "devolucion":
+    //         cantidadLimite[7].removeAttribute("max");
+    //         break;
+    // }
+}
 

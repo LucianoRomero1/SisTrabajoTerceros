@@ -257,30 +257,36 @@ function switchModalValvula(from){
     return array;
 }
 
+var maxValue = [];
+
 function setCantidad(from, cantidadInicial, cantidadLimite, res){
     switch(from){
         case "envio":
             cantidadLimite[0].value = res.info[1]; //este es el campo saldos
             cantidadLimite[1].value = res.info[1]; //este es el campo cantidad
             cantidadLimite[1].setAttribute("max", Math.floor(res.info[1] * 1.05));
+            maxValue.push(Math.floor(res.info[1] * 1.05));
             cantidadInicial[0].value = res.info[2];
             break;
         case "recepcion":
             cantidadLimite[2].value = res.info[1]; //este es el campo saldos
             cantidadLimite[3].value = res.info[1]; //este es el campo cantidad
             cantidadLimite[3].setAttribute("max", Math.floor(res.info[1] * 1.05));
+            maxValue.push(Math.floor(res.info[1] * 1.05));
             cantidadInicial[1].value = res.info[2];
             break;
         case "reingreso":
             cantidadLimite[4].value = res.info[1]; //este es el campo saldos
             cantidadLimite[5].value = res.info[1]; //este es el campo cantidad
             cantidadLimite[5].setAttribute("max", Math.floor(res.info[1] * 1.05));
+            maxValue.push(Math.floor(res.info[1] * 1.05));
             cantidadInicial[2].value = res.info[2];
             break;
         case "devolucion":
             cantidadLimite[6].value = res.info[1]; //este es el campo saldos
             cantidadLimite[7].value = res.info[1]; //este es el campo cantidad
             cantidadLimite[7].setAttribute("max", Math.floor(res.info[1] * 1.05));
+            maxValue.push(Math.floor(res.info[1] * 1.05));
             cantidadInicial[3].value = res.info[2];
             break;
         
@@ -289,8 +295,6 @@ function setCantidad(from, cantidadInicial, cantidadLimite, res){
 
 function checkRetrabajar(from){
     var cantidad  = document.getElementsByClassName("cantidad");
-    var maxValue  =  0; //Aca me guardo el value del max para volverlo a poner
-    console.log(Math.floor(cantidad[1].max));
     var checkBox  = "";
     switch(from){
         case "envio":
@@ -309,37 +313,32 @@ function checkRetrabajar(from){
     if(checkBox.checked == true){
         switch(from){
             case "envio":
-                maxValue = cantidad[1].attr("max");
                 cantidad[1].removeAttribute("max");
                 break;
             case "recepcion":
-                maxValue = cantidad[3].attr("max");
                 cantidad[3].removeAttribute("max");
                 break;
             case "reingreso":
-                maxValue = cantidad[5].attr("max");
                 cantidad[5].removeAttribute("max");
                 break;
             case "devolucion":
-                maxValue = cantidad[7].attr("max");
                 cantidad[7].removeAttribute("max");
                 break;
         }
     }else{
         switch(from){
             case "envio":
-                cantidad[1].setAttribute("max", maxValue);
+                cantidad[1].setAttribute("max", maxValue[0]);
                 break;
             case "recepcion":
-                cantidad[3].setAttribute("max", maxValue);
+                cantidad[3].setAttribute("max", maxValue[0]);
                 break;
             case "reingreso":
-                cantidad[5].setAttribute("max", maxValue);
+                cantidad[5].setAttribute("max", maxValue[0]);
                 break;
             case "devolucion":
-                cantidad[7].setAttribute("max", maxValue);
+                cantidad[7].setAttribute("max", maxValue[0]);
                 break;
         }
     }
 }
-

@@ -266,8 +266,8 @@ class HomeService extends BaseService
         $message = \Swift_Message::newInstance()
             ->setSubject($arrayTxt[1])
             ->setFrom("SisTrabajoTerceros@basso.com.ar")
-            //->setTo($destinatarios)
-            ->setTo("lromero@basso.com.ar")
+            ->setTo($destinatarios)
+            //->setTo("lromero@basso.com.ar")
             ->setBody(
                 $this->renderView(
                     'home/mensaje.html.twig', array(

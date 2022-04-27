@@ -1,34 +1,35 @@
-
-<table id="example" class="table table-striped table-bordered" style="width:100%" namefile="Control de stock - {{caracteristica}}">
-  <thead>
-    <tr>
-      <th> Código 3B </th>
-      <th> N° PTT </th>
-      <th> Planta </th>
-      <th> Enviadas </th>
-      <th> Recibidas</th>
-      <th> Devueltas </th>
-      <th> Reingresos </th>
-      <th> 1° Envío </th>
-      <th> Último reingreso </th>
-    </tr>
-  </thead>
-  <tbody> 
-    {% for valvula in valvulas %}
-    <tr>
-      <td>{{ valvula.DESCRIP_ABREV }}</td>
-      <td>{{ valvula.COD_DESVIO }}{{ valvula.NRO_PARTIDA }}</td>
-      <td>{{ valvula.DESCRIPCION }}</td>
-      <td>{{ valvula.ENVIOS }}</td>
-      <td>{{ valvula.RECIBIDAS }}</td> 
-      <td>{{ valvula.DEVUELTAS }}</td>
-      <td>{{ valvula.REINGRESOS }}</td>
-      <td>{{ valvula.PRIMER_ENVIO }}</td>
-      <td>{{ valvula.ULTIMO_REINGRESO }}</td>
-    </tr>
-    {% endfor %}
-  </tbody>        
-</table>
+<div class="table-responsive">
+  <table id="example" class="table table-striped table-bordered" style="width:100%" namefile="Control de stock - {{caracteristica}}">
+    <thead>
+      <tr>
+        <th> Código 3B </th>
+        <th> N° PTT </th>
+        <th> Planta </th>
+        <th> Enviadas </th>
+        <th> Recibidas</th>
+        <th> Devueltas </th>
+        <th> Reingresos </th>
+        <th> 1° Envío </th>
+        <th> Último reingreso </th>
+      </tr>
+    </thead>
+    <tbody> 
+      {% for valvula in valvulas %}
+      <tr>
+        <td>{{ valvula.DESCRIP_ABREV }}</td>
+        <td>{{ valvula.COD_DESVIO }}{{ valvula.NRO_PARTIDA }}</td>
+        <td>{{ valvula.DESCRIPCION }}</td>
+        <td>{{ valvula.ENVIOS }}</td>
+        <td>{{ valvula.RECIBIDAS }}</td> 
+        <td>{{ valvula.DEVUELTAS }}</td>
+        <td>{{ valvula.REINGRESOS }}</td>
+        <td>{{ valvula.PRIMER_ENVIO }}</td>
+        <td>{{ valvula.ULTIMO_REINGRESO }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>        
+  </table>
+</div>
 
 
 

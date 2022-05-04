@@ -139,6 +139,7 @@ function getValvula(from) {
                 setCantidad(from, cantidadInicial, cantidadLimite, res);
             }
             else{
+                disabledButtonGuardar();
                 array_valvula[2].value = res.info;
                 Swal.fire({
                     icon: 'error',
@@ -345,4 +346,11 @@ function checkRetrabajar(from){
                 break;
         }
     }
+}
+
+function disabledButtonGuardar(){
+    document.querySelector('#buttonEnvio').disabled = true;
+    document.querySelector('#buttonRecepcion').disabled = true;
+    document.querySelector('#buttonReingreso').disabled = true;
+    document.querySelector('#buttonDevolucion').disabled = true;
 }

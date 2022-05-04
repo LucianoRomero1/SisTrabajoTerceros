@@ -267,6 +267,7 @@ function setCantidad(from, cantidadInicial, cantidadLimite, res){
             cantidadLimite[1].setAttribute("max", Math.floor(res.info[1] * 1.05));
             maxValue.push(Math.floor(res.info[1] * 1.05));
             cantidadInicial[0].value = res.info[2];
+            document.querySelector('#buttonEnvio').disabled = false;
             break;
         case "recepcion":
             cantidadLimite[2].value = res.info[1]; //este es el campo saldos
@@ -274,6 +275,7 @@ function setCantidad(from, cantidadInicial, cantidadLimite, res){
             cantidadLimite[3].setAttribute("max", Math.floor(res.info[1] * 1.05));
             maxValue.push(Math.floor(res.info[1] * 1.05));
             cantidadInicial[1].value = res.info[2];
+            document.querySelector('#buttonRecepcion').disabled = false;
             break;
         case "reingreso":
             cantidadLimite[4].value = res.info[1]; //este es el campo saldos
@@ -281,6 +283,7 @@ function setCantidad(from, cantidadInicial, cantidadLimite, res){
             cantidadLimite[5].setAttribute("max", Math.floor(res.info[1] * 1.05));
             maxValue.push(Math.floor(res.info[1] * 1.05));
             cantidadInicial[2].value = res.info[2];
+            document.querySelector('#buttonReingreso').disabled = false;
             break;
         case "devolucion":
             cantidadLimite[6].value = res.info[1]; //este es el campo saldos
@@ -288,6 +291,7 @@ function setCantidad(from, cantidadInicial, cantidadLimite, res){
             cantidadLimite[7].setAttribute("max", Math.floor(res.info[1] * 1.05));
             maxValue.push(Math.floor(res.info[1] * 1.05));
             cantidadInicial[3].value = res.info[2];
+            document.querySelector('#buttonDevolucion').disabled = false;
             break;
         
     }

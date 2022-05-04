@@ -13,6 +13,7 @@ use AppBundle\Entity\Articulo;
 use AppBundle\Entity\TipoMovPartida;
 use AppBundle\Entity\PartidasCobol;
 use AppBundle\Entity\Scrneo;
+use AppBundle\Entity\Usuario;
 
 class HomeService extends BaseService
 {   
@@ -240,7 +241,7 @@ class HomeService extends BaseService
         return $arrayRoles;
     }
 
-    public function envioEmail($form){
+    public function envioEmail($form, $entityManager){
         $tipo           = $form['tipo'];
         $para           = $form['para'];
         $valvula        = $form['valvula'];
@@ -259,8 +260,8 @@ class HomeService extends BaseService
         if(array_key_exists("observaciones", $form)){
             $observaciones   = $form['observaciones'];
         }
-        
-        $destinatarios  = $this->getReceptores($para); 
+    
+        $destinatarios  = $this->getReceptores($para, $entityManager); 
         $arrayTxt       = $this->getTituloEmail($para, $tipo);
 
         $message = \Swift_Message::newInstance()
@@ -289,11 +290,20 @@ class HomeService extends BaseService
         return $this->mailer->send($message);
     }
 
-    public function getReceptores($para){
+    public function getReceptores($para, $entityManager){
         $destinatarios = [];
+
+        $emisor    = $entityManager->getRepository(Usuario::class)->findOneBy(array("username"=>$this->getUser()->getUsername()));
+        if(is_null($emisor->getEmail())){
+            $emailEmisor = $emisor->getUsername() . '@basso.com.ar';
+        }
+        else{
+            $emailEmisor = $emisor->getEmail();
+        }
         //Cuando es Válvula a Nitrurar cambian los email, aplicarlo cuando se reciba la información concreta
         array_push($destinatarios, "atassone@basso.com.ar", "cap@basso.com.ar", "cclementz@basso.com.ar", "fbarberis@basso.com.ar", "insumos@basso.com.ar", "mcerda@basso.com.ar");
         array_push($destinatarios, "mthailinger@basso.com.ar", "mecanizado@basso.com.ar", "pmautino@basso.com.ar", "sspila@basso.com.ar", "lromero@basso.com.ar");
+        array_push($destinatarios, $emailEmisor); //Este emailEmisor, es el email de la persona logueada que hace la accion
         if($para == "Nitrurar"){
             array_push($destinatarios, "nitrurado@mparts.com.ar");
         }

@@ -14,6 +14,7 @@ use AppBundle\Service\HomeService;
 use AppBundle\Entity\Valvula;
 use AppBundle\Entity\PartidasCobol;
 
+
 class HomeController extends BaseController
 {   
 
@@ -33,6 +34,7 @@ class HomeController extends BaseController
         $entityManager      = $this->getEm();
         $stock              = $this->homeService->getStockPara($entityManager);
         $periodo            = $this->homeService->getPeriodoActual();
+
         return $this->render('home/homePage.html.twig', array(
             "mes"   => $periodo[0], //Mes
             "anio"  => $periodo[1], //Año
@@ -81,7 +83,7 @@ class HomeController extends BaseController
             
             $this->homeService->setValvula($form, $entityManager);
             $this->homeService->setPartidasMov($form, $entityManager);
-            $this->homeService->envioEmail($form);
+            $this->homeService->envioEmail($form, $entityManager);
             
             $this->addFlash(
                 'notice',
@@ -161,7 +163,7 @@ class HomeController extends BaseController
         if($form != null){
             $this->homeService->setValvula($form, $entityManager);
             $this->homeService->setPartidasMov($form, $entityManager);
-            $this->homeService->envioEmail($form);
+            $this->homeService->envioEmail($form, $entityManager);
 
             $this->addFlash(
                 'notice',

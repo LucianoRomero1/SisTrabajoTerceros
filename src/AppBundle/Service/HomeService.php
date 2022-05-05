@@ -109,6 +109,29 @@ class HomeService extends BaseService
         }     
         $valvula = $this->setCheckBox($valvula, $form);
 
+        //Esto es importante para la DB de produccion, es para evitar errores con las secuencias
+        // $entityManager->persist($valvula);
+
+        // $id         = $valvula->getId(); 
+        // $idNuevo    = $entityManager->getRepository(Valvula::class)->getCountValvulas();
+
+        // if($idNuevo > $id){
+        //     $diff = intval($idNuevo[1]) - $id;
+        //     $connection = $entityManager->getConnection();
+        //     for($i = 1; $i <= $diff; $i++){
+        //         $statement = $connection->prepare(
+        //             'SELECT neosys.valvulas_trabajos_3_nro.nextval from dual'
+        //         );
+        //         $statement->execute();
+        //         $resultados[] = $statement->fetchAll();
+        //     }
+
+        //     $entityManager->persist($valvula);
+        // }
+
+        
+        // $entityManager->flush();
+
         $entityManager->persist($valvula);
         $entityManager->flush();
 

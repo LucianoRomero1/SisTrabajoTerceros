@@ -101,12 +101,16 @@ class HomeService extends BaseService
         $valvula->setCodProveedor($codProveedor); 
         $valvula->setObservaciones($form['observaciones']);
         $valvula->setUsuarioM($username); 
-        $valvula->setNroMovPartida($nroMov);
+        if($tipoMov == 1 || $tipoMov == 2){
+            $valvula->setNroMovPartida($nroMov);
+        }
+        else{
+            $valvula->setNroMovPartida(null);
+        }     
         $valvula = $this->setCheckBox($valvula, $form);
-        
+
         $entityManager->persist($valvula);
         $entityManager->flush();
-
 
     }
 

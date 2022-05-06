@@ -271,14 +271,20 @@ class HomeController extends BaseController
         }
 
         $descripcionValvula = $entityManager->getRepository(Articulo::class)->findOneBy(array("id"=>$codArticulo->getCodArticulo()))->getDescripcion();
-        
+
+        //Esto es para ver si hay que chequear sin terminado punta o no
+        $sinTerminadoPunta  = 0;
+        if($caracteristica == "Nitrurar"){
+            $sinTerminadoPunta = $this->homeService->sinTerminadoPunta($entityManager, $codArticulo->getCodArticulo());
+            $sinTerminadoPunta = $sinTerminadoPunta[0]["VALOR"];
+        }
 
         if(is_null($descripcionValvula)){
             return $this->createErrorResponse("La válvula solicitada no existe", "");
         }
         else{
             $descripcion        = $descripcionValvula;
-            array_push($arrayInfo, $descripcion, $cantidadAMostrar, $cantidadInicial[0]["CANTIDAD"]);  
+            array_push($arrayInfo, $descripcion, $cantidadAMostrar, $cantidadInicial[0]["CANTIDAD"], $sinTerminadoPunta);  
             return $this->createResultResponse("OK", $arrayInfo);
         }       
     }

@@ -100,12 +100,13 @@ function getProveedor(from) {
 }
 
 function getValvula(from) {
-    let array_valvula  = switchModalValvula(from);
-    let url             = "";
-    let caracteristica  = document.getElementsByClassName("para");
-    let cantidadLimite  = document.getElementsByClassName("cantidad");
-    let cantidadInicial = document.getElementsByClassName("cantidadInicial");
-    let fd              = new FormData();
+    let array_valvula       = switchModalValvula(from);
+    let url                 = "";
+    let caracteristica      = document.getElementsByClassName("para");
+    let cantidadLimite      = document.getElementsByClassName("cantidad");
+    let cantidadInicial     = document.getElementsByClassName("cantidadInicial");
+    let sinTerminadoPunta   = document.getElementsByClassName("sinTerminadoPunta");
+    let fd                  = new FormData();
     fd.append('codDesvio' , array_valvula[0]);
     fd.append('nroPartida' , array_valvula[1]);
     fd.append('tipo' , from);
@@ -136,7 +137,8 @@ function getValvula(from) {
                 //         cantidadInicial[i].value = res.info[2];
                 //     }
                 // }
-                setCantidad(from, cantidadInicial, cantidadLimite, res);
+                console.log(sinTerminadoPunta);
+                setCantidad(from, cantidadInicial, cantidadLimite, sinTerminadoPunta, res);
             }
             else{
                 disabledButtonGuardar();
@@ -260,7 +262,7 @@ function switchModalValvula(from){
 
 var maxValue = [];
 
-function setCantidad(from, cantidadInicial, cantidadLimite, res){
+function setCantidad(from, cantidadInicial, cantidadLimite, sinTerminadoPunta, res){
     switch(from){
         case "envio":
             cantidadLimite[0].value = res.info[1]; //este es el campo saldos
@@ -269,6 +271,12 @@ function setCantidad(from, cantidadInicial, cantidadLimite, res){
             maxValue.push(Math.floor(res.info[1] * 1.05));
             cantidadInicial[0].value = res.info[2];
             document.querySelector('#buttonEnvio').disabled = false;
+            if(res.info[3] != 0){
+                sinTerminadoPunta[0].checked = true;
+            }
+            else{
+                sinTerminadoPunta[0].checked = false;
+            }
             break;
         case "recepcion":
             cantidadLimite[2].value = res.info[1]; //este es el campo saldos
@@ -277,6 +285,12 @@ function setCantidad(from, cantidadInicial, cantidadLimite, res){
             maxValue.push(Math.floor(res.info[1] * 1.05));
             cantidadInicial[1].value = res.info[2];
             document.querySelector('#buttonRecepcion').disabled = false;
+            if(res.info[3] != 0){
+                sinTerminadoPunta[1].checked = true;
+            }
+            else{
+                sinTerminadoPunta[1].checked = false;
+            }
             break;
         case "reingreso":
             cantidadLimite[4].value = res.info[1]; //este es el campo saldos
@@ -285,6 +299,12 @@ function setCantidad(from, cantidadInicial, cantidadLimite, res){
             maxValue.push(Math.floor(res.info[1] * 1.05));
             cantidadInicial[2].value = res.info[2];
             document.querySelector('#buttonReingreso').disabled = false;
+            if(res.info[3] != 0){
+                sinTerminadoPunta[2].checked = true;
+            }
+            else{
+                sinTerminadoPunta[2].checked = false;
+            }
             break;
         case "devolucion":
             cantidadLimite[6].value = res.info[1]; //este es el campo saldos
@@ -293,6 +313,12 @@ function setCantidad(from, cantidadInicial, cantidadLimite, res){
             maxValue.push(Math.floor(res.info[1] * 1.05));
             cantidadInicial[3].value = res.info[2];
             document.querySelector('#buttonDevolucion').disabled = false;
+            if(res.info[3] != 0){
+                sinTerminadoPunta[3].checked = true;
+            }
+            else{
+                sinTerminadoPunta[3].checked = false;
+            }
             break;
         
     }

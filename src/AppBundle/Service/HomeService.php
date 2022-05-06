@@ -444,6 +444,27 @@ class HomeService extends BaseService
         return $resultados;
     }
 
+    public function sinTerminadoPunta($entityManager, $codArticulo){
+        $connection = $entityManager->getConnection();
+        $statement = $connection->prepare(
+            "SELECT decode(p1.valor,0,p2.valor, p1.valor) as valor
+            from
+            (select cod_producto, nvl(valor,0) as valor
+            from atributos_producto
+            where cod_producto = (select cod_producto from articulos where cod_articulo = $codArticulo)
+                  and cod_atributo = 20) p1,
+            (select cod_producto, nvl(nit_pta_pla,0) as valor
+            from productos
+            where cod_producto = (select cod_producto from articulos where cod_articulo = $codArticulo)) p2
+            where p1.cod_producto = p2.cod_producto"
+        );
+
+        $statement->execute();
+        $resultados = $statement->fetchAll();
+
+        return $resultados;
+    }
+
     public function getCantidad($tipo, $caracteristica, $nroPartida, $codDesvio, $entityManager){
         $tipoMov = 0;
         $caracteristica = $this->getCaracteristica($caracteristica);
@@ -465,6 +486,7 @@ class HomeService extends BaseService
                 $tipoMov = 4;
                 break;
         }
+
 
         $cantidadAMostrar = $this->getCantidadAMostrar($tipoMov, $nroPartida, $codDesvio, $caracteristica, $entityManager);
         

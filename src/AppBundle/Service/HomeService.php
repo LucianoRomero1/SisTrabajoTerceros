@@ -554,6 +554,10 @@ class HomeService extends BaseService
 
         }
 
+        if($cantidadAMostrar < 0){
+            $cantidadAMostrar = 0;
+        }
+
         return $cantidadAMostrar;
     }
 

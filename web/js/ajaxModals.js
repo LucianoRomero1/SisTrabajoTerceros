@@ -102,6 +102,7 @@ function getProveedor(from) {
 function getValvula(from) {
     let array_valvula       = switchModalValvula(from);
     let url                 = "";
+    let retrabajar          = getAretrabajar(from);
     let caracteristica      = document.getElementsByClassName("para");
     let cantidadLimite      = document.getElementsByClassName("cantidad");
     let cantidadInicial     = document.getElementsByClassName("cantidadInicial");
@@ -111,6 +112,7 @@ function getValvula(from) {
     fd.append('nroPartida' , array_valvula[1]);
     fd.append('tipo' , from);
     fd.append('caracteristica' , caracteristica[0].value);
+    fd.append('retrabajar' , retrabajar.checked);
 
     if(from != "edit"){
         url = "ajaxValvula";
@@ -379,4 +381,24 @@ function disabledButtonGuardar(){
     document.querySelector('#buttonRecepcion').disabled = true;
     document.querySelector('#buttonReingreso').disabled = true;
     document.querySelector('#buttonDevolucion').disabled = true;
+}
+
+function getAretrabajar(from){
+    var retrabajar  = "";
+    switch(from){
+        case "envio":
+            retrabajar = document.getElementById("check_envio");
+            break;
+        case "recepcion":
+            retrabajar = document.getElementById("check_recepcion");
+            break;
+        case "reingreso":
+            retrabajar = document.getElementById("check_reingreso");
+            break;
+        case "devolucion":
+            retrabajar = document.getElementById("check_devolucion");
+            break;
+    }
+
+    return retrabajar;
 }

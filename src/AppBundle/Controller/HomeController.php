@@ -251,18 +251,17 @@ class HomeController extends BaseController
         $nroPartida         = $_REQUEST["nroPartida"];
         $tipo               = $_REQUEST["tipo"];
         $caracteristica     = $_REQUEST["caracteristica"];
+        $retrabajar         = $_REQUEST["retrabajar"];    
         $arrayInfo          = [];
-
 
         //Esto es la cantidad inicial que se solicitó 
         $cantidadInicial    = $this->homeService->getCantidadInicial($entityManager, $codDesvio, $nroPartida);
 
         //Esto es para la cantidad a mostrar de la valvula, lo tengo que hacer primero porque va de la mano con el result response correcto
         $cantidadAMostrar   = $this->homeService->getCantidad($tipo, $caracteristica, $nroPartida, $codDesvio, $entityManager);
-        if($cantidadAMostrar <= 0){
+        if($cantidadAMostrar <= 0 && $retrabajar == "false"){
             return $this->createErrorResponse("No hay piezas disponibles para realizar el movimiento", "");
         }
-
 
         //Esto es para traer la descripcion de la valvula
         $codArticulo        = $entityManager->getRepository(DesvioPartidas::class)->findOneBy(array('codDesvio'=>$codDesvio, 'nroPartida'=>$nroPartida));

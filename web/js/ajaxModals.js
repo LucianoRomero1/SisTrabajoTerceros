@@ -139,8 +139,11 @@ function getValvula(from) {
                 //         cantidadInicial[i].value = res.info[2];
                 //     }
                 // }
-                console.log(sinTerminadoPunta);
                 setCantidad(from, cantidadInicial, cantidadLimite, sinTerminadoPunta, res);
+                if(retrabajar.checked == true){
+                    removeMaxARetrabajar(from);
+                }
+                
             }
             else{
                 disabledButtonGuardar();
@@ -401,4 +404,22 @@ function getAretrabajar(from){
     }
 
     return retrabajar;
+}
+
+function removeMaxARetrabajar(from){
+    var cantidad  = document.getElementsByClassName("cantidad");
+    switch(from){
+        case "envio":
+            cantidad[1].removeAttribute("max");
+            break;
+        case "recepcion":
+            cantidad[3].removeAttribute("max");
+            break;
+        case "reingreso":
+            cantidad[5].removeAttribute("max");
+            break;
+        case "devolucion":
+            cantidad[7].removeAttribute("max");
+            break;
+    }
 }

@@ -3,7 +3,8 @@
 {% block title %} {{ parent() }} - Válvulas {% endblock %}
 
 {% block body %}
-
+<input type="hidden" id="idUrl"/>
+<input type="hidden" id="idPara"/>
 <!-- HEADER -->
 <div class="row"> 
 
@@ -34,4 +35,5 @@
 {% block javascript %}
   {{ parent()}}
   <script src="{{asset('js/backPage.js')}}"></script>
+  <script src="{{asset('js/saveIdUrl.js')}}"></script> 
 {% endblock %} 

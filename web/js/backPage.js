@@ -1,5 +1,10 @@
 function backPage(tipoCaracteristica){
-    window.location.href = '../afterHomePage?id='+ tipoCaracteristica;
+    if(tipoCaracteristica === undefined){
+        window.location.href = '../afterHomePage?id='+ 1;
+    }else{
+        window.location.href = '../afterHomePage?id='+ tipoCaracteristica;
+    }
+    
 }
 
 function backPageStock(tipoCaracteristica){

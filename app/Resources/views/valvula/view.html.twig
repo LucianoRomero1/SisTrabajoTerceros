@@ -3,11 +3,10 @@
 {% block title %} {{ parent() }} - Válvulas {% endblock %}
 
 {% block body %}
-<input type="hidden" id="idUrl"/>
-<input type="hidden" id="idPara"/>
+
 <!-- HEADER -->
 <div class="row"> 
-
+  
   {% include 'valvula/_filteringTable.html.twig' with {'filterForm': filterForm } %}
 
   {% include 'valvula/_actionsHeader.html.twig' with {'filterForm': filterForm, 'tipoCaracteristica': tipoCaracteristica } %}
@@ -35,5 +34,4 @@
 {% block javascript %}
   {{ parent()}}
   <script src="{{asset('js/backPage.js')}}"></script>
-  <script src="{{asset('js/saveIdUrl.js')}}"></script> 
 {% endblock %} 

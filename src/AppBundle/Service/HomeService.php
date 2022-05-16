@@ -278,6 +278,7 @@ class HomeService extends BaseService
         $observaciones  = null;
         $pttCheck       = null;
         $retrabajar     = null;
+
         if(array_key_exists("ppt", $form)){
             $pttCheck   = $form['ppt'];
         }
@@ -287,8 +288,18 @@ class HomeService extends BaseService
         if(array_key_exists("observaciones", $form)){
             $observaciones   = $form['observaciones'];
         }
-    
-        $destinatarios  = $this->getReceptores($para, $entityManager); 
+
+        if($para == "Nitrurar"){
+            $destinatarios  = $this->getReceptoresNitrurar($entityManager);       
+        }
+        if($para == "Huecas a perforar"){
+            $destinatarios  = $this->getReceptoresHuecas($entityManager); 
+        }
+        if($para != "Nitrurar" && $para != "Huecas a perforar"){
+            $destinatarios  = $this->getReceptores($para, $entityManager);
+        }
+
+
         $arrayTxt       = $this->getTituloEmail($para, $tipo);
 
         $message = \Swift_Message::newInstance()
@@ -317,9 +328,25 @@ class HomeService extends BaseService
         return $this->mailer->send($message);
     }
 
-    public function getReceptores($para, $entityManager){
-        $destinatarios = [];
+    public function getReceptoresNitrurar($entityManager){
+        $destinatarios  = [];
+        $emailEmisor    = $this->getEmisor($entityManager);
+        array_push($destinatarios, "nitrurado@mparts.com.ar","mecanizadopi@mparts.com.ar", "mecanizado@basso.com.ar", "ifinal@basso.com.ar", "wsalva@basso.com.ar", "insumos@basso.com.ar");
+        array_push($destinatarios, "mcerda@basso.com.ar", "fbarberis@basso.com.ar", "cclementz@basso.com.ar","sspila@basso.com.ar", "jleonardi@basso.com.ar", "fverbeke@basso.com.ar", "cap@basso.com.ar");
+        array_push($destinatarios, $emailEmisor);
 
+    }
+
+    public function getReceptoresHuecas($entityManager){
+        $destinatarios  = [];
+        $emailEmisor    = $this->getEmisor($entityManager);
+        array_push($destinatarios, "dchiabrando@basso.com.ar","lboggero@basso.com.ar", "insumos@basso.com.ar");
+        array_push($destinatarios, "mcerda@basso.com.ar", "fbarberis@basso.com.ar", "cclementz@basso.com.ar","sspila@basso.com.ar", "jleonardi@basso.com.ar", "fverbeke@basso.com.ar", "cap@basso.com.ar");
+        array_push($destinatarios, $emailEmisor);
+
+    }
+
+    public function getEmisor($entityManager){
         $emisor    = $entityManager->getRepository(Usuario::class)->findOneBy(array("username"=>$this->getUser()->getUsername()));
         if(is_null($emisor->getEmail())){
             $emailEmisor = $emisor->getUsername() . '@basso.com.ar';
@@ -327,6 +354,14 @@ class HomeService extends BaseService
         else{
             $emailEmisor = $emisor->getEmail();
         }
+
+        return $emailEmisor;
+    }
+
+    public function getReceptores($para, $entityManager){
+        $destinatarios  = [];
+        $emailEmisor    = $this->getEmisor($entityManager);
+        
         //Cuando es Válvula a Nitrurar cambian los email, aplicarlo cuando se reciba la información concreta
         array_push($destinatarios, "atassone@basso.com.ar", "cap@basso.com.ar", "cclementz@basso.com.ar", "fbarberis@basso.com.ar", "insumos@basso.com.ar", "mcerda@basso.com.ar");
         array_push($destinatarios, "mthailinger@basso.com.ar", "mecanizado@basso.com.ar", "sspila@basso.com.ar", "lromero@basso.com.ar");

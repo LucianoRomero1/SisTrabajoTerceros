@@ -1,4 +1,30 @@
 
+window.onload = function(){ 
+    setDateTime();
+    
+    let codDepo     = document.getElementsByClassName("codDeposito");  
+    let inputDepo  = document.getElementsByClassName("inputDepo");   
+    let url         = "ajaxDeposito";
+    let fd          = new FormData();
+    fd.append('codDeposito' , codDepo[0].value);
+
+    $.ajax({
+        url     :   url,
+        type    :   'POST',
+        data    :   fd,
+        processData: false,
+        contentType: false,
+
+        success: function(res){
+            if(res.result == "OK"){
+                for(var i = 0; i < inputDepo.length; i++){
+                    inputDepo[i].value = res.info
+                }
+            }        
+        }
+    })
+}
+
 function myFunction(e) {
     if(e.target.value != 0){
         document.getElementById("idProceso").value          = e.target.value;
@@ -44,32 +70,6 @@ function switchOption(para, stringValue){
     for (let index = 0; index < para.length; index++) {
         para[index].value = stringValue;
     }
-}
-
-window.onload = function(){ 
-    setDateTime();
-    
-    let codDepo     = document.getElementsByClassName("codDeposito");   
-    let inputDepo  = document.getElementsByClassName("inputDepo");   
-    let url         = "ajaxDeposito";
-    let fd          = new FormData();
-    fd.append('codDeposito' , codDepo[0].value);
-
-    $.ajax({
-        url     :   url,
-        type    :   'POST',
-        data    :   fd,
-        processData: false,
-        contentType: false,
-
-        success: function(res){
-            if(res.result == "OK"){
-                for(var i = 0; i < inputDepo.length; i++){
-                    inputDepo[i].value = res.info
-                }
-            }        
-        }
-    })
 }
 
 function setDate(fechas, anio, mes, dia){

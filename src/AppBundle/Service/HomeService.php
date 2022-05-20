@@ -331,19 +331,21 @@ class HomeService extends BaseService
     public function getReceptoresNitrurar($entityManager){
         $destinatarios  = [];
         $emailEmisor    = $this->getEmisor($entityManager);
-        array_push($destinatarios, "nitrurado@mparts.com.ar","mecanizadopi@mparts.com.ar", "mecanizado@basso.com.ar", "ifinal@basso.com.ar", "wsalva@basso.com.ar", "insumos@basso.com.ar");
+        array_push($destinatarios, "nitrurado@mparts.com.ar","mecanizadopi@mparts.com.ar", "mecanizado@basso.com.ar", "ifinal@basso.com.ar", "wsalva@basso.com.ar", "insumos@basso.com.ar", "lromero@basso.com.ar");
         array_push($destinatarios, "mcerda@basso.com.ar", "fbarberis@basso.com.ar", "cclementz@basso.com.ar","sspila@basso.com.ar", "jleonardi@basso.com.ar", "fverbeke@basso.com.ar", "cap@basso.com.ar");
         array_push($destinatarios, $emailEmisor);
 
+        return $destinatarios;
     }
 
     public function getReceptoresHuecas($entityManager){
         $destinatarios  = [];
         $emailEmisor    = $this->getEmisor($entityManager);
-        array_push($destinatarios, "dchiabrando@basso.com.ar","lboggero@basso.com.ar", "insumos@basso.com.ar");
+        array_push($destinatarios, "dchiabrando@basso.com.ar","lboggero@basso.com.ar", "insumos@basso.com.ar", "lromero@basso.com.ar");
         array_push($destinatarios, "mcerda@basso.com.ar", "fbarberis@basso.com.ar", "cclementz@basso.com.ar","sspila@basso.com.ar", "jleonardi@basso.com.ar", "fverbeke@basso.com.ar", "cap@basso.com.ar");
         array_push($destinatarios, $emailEmisor);
 
+        return $destinatarios;
     }
 
     public function getEmisor($entityManager){

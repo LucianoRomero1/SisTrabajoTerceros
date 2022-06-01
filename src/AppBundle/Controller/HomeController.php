@@ -209,6 +209,7 @@ class HomeController extends BaseController
      * @Method({"POST"})
      */
     public function ajaxDeposito(){
+        //Si algun dia tengo que dejar que esciban el cod depo, voy a tener que volver a pasar desde el JS  el cod depo para hacerle la request como esta ahi abajo
         $entityManager      = $this->getEm();
         // $codDeposito        = $_REQUEST['codDeposito'];
         $user               = $this->getUser();

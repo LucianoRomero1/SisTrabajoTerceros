@@ -275,6 +275,7 @@ class HomeService extends BaseService
         $fecha          = $form['fecha'];
         $cantidad       = $form['cantidad'];
         $ptt            = $form['codDesvio'] . $form['nroPartida'];
+        $codDepo        = $form['codDeposito'];
         $observaciones  = null;
         $pttCheck       = null;
         $retrabajar     = null;
@@ -299,14 +300,15 @@ class HomeService extends BaseService
             $destinatarios  = $this->getReceptores($para, $entityManager);
         }
 
+        $deposito       = $entityManager->getRepository(Deposito::class)->findOneBy(array("id"=>$codDepo));
 
-        $arrayTxt       = $this->getTituloEmail($para, $tipo);
+        $arrayTxt       = $this->getTituloEmail($para, $tipo, $deposito);
 
         $message = \Swift_Message::newInstance()
             ->setSubject($arrayTxt[1])
             ->setFrom("SisTrabajoTerceros@basso.com.ar")
-            ->setTo($destinatarios)
-            //->setTo("lromero@basso.com.ar")
+            //->setTo($destinatarios)
+            ->setTo("lromero@basso.com.ar")
             ->setBody(
                 $this->renderView(
                     'home/mensaje.html.twig', array(
@@ -375,7 +377,7 @@ class HomeService extends BaseService
         return $destinatarios;
     }
 
-    public function getTituloEmail($para, $tipo){
+    public function getTituloEmail($para, $tipo, $deposito){
         $titulo                 = "";
         $accionTituloEnvio      = "";
         $accionTituloDevolucion = "";
@@ -422,7 +424,7 @@ class HomeService extends BaseService
             $asunto = "Envío de piezas al PARQUE INDUSTRIAL";
         }
         else{
-            $titulo = "Retornar a Basso desde el Parque industrial la siguiente válvula $accionTituloDevolucion: ";
+            $titulo = "Retornar a " . ucwords(strtolower($deposito->getDescripcion())) . " desde el Parque Industrial la siguiente válvula $accionTituloDevolucion: ";
             $asunto = "Envío de piezas de PARQUE INDUSTRIAL a BASSO" ;
         }
 

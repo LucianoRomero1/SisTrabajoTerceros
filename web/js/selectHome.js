@@ -2,11 +2,11 @@
 window.onload = function(){ 
     setDateTime();
     
-    let codDepo     = document.getElementsByClassName("codDeposito");  
-    let inputDepo  = document.getElementsByClassName("inputDepo");   
+    // let codDepo     = document.getElementsByClassName("codDeposito");  
+    let inputDepo   = document.getElementsByClassName("inputDepo");   
     let url         = "ajaxDeposito";
     let fd          = new FormData();
-    fd.append('codDeposito' , codDepo[0].value);
+    // fd.append('codDeposito' , codDepo[0].value);
 
     $.ajax({
         url     :   url,

@@ -210,7 +210,10 @@ class HomeController extends BaseController
      */
     public function ajaxDeposito(){
         $entityManager      = $this->getEm();
-        $codDeposito        = $_REQUEST['codDeposito'];
+        // $codDeposito        = $_REQUEST['codDeposito'];
+        $user               = $this->getUser();
+        $codDeposito        = $user->getCodDeposito();
+
         $depo               = $entityManager->getRepository(Valvula::class)->findOneBy(array("codDeposito"=>$codDeposito));
     
         if(is_null($depo)){

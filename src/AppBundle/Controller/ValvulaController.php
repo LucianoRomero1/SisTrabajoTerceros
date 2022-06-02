@@ -104,7 +104,9 @@ class ValvulaController extends BaseController
         
         try{
             $entityManager->remove($arrayData[0]);
-            $entityManager->remove($arrayData[1]);
+            if($arrayData[1] != null){
+                $entityManager->remove($arrayData[1]);
+            }
             $entityManager->flush();
             // $entityManager->getConnection()->commit();
 

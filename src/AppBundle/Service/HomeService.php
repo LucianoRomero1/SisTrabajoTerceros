@@ -300,9 +300,11 @@ class HomeService extends BaseService
             $destinatarios  = $this->getReceptores($para, $entityManager);
         }
 
-        $deposito       = $entityManager->getRepository(Deposito::class)->findOneBy(array("id"=>$codDepo));
+        $caracteristica = $this->getCaracteristica($para);
+        $valvulaEnviada = $entityManager->getRepository(Valvula::class)->findOneBy(array("codDesvio"=>$form['codDesvio'], "nroPartida"=>$form['nroPartida'],"caracteristica"=>$caracteristica, "tipoMovimiento"=>1));
+        $depoValvula    = $valvulaEnviada->getCodDeposito()->getDescripcion();
 
-        $arrayTxt       = $this->getTituloEmail($para, $tipo, $deposito);
+        $arrayTxt        = $this->getTituloEmail($para, $tipo, $depoValvula);
 
         $message = \Swift_Message::newInstance()
             ->setSubject($arrayTxt[1])
@@ -377,7 +379,7 @@ class HomeService extends BaseService
         return $destinatarios;
     }
 
-    public function getTituloEmail($para, $tipo, $deposito){
+    public function getTituloEmail($para, $tipo, $depoValvula){
         $titulo                 = "";
         $accionTituloEnvio      = "";
         $accionTituloDevolucion = "";
@@ -424,7 +426,7 @@ class HomeService extends BaseService
             $asunto = "Envío de piezas al PARQUE INDUSTRIAL";
         }
         else{
-            $titulo = "Retornar a " . ucwords(strtolower($deposito->getDescripcion())) . " desde el Parque Industrial la siguiente válvula $accionTituloDevolucion: ";
+            $titulo = "Retornar a " . $depoValvula . " desde el Parque Industrial la siguiente válvula $accionTituloDevolucion: ";
             $asunto = "Envío de piezas de PARQUE INDUSTRIAL a BASSO" ;
         }
 
